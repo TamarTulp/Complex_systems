@@ -1,5 +1,6 @@
 function drawLineGraph(array_data) {
   d3.select("#graphSVG").remove();
+  console.log(array_data);
 
   // dimensions
   var width = 750;
@@ -158,7 +159,7 @@ function drawSlider() {
     .ticks(5)
     .default(1.1)
     .on('onchange', val => {
-      d3.select("p#value1").text(Math.round(val));
+      d3.select("p#value1").text(Math.round(val * 100) / 100);
     });
 
   var g = d3.select("div#slider1").append("svg")
@@ -211,22 +212,123 @@ function drawSlider() {
 
   g.call(slider2);
 
-  d3.select("p#value2").text(d3.format('.2')(slider1.value()))
-  d3.select("a#setValue2").on("click", () => slider1.value(1500));
+  d3.select("p#value2").text(d3.format('.2')(slider2.value()))
+  d3.select("a#setValue2").on("click", () => slider2.value(1500));
 }
 
 function changeGraph() {
-  string = '{"I":' + d3.select("p#value2").text() + ', "c":' + d3.select("p#value1").text() + '}'
+  string = '{"simulation":1, "I":' + d3.select("p#value2").text() + ', "c":' + d3.select("p#value1").text() + '}';
 
-  var client = new WebSocket("ws://localhost:8765");
+  var client = new WebSocket("ws://localhost:39822");
       client.onopen = function(evt) {
           console.log("Connection Opened");
           client.send(string);
       };
       client.onmessage = function(evt) {
-          drawLineGraph(JSON.parse(evt.data));
+          drawLineGraph(JSON.parse(evt.data)["D"]);
       };
       client.onclose = function(ect) {
           console.log("Connection Closed");
       };
 }
+
+function adjacency() {
+
+    var promiseWrapper = (d) => new Promise(resolve => d3.csv(d, (p) => resolve(p)));
+
+    Promise.all([promiseWrapper("data/nodelist.csv"),promiseWrapper("data/edgelist.csv")]).then(resolve => {
+        createAdjacencyMatrix(resolve[0],resolve[1]);
+     });
+
+    function createAdjacencyMatrix(nodes,edges){
+
+    var width = 600;
+    var height = 600;
+
+    var edgeHash = {};
+    edges.forEach(edge =>{
+      var id = edge.source + "-" + edge.target;
+      edgeHash[id] = edge;
+    });
+
+    var matrix = [];
+    nodes.forEach((source, a) => {
+      nodes.forEach((target, b) => {
+        var grid = {id: source.id + "-" + target.id, x: b, y: a, weight: 0};
+        if(edgeHash[grid.id]){
+          grid.weight = edgeHash[grid.id].weight;
+        }
+      matrix.push(grid);
+      });
+    });
+
+  var svg = d3.select("svg#adjacency");
+
+  var div = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
+  d3.select("svg#adjacency").append("g")
+    .attr("transform","translate(50,50)")
+    .attr("id","adjacencyG")
+    .selectAll("rect")
+    .data(matrix)
+    .enter()
+    .append("rect")
+    .attr("class","grid")
+    .attr("width",35)
+    .attr("height",35)
+    .attr("x", d=> d.x*35)
+    .attr("y", d=> d.y*35)
+    .style("fill-opacity", d=> d.weight * .2);
+
+  d3.select("svg#adjacency")
+    .append("g")
+    .attr("transform","translate(50,45)")
+    .selectAll("text")
+    .data(nodes)
+    .enter()
+    .append("text")
+    .attr("x", (d,i) => i * 35 + 17.5)
+    .text(d => d.id)
+    .style("text-anchor","middle")
+    .style("font-size","10px");
+
+  d3.select("svg#adjacency")
+    .append("g").attr("transform","translate(45,50)")
+    .selectAll("text")
+    .data(nodes)
+    .enter()
+    .append("text")
+    .attr("y",(d,i) => i * 35 + 17.5)
+    .text(d => d.id)
+    .style("text-anchor","end")
+    .style("font-size","10px");
+
+
+  d3.selectAll("rect.grid").on("mouseover", function(d){
+      div.transition()
+       .duration(200)
+       .style("opacity", .9);
+     div.html(d.id + "<br/>" + d.weight)
+       .style("left", (d3.event.pageX) + "px")
+       .style("top", (d3.event.pageY - 28) + "px");
+     gridOver(d);
+     })
+    .on("mouseout", function(d) {
+      div.transition()
+         .duration(500)
+         .style("opacity", 0);
+      gridOut(d);
+    });
+
+  function gridOver(d) {
+    d3.select("svg#adjacency").selectAll("rect").style("stroke-width", function(p) { return p.x == d.x || p.y == d.y ? "3px" : "1px"; });
+  }
+  function gridOut(d) {
+    console.log("out!")
+    d3.select("svg#adjacency").selectAll("rect").style("stroke-width", function(p) { return "1px"; });
+  }
+  }
+}
+adjacency();

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog - Start Bootstrap Theme</title>
+    <title>MD simulation</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,6 +24,11 @@
 
     <!-- D3 library -->
     <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider@0.2.1/build/d3-simple-slider.js"></script>
+    <script src="js/jsnetworkx.js"></script>
+    <script src="js/lineGraph.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js" type="text/javascript"></script>
+    <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
 
   </head>
 
@@ -75,7 +80,15 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
+          <p>In the article of <i>Cramer et al. (2016)</i>, they propose a theory that explains the difference in vulnerability to MD between individuals. Their model is built on the idea that individuals differ in the strength of the connections between different symptoms. This means that one person only experiences fatigue after several sleepless nights, while another person already experiences fatigue after one sleepless night. This network can be seen as a game of domino, where <i>strong</i> connected networks are domino tiles that are close to each other; one tile tipping makes other tiles tip over as well. <i>Weak</i> connections are tiles placed far apart; one tile tipping over does noet likely cause other tiles to tip over too.</p>
+
+          <img class="img-fluid" src="img/Fig_dominos.png" alt="">
+          <span class="caption text-muted">The analogy between vulnerability in a network and spacing of domino tiles (obtained from <i>Cramer et al. (2016)</i>)</span>
+
+          <p>The model was studied in two parts. The fist simulation investiged the influence of increasing connectivity on the behavior of the MD system. <i>Cramer et al. (2016)</i> tried to answer the question if a system with stronger connections was more prone to end up in a despressed state than the systems with relatively weak connections. The second simulation examined the influence of stress on the behavior of the networks.</p>
+
+          <p><b>Simulation I: The vulnerability hypothesis</b></p>
+
 
           <img class="img-fluid" src="img/Simulation1.png" alt="">
           <span class="caption text-muted">The state of the MD system in response to stress for varying connectivity</span>
@@ -106,15 +119,15 @@
           <div id="lineGraph"></div>
 
           <script>
-              var client = new WebSocket("ws://localhost:8765");
+              var client = new WebSocket("ws://localhost:39822");
               client.onopen = function(evt) {
                   console.log("Connection Opened");
-                  client.send('{"I":1000, "c":1.1}');
+                  client.send('{"simulation":1, "I":1000, "c":1.1}');
               };
               client.onmessage = function(evt) {
-                  drawLineGraph(JSON.parse(evt.data));
+                  console.log(JSON.parse(evt.data)["D"]);
+                  drawLineGraph(JSON.parse(evt.data)["D"]);
                   drawSlider();
-                  console.log(JSON.parse(evt.data));
               };
               client.onclose = function(ect) {
                   console.log("Connection Closed");
@@ -125,6 +138,9 @@
           <button onclick="changeGraph();">Change Graph</button>
 
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
+
+          <svg id="adjacency" width="960" height="550"></svg>
+
         </div>
       </div>
     </div>

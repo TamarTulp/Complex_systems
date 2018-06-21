@@ -1,12 +1,15 @@
-#!/usr/bin/env python
-
 import asyncio
 import websockets
 import numpy as np
 import pandas as pd
+import logging
 import json
+from time import time
 
-ADDRESS = 'localhost', 8765
+logging.basicConfig(format='%(asctime)-15s %(message)s', level=logging.INFO)
+log = logging.getLogger("Simulation Server")
+
+ADDRESS = 'localhost', 39822
 
 W_PATH = 'data/EmpiricalWeightParameters.txt'
 b_PATH = 'data/EmpiricalThresholdParameters.txt'
@@ -14,33 +17,59 @@ b_PATH = 'data/EmpiricalThresholdParameters.txt'
 W = np.asarray(pd.read_csv(W_PATH, delimiter='\t', encoding='utf-8'))
 b = np.abs(np.asarray(pd.read_csv(b_PATH, delimiter=',', encoding='utf-8').set_index("var"))).ravel()
 
-
-def simulation_1(I: int=1500, c: float = 0.8):
-    X = np.zeros(b.shape, np.bool)
-
-    D = np.empty(I, np.uint8)
-
-    print(I, c)
+def simulation_1(I: int, c: float):
+    X = np.zeros((I, *b.shape), np.bool)
+    P = np.zeros((I, *b.shape), np.float32)
+    D = np.empty((I), np.uint8)
 
     for i in range(I):
-        A = np.sum(c * W * X, axis=1)
-        P = 1 / (1 + np.exp(b - A))
-        X = P > np.random.uniform(0, 1, P.shape)
-
-        D[i] = np.sum(X)
-
-    return D
+        A = np.sum(c * W * X[i], axis=1)
+        P[i] = 1 / (1 + np.exp(b - A))
+        X[i] = P[i] > np.random.uniform(0, 1, b.shape)
+        D[i] = np.sum(X[i])
+    return X, P, D
 
 
-async def hello(websocket, path):
+def simulation_2(I: int, c: float):
+    I2 = I//2
+
+    X = np.zeros((I, *b.shape), np.bool)
+    P = np.zeros((I, *b.shape), np.float32)
+    D = np.empty((I), np.uint8)
+    S = np.concatenate((np.linspace(-15, 15, I2), np.linspace(15, -15, I2)))
+
+    for i in range(I):
+        A = np.sum(c * W * X[i] + S[i], axis=1)
+        P[i] = 1 / (1 + np.exp(b - A))
+        X[i] = P[i] > np.random.uniform(0, 1, b.shape)
+        D[i] = np.sum(X[i])
+    return S[:I2], (X[:I2], P[:I2], D[:I2]), (X[I2::-1], P[I2::-1], D[I2::-1])
+
+
+async def serve(websocket, path):
     async for message in websocket:
         parameters = json.loads(message)
-        D = simulation_1(int(parameters['I']), float(parameters['c']))
-        await websocket.send(json.dumps(D.tolist()))
-        print("Done!")
+        log.info("Simulation Request: {}".format(parameters))
 
-print("lksnvflia snzxgrdjxcgfo d")
-asyncio.get_event_loop().run_until_complete(
-    websockets.serve(hello, 'localhost', 8765)
-)
+        simulation, I, c = parameters['simulation'], int(parameters['I']), float(parameters['c'])
+
+        t0 = time()
+
+        if simulation == 1:
+            X, P, D = simulation_1(I, c)
+            data = json.dumps({"X": X.tolist(), "P": P.tolist(), "D": D.tolist()})
+            await websocket.send(data)
+
+        if simulation == 2:
+            S, (UP_X, UP_P, UP_D), (DOWN_X, DOWN_P, DOWN_D) = simulation_2(I, c)
+            data = json.dumps({
+                "S": S.tolist(),
+                "UP": {"X": UP_X.tolist(), "P": UP_P.tolist(), "D": UP_D.tolist()},
+                "DOWN": {"X": DOWN_X.tolist(), "P": DOWN_P.tolist(), "D": DOWN_D.tolist()}})
+            await websocket.send(data)
+
+        log.info("Completed Request: {:3.3f}s".format(time() - t0))
+
+asyncio.get_event_loop().run_until_complete(websockets.serve(serve, 'localhost', 39822))
+log.info("Simulation Server Booted")
 asyncio.get_event_loop().run_forever()
