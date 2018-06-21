@@ -141,6 +141,46 @@
 
           <svg id="adjacency" width="960" height="550"></svg>
 
+          <div class="container">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider1_sim2"></div>
+                          <p id="value1_sim2" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider2_sim2"></div>
+                          <p id="value2_sim2" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div id="lineGraph_sim2"></div>
+
+          <!-- <script>
+              var client = new WebSocket("ws://localhost:39822");
+              client.onopen = function(evt) {
+                  console.log("Connection Opened");
+                  client.send('{"simulation":2, "I":1000, "c":1.1}');
+              };
+              client.onmessage = function(evt) {
+                  drawLineGraph2(JSON.parse(evt.data));
+                  drawSlider2();
+              };
+              client.onclose = function(ect) {
+                  console.log("Connection Closed");
+              };
+
+          </script>
+ -->
+
         </div>
       </div>
     </div>
