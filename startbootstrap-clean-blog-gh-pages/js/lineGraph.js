@@ -1,4 +1,6 @@
 function drawLineGraph(array_data) {
+  d3.select("#graphSVG").remove();
+
   // dimensions
   var width = 750;
   var height = 400;
@@ -6,7 +8,7 @@ function drawLineGraph(array_data) {
   var margin = {
       top: 40,
       bottom:75,
-      left: 50,
+      left: 10,
       right: 50,
   };
 
@@ -23,6 +25,7 @@ function drawLineGraph(array_data) {
   // create an svg to draw in
   var svg = d3.select("#lineGraph")
       .append("svg")
+      .attr("id", "graphSVG")
       .attr("width", width)
       .attr("height", height)
       .append('g')
@@ -65,7 +68,7 @@ function drawLineGraph(array_data) {
   });
 
   x.domain(d3.extent(data, function(d) { return d.year; }));
-  y.domain([d3.min(data, function(d) { return d.value; }) / 1.005, d3.max(data, function(d) { return d.value; })]);
+  y.domain([0,14]);
 
   // add the Y gridlines
   g.append("g")
@@ -155,14 +158,24 @@ function drawSlider() {
     .ticks(5)
     .default(1.1)
     .on('onchange', val => {
-      d3.select("p#value1").text(d3.format('.2')(val));
+      d3.select("p#value1").text(Math.round(val));
     });
 
   var g = d3.select("div#slider1").append("svg")
-    .attr("width", 500)
+    .attr("width", 400)
     .attr("height", 100)
     .append("g")
     .attr("transform", "translate(30,30)");
+
+  var text = g.append("text")
+    .attr("x", 0)
+    .attr("y", 60)
+    .attr("dy", ".15em")
+    .style("fill", "#8b8d8f")
+    .attr("font-family", "Times New Roman")
+    .attr("font-size", "18px")
+    .attr("font-weight", "bold")
+    .text("C-Value");
 
   g.call(slider1);
 
@@ -177,14 +190,24 @@ function drawSlider() {
     .ticks(5)
     .default(1500)
     .on('onchange', val => {
-      d3.select("p#value2").text(d3.format('.2')(val));
+      d3.select("p#value2").text(Math.round(val));
     });
 
   var g = d3.select("div#slider2").append("svg")
-    .attr("width", 500)
+    .attr("width", 400)
     .attr("height", 100)
     .append("g")
     .attr("transform", "translate(30,30)");
+
+  var text = g.append("text")
+    .attr("x", 0)
+    .attr("y", 60)
+    .attr("dy", ".15em")
+    .style("fill", "#8b8d8f")
+    .attr("font-family", "Times New Roman")
+    .attr("font-size", "18px")
+    .attr("font-weight", "bold")
+    .text("Number of Iterations");
 
   g.call(slider2);
 
@@ -193,6 +216,17 @@ function drawSlider() {
 }
 
 function changeGraph() {
-  console.log(d3.select("p#value1").text());
-  console.log(d3.select("p#value2").text());
+  string = '{"I":' + d3.select("p#value2").text() + ', "c":' + d3.select("p#value1").text() + '}'
+
+  var client = new WebSocket("ws://localhost:8765");
+      client.onopen = function(evt) {
+          console.log("Connection Opened");
+          client.send(string);
+      };
+      client.onmessage = function(evt) {
+          drawLineGraph(JSON.parse(evt.data));
+      };
+      client.onclose = function(ect) {
+          console.log("Connection Closed");
+      };
 }

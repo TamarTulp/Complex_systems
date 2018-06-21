@@ -88,60 +88,6 @@
 
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
 
-          <div id="lineGraph"></div>
-
-          <div class="container">
-            <div class="row">
-                  <div class="col-xs-4">
-                      <p>C-Value</p>
-                  </div>
-                  <div class="col-xs-4">
-                      <p>Number of Iterations</p>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-xs-6">
-                      <div class="row align-items-center">
-                        <div class="col-sm-1 valueSlider">
-                          <p id="value1"></p>
-                        </div>
-                        <div class="col-sm">
-                          <div id="slider1"></div>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="col-xs-6">
-                      <div class="row align-items-center">
-                        <div class="col-sm-1 valueSlider">
-                          <p id="value2"></p>
-                        </div>
-                        <div class="col-sm">
-                          <div id="slider2"></div>
-                        </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <script>
-              var client = new WebSocket("ws://localhost:8765");
-              client.onopen = function(evt) {
-                  console.log("Connection Opened");
-                  client.send('{"I":1000, "c":1.1}');
-              };
-              client.onmessage = function(evt) {
-                  drawLineGraph(JSON.parse(evt.data));
-                  drawSlider();
-                  console.log(JSON.parse(evt.data));
-              };
-              client.onclose = function(ect) {
-                  console.log("Connection Closed");
-              };
-
-          </script>
-
-          <button onclick="changeGraph();">Change Graph</button>
-
         </div>
       </div>
     </div>

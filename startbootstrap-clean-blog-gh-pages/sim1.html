@@ -82,7 +82,47 @@
 
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
 
+           <div class="container">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider1"></div>
+                          <p id="value1" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider2"></div>
+                          <p id="value2" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
           <div id="lineGraph"></div>
+
+          <script>
+              var client = new WebSocket("ws://localhost:8765");
+              client.onopen = function(evt) {
+                  console.log("Connection Opened");
+                  client.send('{"I":1000, "c":1.1}');
+              };
+              client.onmessage = function(evt) {
+                  drawLineGraph(JSON.parse(evt.data));
+                  drawSlider();
+                  console.log(JSON.parse(evt.data));
+              };
+              client.onclose = function(ect) {
+                  console.log("Connection Closed");
+              };
+
+          </script>
+
+          <button onclick="changeGraph();">Change Graph</button>
 
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
         </div>
