@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog - Start Bootstrap Theme</title>
+    <title>MD simulation</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -22,6 +22,14 @@
     <link href="css/clean-blog.min.css" rel="stylesheet">
     <link rel="icon" href="img/icon.png">
 
+    <!-- D3 library -->
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider@0.2.1/build/d3-simple-slider.js"></script>
+    <script src="js/jsnetworkx.js"></script>
+    <script src="js/lineGraph.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js" type="text/javascript"></script>
+    <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+
   </head>
 
   <body>
@@ -29,7 +37,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand" href="index.html">MD: A simulation</a>
+        <a class="navbar-brand" href="index.html">MD simulation</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -54,13 +62,13 @@
     </nav>
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('img/Simulation1.png')">
+    <header class="masthead" style="background-image: url('img/sim1.png')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="page-heading">
-              <h1>Recreating the MD model</h1>
+              <h1>Recreating the article</h1>
               <span class="subheading">Creating the model in Python and JavaScript.</span>
             </div>
           </div>
@@ -81,7 +89,98 @@
 
           <p><b>Simulation I: The vulnerability hypothesis</b></p>
 
-          <p></p>
+
+          <img class="img-fluid" src="img/Simulation1.png" alt="">
+          <span class="caption text-muted">The state of the MD system in response to stress for varying connectivity</span>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
+
+           <div class="container">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider1"></div>
+                          <p id="value1" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider2"></div>
+                          <p id="value2" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div id="lineGraph"></div>
+
+          <script>
+              var client = new WebSocket("ws://localhost:39822");
+              client.onopen = function(evt) {
+                  console.log("Connection Opened");
+                  client.send('{"simulation":1, "I":1000, "c":1.1}');
+              };
+              client.onmessage = function(evt) {
+                  console.log(JSON.parse(evt.data)["D"]);
+                  drawLineGraph(JSON.parse(evt.data)["D"]);
+                  drawSlider();
+              };
+              client.onclose = function(ect) {
+                  console.log("Connection Closed");
+              };
+
+          </script>
+
+          <button onclick="changeGraph();">Change Graph</button>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
+
+          <svg id="adjacency" width="960" height="550"></svg>
+
+          <div class="container">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider1_sim2"></div>
+                          <p id="value1_sim2" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider2_sim2"></div>
+                          <p id="value2_sim2" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div id="lineGraph_sim2"></div>
+
+          <!-- <script>
+              var client = new WebSocket("ws://localhost:39822");
+              client.onopen = function(evt) {
+                  console.log("Connection Opened");
+                  client.send('{"simulation":2, "I":1000, "c":1.1}');
+              };
+              client.onmessage = function(evt) {
+                  drawLineGraph2(JSON.parse(evt.data));
+                  drawSlider2();
+              };
+              client.onclose = function(ect) {
+                  console.log("Connection Closed");
+              };
+
+          </script>
+ -->
+
         </div>
       </div>
     </div>
@@ -131,6 +230,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/clean-blog.min.js"></script>
+    <script src="js/lineGraph.js"></script>
 
   </body>
 

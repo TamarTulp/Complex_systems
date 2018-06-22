@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<svg id="adjacency" width="960" height="500"></svg>
+<style>
+.grid {
+    stroke: #9A8B7A;
+  stroke-width: 1px; fill: #CF7D1C;
+}
+.arc {
+    stroke: #9A8B7A;
+  fill: none;
+}
+.node {
+  fill: #EBD8C1;
+  stroke: #9A8B7A;
+  stroke-width: 1px;
+}
+circle.active {
+  fill: #FE9922;
+}
+path.active {
+  stroke: #FE9922;
+}
+circle.source {
+  fill: #93C464;
+}
+circle.target {
+  fill: #41A368;
+}
+</style>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+<script>
+function adjacency() {
+
+    var promiseWrapper = (d) => new Promise(resolve => d3.csv(d, (p) => resolve(p)));
+
+    Promise.all([promiseWrapper("data/nodelist.csv"),promiseWrapper("data/edgelist.csv")]).then(resolve => {
+        createAdjacencyMatrix(resolve[0],resolve[1]);
+     });
+
+    function createAdjacencyMatrix(nodes,edges){
+
+    var width = 600;
+    var height = 600;
+
+    var edgeHash = {};
+    edges.forEach(edge =>{
+      var id = edge.source + "-" + edge.target;
+      edgeHash[id] = edge;
+    });
+
+    var matrix = [];
+    nodes.forEach((source, a) => {
+      nodes.forEach((target, b) => {
+        var grid = {id: source.id + "-" + target.id, x: b, y: a, weight: 0};
+        if(edgeHash[grid.id]){
+          grid.weight = edgeHash[grid.id].weight;
+        }
+      matrix.push(grid);
+      });
+    });
+
+  var svg = d3.select("svg#adjacency");
+
+  d3.select("svg#adjacency").append("g")
+    .attr("transform","translate(50,50)")
+    .attr("id","adjacencyG")
+    .selectAll("rect")
+    .data(matrix)
+    .enter()
+    .append("rect")
+    .attr("class","grid")
+    .attr("width",35)
+    .attr("height",35)
+    .attr("x", d=> d.x*35)
+    .attr("y", d=> d.y*35)
+    .style("fill-opacity", d=> d.weight * .2);
+
+  d3.select("svg#adjacency")
+    .append("g")
+    .attr("transform","translate(50,45)")
+    .selectAll("text")
+    .data(nodes)
+    .enter()
+    .append("text")
+    .attr("x", (d,i) => i * 35 + 17.5)
+    .text(d => d.id)
+    .style("text-anchor","middle")
+    .style("font-size","10px");
+
+  d3.select("svg#adjacency")
+    .append("g").attr("transform","translate(45,50)")
+    .selectAll("text")
+    .data(nodes)
+    .enter()
+    .append("text")
+    .attr("y",(d,i) => i * 35 + 17.5)
+    .text(d => d.id)
+    .style("text-anchor","end")
+    .style("font-size","10px");
+
+
+  d3.selectAll("rect.grid").on("mouseover", gridOver);
+
+  function gridOver(d) {
+    d3.selectAll("rect").style("stroke-width", function(p) {console.log(p); return p.x == d.x || p.y == d.y ? "3px" : "1px"; });
+  }
+
+  }
+}
+
+adjacency();
+</script>
