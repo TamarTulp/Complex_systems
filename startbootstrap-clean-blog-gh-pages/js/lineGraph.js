@@ -1,5 +1,5 @@
 function drawLineGraph(array_data) {
-  d3.select("#graphSVG").remove();
+  d3.select("#graphSVG1").remove();
   console.log(array_data);
 
   // dimensions
@@ -24,9 +24,9 @@ function drawLineGraph(array_data) {
   }
 
   // create an svg to draw in
-  var svg = d3.select("#lineGraph")
+  var svg = d3.select("div#lineGraph")
       .append("svg")
-      .attr("id", "graphSVG")
+      .attr("id", "graphSVG1")
       .attr("width", width)
       .attr("height", height)
       .append('g')
@@ -140,6 +140,12 @@ function drawLineGraph(array_data) {
           d0 = data[i - 1],
           d1 = data[i],
           d = x0 - d0.year > d1.year - x0 ? d1 : d0;
+      console.log("data");
+      console.log(data);
+      console.log("d3.mouse(this)[0], x0, i, d0, d1, d");
+      console.log(d3.mouse(this)[0],x0,i,d0,d1,d);
+      console.log("x(d.year), y(d.value), d.year, d.value")
+      console.log(x(d.year), y(d.value), d.year, d.value);
       focus.attr("transform", "translate(" + x(d.year) + "," + y(d.value) + ")");
       focus.select("text").text(function() { return zeroFill(d.value, 2); });
       focus.select(".x-hover-line").attr("y2", height - y(d.value));
@@ -328,7 +334,6 @@ function adjacency() {
     d3.select("svg#adjacency").selectAll("rect").style("stroke-width", function(p) { return p.x == d.x || p.y == d.y ? "3px" : "1px"; });
   }
   function gridOut(d) {
-    console.log("out!")
     d3.select("svg#adjacency").selectAll("rect").style("stroke-width", function(p) { return "1px"; });
   }
   }
@@ -336,18 +341,23 @@ function adjacency() {
 adjacency();
 
 function drawLineGraph2(array_data) {
-  d3.select("#graphSVG").remove();
+  d3.select("#graphSVG2").remove();
   console.log(array_data);
+  data_graph = []
+
+  for (var i = 0; i < array_data["S"].length; i++) {
+    data_graph.push({"S" : array_data["S"][i], "D" : array_data["DOWN"]["D"][i], "U" : array_data["UP"]["D"][i]});
+  }
 
   // dimensions
-  var width = 900;
+  var width = 720;
   var height = 400;
 
   var margin = {
       top: 40,
       bottom:75,
       left: 10,
-      right: 50,
+      right: 150,
   };
 
   function zeroFill( number, width )
@@ -363,7 +373,7 @@ function drawLineGraph2(array_data) {
   // create an svg to draw in
   var svg = d3.select("#lineGraph_sim2")
       .append("svg")
-      .attr("id", "graphSVG")
+      .attr("id", "graphSVG2")
       .attr("width", width)
       .attr("height", height)
       .append('g')
@@ -372,15 +382,19 @@ function drawLineGraph2(array_data) {
   width = width - margin.left - margin.right;
   height = height - margin.top - margin.bottom;
 
-  var parseTime = d3.timeParse("%Y"),
-      bisectDate = d3.bisector(function(d) { return d.S; }).left;
+  var x = d3.scaleLinear().range([0, width]),
+      y = d3.scaleLinear().range([height, 0]),
+      bisectS = d3.bisector(function(d) { return d.S; }).left;
 
-  var x = d3.scaleLinear().range([0, width]);
-  var y = d3.scaleLinear().range([height, 0]);
-
-  var line = d3.line()
+  var line1 = d3.line()
       .x(function(d) { return x(d["S"]); })
-      .y(function(d) { return y(d["DOWN"]["D"]); });
+      .y(function(d) { return y(d["D"]); })
+      .curve(d3.curveMonotoneX);
+
+  var line2 = d3.line()
+      .x(function(d) { return x(d["S"]); })
+      .y(function(d) { return y(d["U"]); })
+      .curve(d3.curveMonotoneX);
 
   var g = svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -398,14 +412,7 @@ function drawLineGraph2(array_data) {
       return d3.axisLeft(y);
   }
 
-  var data = [];
-  var N = array_data.length;
-  xdata = Array.apply(null, {length: N}).map(Number.call, Number);
-  xdata.forEach(function(d) {
-    data.push({"year":parseTime(d), "value":array_data[d]});
-  });
-
-  x.domain(d3.extent(array_data["S"], function(d) { return d; }));
+  x.domain([-10,5]);
   y.domain([0,14]);
 
   // add the Y gridlines
@@ -435,13 +442,80 @@ function drawLineGraph2(array_data) {
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x)
-              .ticks(30)
+              .ticks(15)
              );
 
     g.append("path")
-        .datum(array_data)
+        .datum(data_graph)
         .attr("class", "line")
-        .attr("d", line);
+        .attr("d", line1)
+        .style("stroke", "#900C3E")
+        .style("stroke-width", "2px")
+        .style("opacity", "0.4");
+
+    g.append("path")
+        .datum(data_graph)
+        .attr("class", "line")
+        .attr("d", line2)
+        .style("stroke", "#FFC300")
+        .style("stroke-width", "2px")
+        .style("opacity", "0.4");
+
+    g.selectAll(".dot1")
+        .data(data_graph)
+      .enter().append("circle") // Uses the enter().append() method
+        .attr("class", "dot1") // Assign a class for styling
+        .attr("cx", function(d, i) { return x(d.S) })
+        .attr("cy", function(d) { return y(d.D) })
+        .attr("r", 3)
+        .attr("fill", "#571845")
+        .style("opacity", "1");
+
+    g.selectAll(".dot2")
+        .data(data_graph)
+      .enter().append("circle") // Uses the enter().append() method
+        .attr("class", "dot2") // Assign a class for styling
+        .attr("cx", function(d, i) { return x(d.S) })
+        .attr("cy", function(d) { return y(d.U) })
+        .attr("r", 3)
+        .attr("fill", "#FF5733")
+        .style("opacity", "1");
+
+    svg.append('rect')
+        .attr("x", width + 20)
+        .attr("y", 50)
+        .attr("width", 10)
+        .attr("height", 10)
+        .style("fill", "#571845");
+
+    svg.append('text')
+        .attr("x", width + 38)
+        .attr("y", 59)
+    //.attr("dy", ".35em")
+    .html("Low &rarr; High")
+        .attr("class", "textselected")
+        .style("text-anchor", "start")
+        .attr("font-family", "Times New Roman")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold");
+
+    svg.append('rect')
+        .attr("x", width + 20)
+        .attr("y", 70)
+        .attr("width", 10)
+        .attr("height", 10)
+        .style("fill", "#FF5733");
+
+    svg.append('text')
+        .attr("x", width + 38)
+        .attr("y", 79)
+    //.attr("dy", ".35em")
+    .html("High &rarr; Low")
+        .attr("class", "textselected")
+        .style("text-anchor", "start")
+        .attr("font-family", "Times New Roman")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold");
 
     var focus = g.append("g")
         .attr("class", "focus")
@@ -458,9 +532,25 @@ function drawLineGraph2(array_data) {
         .attr("x2", width);
 
     focus.append("circle")
+        .attr("id", "down")
+        .attr("r", 15);
+
+    focus.append("circle")
+        .attr("id", "up")
         .attr("r", 15);
 
     focus.append("text")
+        .attr("id", "downtext")
+        .attr("x", -10)
+        .attr("y", 4)
+        .attr("dy", ".15em")
+        .style("fill", "#8b8d8f")
+        .attr("font-family", "Times New Roman")
+        .attr("font-size", "18px")
+        .attr("font-weight", "bold");
+
+    focus.append("text")
+        .attr("id", "uptext")
         .attr("x", -10)
         .attr("y", 4)
         .attr("dy", ".15em")
@@ -473,22 +563,32 @@ function drawLineGraph2(array_data) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .attr("class", "overlay")
         .attr("width", width)
-        .attr("height", height);
-    //     .on("mouseover", function() { focus.style("display", null); })
-    //     .on("mouseout", function() { focus.style("display", "none"); })
-    //     .on("mousemove", mousemove);
+        .attr("height", height)
+        .on("mouseover", function() { focus.style("display", null); })
+        .on("mouseout", function() { focus.style("display", "none"); })
+        .on("mousemove", mousemove);
 
-    // function mousemove() {
-    //   var x0 = x.invert(d3.mouse(this)[0]),
-    //       i = bisectDate(data, x0, 1),
-    //       d0 = data[i - 1],
-    //       d1 = data[i],
-    //       d = x0 - d0.year > d1.year - x0 ? d1 : d0;
-    //   focus.attr("transform", "translate(" + x(d.year) + "," + y(d.value) + ")");
-    //   focus.select("text").text(function() { return zeroFill(d.value, 2); });
-    //   focus.select(".x-hover-line").attr("y2", height - y(d.value));
-    //   focus.select(".y-hover-line").attr("x2", width + width);
-    // }
+    function mousemove() {
+      var x0 = x.invert(d3.mouse(this)[0]),
+          i = bisectS(data_graph, x0, 1),
+          d0 = data_graph[i - 1],
+          d1 = data_graph[i],
+          d = x0 - d0.S > d1.S - x0 ? d1 : d0;
+      focus.select("#down").attr("transform", "translate(" + x(d.S) + "," + y(d.D) + ")");
+      focus.select("#up").attr("transform", "translate(" + x(d.S) + "," + y(d.U) + ")");
+      focus.select("#downtext")
+        .attr("transform", "translate(" + x(d.S) + "," + y(d.D) + ")")
+        .text(function() { return zeroFill(d.D, 2); });
+      focus.select("#uptext")
+        .attr("transform", "translate(" + x(d.S) + "," + y(d.U) + ")")
+        .text(function() { return zeroFill(d.U, 2); });
+      focus.select(".x-hover-line")
+        .attr("transform", "translate(" + x(d.S) + "," + y(d.U) + ")")
+        .attr("y2", y(d.D) - y(d.U));
+      focus.select(".y-hover-line")
+        .attr("transform", "translate(" + x(d.S) + "," + y(d.U) + ")")
+        .attr("x2", width + width);
+    }
 }
 
 function drawSlider2() {
@@ -503,7 +603,7 @@ function drawSlider2() {
     .ticks(5)
     .default(1.1)
     .on('onchange', val => {
-      d3.select("p#value1").text(Math.round(val * 100) / 100);
+      d3.select("p#value1_sim2").text(Math.round(val * 100) / 100);
     });
 
   var g = d3.select("div#slider1_sim2").append("svg")
@@ -535,7 +635,7 @@ function drawSlider2() {
     .ticks(5)
     .default(1500)
     .on('onchange', val => {
-      d3.select("p#value2_sim2").text(Math.round(val));
+      d3.select("p#value2_sim2").text(2 * Math.round(val / 2));
     });
 
   var g = d3.select("div#slider2_sim2").append("svg")
@@ -558,4 +658,32 @@ function drawSlider2() {
 
   d3.select("p#value2_sim2").text(d3.format('.2')(slider2.value()))
   d3.select("a#setValue2_sim2").on("click", () => slider2.value(1500));
+}
+
+function changeGraph2() {
+  string2 = '{"simulation":2, "I":' + d3.select("p#value2_sim2").text() + ', "c":' + d3.select("p#value1_sim2").text() + '}';
+
+  var client = new WebSocket("ws://localhost:39822");
+      client.onopen = function(evt) {
+          console.log("Connection Opened");
+          client.send(string2);
+      };
+      client.onmessage = function(evt) {
+          console.log(JSON.parse(evt.data));
+          drawLineGraph2(JSON.parse(evt.data));
+      };
+      client.onclose = function(ect) {
+          console.log("Connection Closed");
+      };
+}
+
+function initFunctions(array_data) {
+  if (array_data["simulation"] == 1) {
+    drawLineGraph(array_data["D"]);
+    drawSlider();
+  }
+  if (array_data["simulation"] == 2) {
+    drawLineGraph2(array_data);
+    drawSlider2();
+  }
 }
