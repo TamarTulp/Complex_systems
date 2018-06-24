@@ -159,10 +159,40 @@ function drawGraph() {
   });
 }
 
-var global_nodeList = [];
-drawGraph();
-
-function readMe() {
-  console.log("hallo");
-  console.log(d3.select("#tswitch").node().value)
+function sim1() {
+    global_1or2 = 1;
+    changeGraph("#nwSVG1", "#graph_nw_lines", "_sim3");
 }
+
+function sim2() {
+    global_1or2 = 2;
+    changeGraph2("#nwSVG1", "#graph_nw_lines", "_sim3");
+}
+
+function sim1_2() {
+  if (global_1or2 == 1) {
+    console.log("sim1!");
+    sim1();
+  }
+  else {
+    console.log("sim2!");
+    sim2();
+  }
+}
+
+
+var global_nodeList = [];
+var global_1or2 = 1;
+drawGraph();
+var client = new WebSocket("ws://localhost:39822");
+client.onopen = function(evt) {
+    console.log("Connection Opened");
+    client.send('{"simulation": 1, "I":1000, "c":1.1}');
+};
+client.onmessage = function(evt) {
+    drawLineGraph(JSON.parse(evt.data)["D"], "#nwSVG1", "#graph_nw_lines");
+};
+client.onclose = function(ect) {
+    console.log("Connection Closed");
+};
+drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
