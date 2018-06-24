@@ -81,7 +81,20 @@
 
           <p><b>Simulation I: The vulnerability hypothesis</b></p>
 
-          <p><font color="red">For the first simulation, an intra-individual MD model was constructed, which was able to develop over time. In this model, symptoms can be either 'on' (active) or 'off' (inactive). The probability of a symptom becoming active depends on both its <i>threshold</i> and its neighboring symptoms. Symptoms recieve input from from connected symptoms, . </font></p>
+          <p>For the first simulation, an intra-individual MD model was constructed, which was able to develop over time. In this model, symptoms can be either 'on' (active) or 'off' (inactive). The probability of a symptom becoming active depends on both its <i>threshold</i> and <i>weight parameters</i>. Each symptom has a threshold, which represents the symptoms 'preference' to be active or inactive. <font color="red">A threshold of 0 means that the symptom has no preference, while a positive threshold means the symptom prefers to be active (and a negative threshold represents the preference for being inactive).</font> The weights represent the undirected connections between two symptoms. If the weight is 0, there is no connection. The higher the value of the weight, the more the two corresponding sympoms prefer to be in the same state ('on' or 'off'). Together, the two parameters influence the probability that a symptom becomes active at a particular point in time. The lower its threshold, and the more activation it recieves from its neighbors, the higher the probability the symptom becomes active itself.</p>
+
+          <p>The model is constructed in the following way:
+          <ul>
+            <li>It is assumed that the total amount of activation symptom <i>i</i> receives at time <i>t</i> is the weighted summation of all neighboring symptoms <b>X</b>. This is represented by the <i>total activation function</i>: 
+                      <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sub>j = 1</sub><sup>J</sup> <b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup></font></p></li>
+            <li>The probability that a symptom becomes active at time <i>t</i> depends on the difference between the total activation of its neighbors and the symptoms threshold. <font color="red">The parameter <b>b<sub>i</sub></b> denotes the absolute value of the thresholds. The higher the total activation exceeds the threshold of that symptom, the higher the probability that the symptom becomes active. This is represented by the <i>probability function</i>:</font>
+                      <p><b>P</b>(<b>X</b><sub>i</sub><sup>t</sup> = 1) = 1 &#8725 (1 + <i>e</i><sup>(<b>b<sub>i</sub></b> - A<sub>i</sub><sup>t</sup>)</sup></li>
+          </ul>
+          <p><b>The simulation I study</b>
+              <p>To investigate the differences in vulnerability between strongly and weakly connected networks, the activation function is modified. The connectivity of the system is represented by the <i>connectivity parameter c</i>, which is multiplied with the weights-matrix <b>W</b>. This results in the following <i>total activation function</i>:
+              <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sub>j = 1</sub><sup>J</sup> c<b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup></font></p></p></p>
+
+            <p>The connectivity parameter <i>c</i> had three different values, in order to create three networks. </p>
 
           <p>
         </div>
