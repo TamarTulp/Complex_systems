@@ -86,15 +86,26 @@
           <p>The model is constructed in the following way:
           <ul>
             <li>It is assumed that the total amount of activation symptom <i>i</i> receives at time <i>t</i> is the weighted summation of all neighboring symptoms <b>X</b>. This is represented by the <i>total activation function</i>: 
-                      <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sub>j = 1</sub><sup>J</sup> <b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup></font></p></li>
+                      <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> <b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup></font></p></li>
             <li>The probability that a symptom becomes active at time <i>t</i> depends on the difference between the total activation of its neighbors and the symptoms threshold. <font color="red">The parameter <b>b<sub>i</sub></b> denotes the absolute value of the thresholds. The higher the total activation exceeds the threshold of that symptom, the higher the probability that the symptom becomes active. This is represented by the <i>probability function</i>:</font>
                       <p><b>P</b>(<b>X</b><sub>i</sub><sup>t</sup> = 1) = 1 &#8725 (1 + <i>e</i><sup>(<b>b<sub>i</sub></b> - A<sub>i</sub><sup>t</sup>)</sup></li>
           </ul>
           <p><b>The simulation I study</b>
               <p>To investigate the differences in vulnerability between strongly and weakly connected networks, the activation function is modified. The connectivity of the system is represented by the <i>connectivity parameter c</i>, which is multiplied with the weights-matrix <b>W</b>. This results in the following <i>total activation function</i>:
-              <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sub>j = 1</sub><sup>J</sup> c<b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup></font></p></p></p>
+              <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> c<b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup></font></p></p></p>
 
-            <p>The connectivity parameter <i>c</i> had three different values, in order to create three networks. </p>
+            <p>The connectivity parameter <i>c</i> had three different values, in order to create three networks: a weak <i>c</i> = 0.80), a medium (<i>c</i> = 1.10) and a strong connected network (<i>c</i> = 2.00). For all networks, the simulation was started with all symptoms in an inactive state. The simulation run for 10000 time steps, and each time step the total activation and the probability of symptom-activation was calculated. <font color="red">From these probabilities, the symptom values for the next time step were sampled. HOE?</font><br> 
+            At each time point, the total number of activated symptoms was tracked, and labelled as <i>D</i> (the depression of the system). The more symptoms are active, the more 'depressed' the system is. </p>
+
+            <p><font color="red">HIER TEKST OVER ONZE RESULATEN</font></p>
+
+            <p><font color="red">HIER PLAATJE VAN ONZE RESULTATEN?</font></p>
+
+            <p><b>Simulation II: Investigating the influence of external stress on the MD systems</b></p>
+
+            As external stressful pressures (like the death of a loved one) have an impact on the development of MD, the simulation study above does not do justice to the real life. In this second simulation study, there is an additional factor influencing the MD network: <b>Stress</b>. The aim of this addition is trying to answer the following question:<br>
+            <b>What happens to systems with increasing connectivity, when external stess is added?</b><br>
+            
 
           <p>
         </div>
