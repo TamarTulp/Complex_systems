@@ -1,6 +1,5 @@
-function drawLineGraph(array_data) {
+function drawLineGraph(array_data, div) {
   d3.select("#graphSVG1").remove();
-  console.log(array_data);
 
   // dimensions
   var width = 750;
@@ -140,12 +139,6 @@ function drawLineGraph(array_data) {
           d0 = data[i - 1],
           d1 = data[i],
           d = x0 - d0.year > d1.year - x0 ? d1 : d0;
-      console.log("data");
-      console.log(data);
-      console.log("d3.mouse(this)[0], x0, i, d0, d1, d");
-      console.log(d3.mouse(this)[0],x0,i,d0,d1,d);
-      console.log("x(d.year), y(d.value), d.year, d.value")
-      console.log(x(d.year), y(d.value), d.year, d.value);
       focus.attr("transform", "translate(" + x(d.year) + "," + y(d.value) + ")");
       focus.select("text").text(function() { return zeroFill(d.value, 2); });
       focus.select(".x-hover-line").attr("y2", height - y(d.value));
@@ -342,7 +335,7 @@ adjacency();
 
 function drawLineGraph2(array_data) {
   d3.select("#graphSVG2").remove();
-  console.log(array_data);
+
   data_graph = []
 
   for (var i = 0; i < array_data["S"].length; i++) {
@@ -669,7 +662,6 @@ function changeGraph2() {
           client.send(string2);
       };
       client.onmessage = function(evt) {
-          console.log(JSON.parse(evt.data));
           drawLineGraph2(JSON.parse(evt.data));
       };
       client.onclose = function(ect) {
@@ -679,11 +671,11 @@ function changeGraph2() {
 
 function initFunctions(array_data) {
   if (array_data["simulation"] == 1) {
-    drawLineGraph(array_data["D"]);
+    drawLineGraph(array_data["D"], "#graphSVG1");
     drawSlider();
   }
   if (array_data["simulation"] == 2) {
-    drawLineGraph2(array_data);
+    drawLineGraph2(array_data, "#graphSVG2");
     drawSlider2();
   }
 }

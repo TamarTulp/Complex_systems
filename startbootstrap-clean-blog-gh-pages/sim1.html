@@ -21,15 +21,19 @@
     <!-- Custom styles for this template -->
     <link href="css/clean-blog.min.css" rel="stylesheet">
     <link rel="icon" href="img/icon.png">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
     <!-- D3 library -->
     <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="js/functions.js"></script>
     <script src="https://unpkg.com/d3-simple-slider@0.2.1/build/d3-simple-slider.js"></script>
     <script src="js/jsnetworkx.js"></script>
     <script src="js/lineGraph.js"></script>
     <script src="http://d3js.org/queue.v1.min.js" type="text/javascript"></script>
     <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
   </head>
 
@@ -185,6 +189,18 @@ It is a long established fact that a reader will be distracted by the readable c
               };
 
           </script>
+          <div class="container">
+            <div class="row"><input id="tswitch" type="checkbox" checked data-toggle="toggle" data-on="Simulation-1" data-off="Simulation-2" data-onstyle="primary" data-offstyle="info" onchange="readMe()"></select></div>
+            <div class="row"><select id="dropdown"></select></div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div id="graph_nw_lines"></div>
+            </div>
+            <div class="row">
+              <div id="graph_network" width="400" height="400"></div>
+            </div>
+          </div>
 
 
         </div>
@@ -237,6 +253,7 @@ It is a long established fact that a reader will be distracted by the readable c
     <!-- Custom scripts for this template -->
     <script src="js/clean-blog.min.js"></script>
     <script src="js/lineGraph.js"></script>
+    <script src="js/graph_network.js"></script>
 
   </body>
 
