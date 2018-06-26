@@ -14,24 +14,21 @@ log = logging.getLogger("Simulation Server")
 
 ADDRESS = 'localhost', 39822
 
-W_PATH = 'data/EmpiricalWeightParameters.txt'
-b_PATH = 'data/EmpiricalThresholdParameters.txt'
+W_PATH = '../../Data/EmpiricalWeightParameters.txt'
+b_PATH = '../../Data/EmpiricalThresholdParameters.txt'
 
 W = np.asarray(pd.read_csv(W_PATH, delimiter='\t', encoding='utf-8'))
 b = np.abs(np.asarray(pd.read_csv(b_PATH, delimiter=',', encoding='utf-8').set_index("var"))).ravel()
 
 
-def simulation_1(I: int, c: float, select: np.ndarray = np.ones(14, np.bool)):
-    b_ = b.copy()
-    b_[~select] = 100
-
+def simulation_1(I: int, c: float):
     X = np.zeros((I, *b.shape), np.bool)
     P = np.zeros((I, *b.shape), np.float32)
     D = np.zeros((I), np.uint8)
 
     for i in range(1, I):
         A = np.sum(c * W * X[i-1], axis=1)
-        P[i] = 1 / (1 + np.exp(b_ - A))
+        P[i] = 1 / (1 + np.exp(b - A))
         X[i] = P[i] > np.random.uniform(0, 1, b.shape)
         D[i] = np.sum(X[i])
     return X, P, D
@@ -43,7 +40,7 @@ def simulation_2(I: int, c: float):
     X = np.zeros((I, *b.shape), np.bool)
     P = np.zeros((I, *b.shape), np.float32)
     D = np.zeros((I), np.uint8)
-    S = np.concatenate((np.linspace(-10, 5, I2), np.linspace(5, -10, I2)))
+    S = np.concatenate((np.linspace(-15, 15, I2), np.linspace(15, -15, I2)))
 
     for i in range(1, I):
         A = np.sum(c * W * X[i-1] + S[i], axis=1)
@@ -68,20 +65,13 @@ async def serve(websocket, path):
 
         t0 = time()
         if simulation == 1:
-
-            if 'select' in parameters:
-                select = np.array(parameters['select'], np.bool)
-                X, P, D = simulation_1(I, c, select)
-            else:
-                X, P, D = simulation_1(I, c)
-
-            data = json.dumps({"simulation": 1, "X": X.tolist(), "P": P.tolist(), "D": D.tolist()})
+            X, P, D = simulation_1(I, c)
+            data = json.dumps({"X": X.tolist(), "P": P.tolist(), "D": D.tolist()})
             await websocket.send(data)
 
         if simulation == 2:
             S, (UP_X, UP_P, UP_D), (DOWN_X, DOWN_P, DOWN_D) = simulation_2(I, c)
             data = json.dumps({
-                "simulation": 2,
                 "S": S.tolist(),
                 "UP": {"X": UP_X.tolist(), "P": UP_P.tolist(), "D": UP_D.tolist()},
                 "DOWN": {"X": DOWN_X.tolist(), "P": DOWN_P.tolist(), "D": DOWN_D.tolist()}})
