@@ -21,14 +21,17 @@ W = np.asarray(pd.read_csv(W_PATH, delimiter='\t', encoding='utf-8'))
 b = np.abs(np.asarray(pd.read_csv(b_PATH, delimiter=',', encoding='utf-8').set_index("var"))).ravel()
 
 
-def simulation_1(I: int, c: float):
+def simulation_1(I: int, c: float, select: np.ndarray = np.ones(14, np.bool)):
+    b_ = b.copy()
+    b_[~select] = 100
+
     X = np.zeros((I, *b.shape), np.bool)
     P = np.zeros((I, *b.shape), np.float32)
     D = np.zeros((I), np.uint8)
 
     for i in range(1, I):
         A = np.sum(c * W * X[i-1], axis=1)
-        P[i] = 1 / (1 + np.exp(b - A))
+        P[i] = 1 / (1 + np.exp(b_ - A))
         X[i] = P[i] > np.random.uniform(0, 1, b.shape)
         D[i] = np.sum(X[i])
     return X, P, D
@@ -65,7 +68,13 @@ async def serve(websocket, path):
 
         t0 = time()
         if simulation == 1:
-            X, P, D = simulation_1(I, c)
+
+            if 'select' in parameters:
+                select = np.array(parameters['select'], np.bool)
+                X, P, D = simulation_1(I, c, select)
+            else:
+                X, P, D = simulation_1(I, c)
+
             data = json.dumps({"simulation": 1, "X": X.tolist(), "P": P.tolist(), "D": D.tolist()})
             await websocket.send(data)
 

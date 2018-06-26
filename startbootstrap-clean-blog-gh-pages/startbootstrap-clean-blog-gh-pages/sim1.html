@@ -95,10 +95,10 @@
           <div class="container col-sm-10">
               <div class="row">
                   <div class="col-sm-6">
-                    <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="500" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="500" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/failure-6pg8hzcQkTDoc">via GIPHY</a></p>
                   </div>
                   <div class="col-sm-6">
-                    <iframe src="https://giphy.com/embed/WmkYhCt0Ddnyw" width="450" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                    <iframe src="https://giphy.com/embed/WmkYhCt0Ddnyw" width="450" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/dominos-WmkYhCt0Ddnyw">via GIPHY</a></p>
                   </div>
               </div>
           </div>
@@ -108,25 +108,21 @@
 
           <p>For the first simulation, an intra-individual MD model was constructed, which was able to develop over time. In this model, symptoms can be either 'on' (active) or 'off' (inactive). The probability of a symptom becoming active depends on both its <i>threshold</i> and <i>weight parameters</i>. Each symptom has a threshold, which represents the symptoms 'preference' to be active or inactive. A threshold of 0 means that the symptom has no preference, while a positive threshold means the symptom prefers to be active (and a negative threshold represents the preference for being inactive). The weights represent the undirected connections between two symptoms. If the weight is 0, there is no connection. The higher the value of the weight, the more the two corresponding sympoms prefer to be in the same state ('on' or 'off'). Together, the two parameters influence the probability that a symptom becomes active at a particular point in time. The lower its threshold, and the more activation it recieves from its neighbors, the higher the probability the symptom becomes active itself.</p>
 
-          <p>The graph below represents the weights between two nodes. The darker a tile, the higher the value of the weight. The exact values of the weights can be found when you go with your cursor over the tiles.</p>
-
-          <svg id="adjacency" class="centerIt" width="550" height="550"></svg>
-
           <p>The model is constructed in the following way:
           <ul>
             <li>It is assumed that the total amount of activation symptom <i>i</i> receives at time <i>t</i> is the weighted summation of all neighboring symptoms <b>X</b>. This is represented by the <i>total activation function</i>: 
-                      <p>A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> <b>W</b><sub>ij</sub>X<sub>j</sub><sup>t-1</sup></p></li>
+                      <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> <b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup></font></p></li>
             <li>The probability that a symptom becomes active at time <i>t</i> depends on the difference between the total activation of its neighbors and the symptoms threshold. The parameter <b>b<sub>i</sub></b> denotes the absolute value of the thresholds. The higher the total activation exceeds the threshold of that symptom, the higher the probability that the symptom becomes active. This is represented by the <i>probability function</i>:
-                      <p>P (X<sub>i</sub><sup>t</sup> = 1) = 1 &#8725 (1 + <i>e</i><sup>(b<sub>i</sub> - A<sub>i</sub><sup>t</sup>)</sup>)</li>
+                      <p><b>P</b>(<b>X</b><sub>i</sub><sup>t</sup> = 1) = 1 &#8725 (1 + <i>e</i><sup>(<b>b<sub>i</sub></b> - A<sub>i</sub><sup>t</sup>))</sup></li>
           </ul>
           <p><b>The simulation I study</b>
               <p>To investigate the differences in vulnerability between strongly and weakly connected networks, the activation function is modified. The connectivity of the system is represented by the <i>connectivity parameter c</i>, which is multiplied with the weights-matrix <b>W</b>. This results in the following <i>total activation function</i>:
-              <p>A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> c<b>W</b><sub>ij</sub>X<sub>j</sub><sup>t-1</sup></p></p></p>
+              <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> c<b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup></font></p></p></p>
 
-            <p>In the article, the connectivity parameter <i>c</i> had three different values, in order to create three networks: a weak <i>c</i> = 0.80), a medium (<i>c</i> = 1.10) and a strong connected network (<i>c</i> = 2.00). We cused <i>c</i> in the range 0.5 - 3.0. For all networks, the simulation was started with all symptoms in an inactive state. The simulation was run for 10000 time steps, and each time step the total activation and the probability of symptom-activation was calculated. From these probabilities, the symptom values for the next time step were sampled. <br> 
+            <p>The connectivity parameter <i>c</i> had three different values, in order to create three networks: a weak <i>c</i> = 0.80), a medium (<i>c</i> = 1.10) and a strong connected network (<i>c</i> = 2.00). For all networks, the simulation was started with all symptoms in an inactive state. The simulation run for 10000 time steps, and each time step the total activation and the probability of symptom-activation was calculated. <font color="red">From these probabilities, the symptom values for the next time step were sampled. HOE?</font><br> 
             At each time point, the total number of activated symptoms was tracked, and labelled as <i>D</i> (the depression of the system). The more symptoms are active, the more 'depressed' the system is. </p>
 
-            <p>As the graphs below show, depression increases with connectivity. A weakly connected system (<i>c</i> < 1.0) there are moments where several sympoms occur, but the system never develops into a 'depressed' one. As connecitivity increases, the system starts to oscillate between the 'nondepressed' and 'depressed' state. The system is able to go back to a 'nondepressed' state without changes to the network (in the real world, that would be therapy or medication). The strongly connected network (<i>c</i> > 1.2) becomes 'depressed' after a short time, and does not change back to the 'nondepressed' state anymore. This can be regarded as a person that will not be able to get out of a depression without external help.</p>
+          <p><b>Simulation I: The vulnerability hypothesis</b></p>
 
 
           <img class="img-fluid" src="img/Simulation1.png" alt="">
@@ -157,21 +153,12 @@
           <div id='tooltip' style='position:absolute;background-color:lightgray;padding:5px'></div>
           <button onclick='changeGraph("#graphSVG1", "div#lineGraph", "");'>Change Graph</button>
 
-
-          <p>The model used in simulation I represents the development of MD without an external trigger. To include the influence of these events, a second simulation was done.</p>
-          
+          <svg id="adjacency" class="centerIt" width="550" height="550"></svg>
 
             <p><b>Simulation II: Investigating the influence of external stress on the MD systems</b></p>
 
             As external stressful pressures (like the death of a loved one) have an impact on the development of MD, the simulation study above does not do justice to the real life. In this second simulation study, there is an additional factor influencing the MD network: <b>Stress</b>. The aim of this addition is trying to answer the following question:<br>
-            <p><b>What happens to systems with increasing connectivity, when external stess is added?</b></p>
-
-            <p>To answer this question, the total activation function was modified into the following equation:
-              <p>A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> c<b>W</b><sub>ij</sub>X<sub>j</sub><sup>t-1</sup> + S<sub>i</sub><sup>t</sup></p>
-
-            <p>S was increased from -10 to 10, as well as decreased from 10 to -10. The system changes from a 'nondepressed' state to a 'depressed' state in response to increasing stress (the blue lines). If a weakly connected network starts in a 'depressed' state, decreasing the stress-level to the point where the system changed will be enough to make it switch back to the 'nondepressed state (the red lines). When the network-connectivity increases, the stress-level needs to be decreased more and more to reach the <i>tipping point</i> where the system will go back to the 'nondepressed' state.  </p>
-
-            <img class="img-fluid centerIt" src="img/3D_plot.png" alt="" width="100%">
+            <b>What happens to systems with increasing connectivity, when external stess is added?</b><br>
 
           <div class="container centerIt">
               <div class="row">
@@ -195,7 +182,6 @@
           </div>
           <div id="lineGraph_sim2" class="centerIt"></div>
           <button onclick='changeGraph2("#graphSVG2", "#lineGraph_sim2", "_sim2");'>Change Graph</button>
-
 
           <div class="container">
                 <div class="switch-toggle switch-3 switch-candy">
