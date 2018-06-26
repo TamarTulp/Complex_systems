@@ -7,85 +7,113 @@
       "threshold": -2.3129,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "dep"
+      "id": "dep",
+      "index": 0,
+      "name": "Depressed Mood"
     },
     {
       "threshold": -3.1946,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "int"
+      "id": "int",
+      "index": 1,
+      "name": "Loss of Interest"
     },
     {
       "threshold": -4.3092,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "los"
+      "id": "los",
+      "index": 2,
+      "name": "Weight Loss"
     },
     {
       "threshold": -3.8332,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "gai"
+      "id": "gai",
+      "index": 3,
+      "name": "Weight Gain"
     },
     {
       "threshold": -3.9153,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "dap"
+      "id": "dap",
+      "index": 4,
+      "name": "Decreased Appetite"
     },
     {
       "threshold": -3.9012,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "iap"
+      "id": "iap",
+      "index": 5,
+      "name": "Increased Appetite"
     },
     {
       "threshold": -3.0246,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "iso"
+      "id": "iso",
+      "index": 6,
+      "name": "Insomnia"
     },
     {
       "threshold": -4.448,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "hso"
+      "id": "hso",
+      "index": 7,
+      "name": "Hypersomnia"
     },
     {
       "threshold": -3.1753,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "agi"
+      "id": "agi",
+      "index": 8,
+      "name": "Psychomotor Agitation"
     },
     {
       "threshold": -4.3372,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "ret"
+      "id": "ret",
+      "index": 9,
+      "name": "Psychomotor Redardation"
     },
     {
       "threshold": -2.8269,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "fat"
+      "id": "fat",
+      "index": 10,
+      "name": "Fatique"
     },
     {
       "threshold": -4.4272,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "wor"
+      "id": "wor",
+      "index": 11,
+      "name": "Feelings of Worthlessness"
     },
     {
       "threshold": -4.0421,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "con"
+      "id": "con",
+      "index": 12,
+      "name": "Concentration Problems"
     },
     {
       "threshold": -5.8303,
       "activationValues": 0,
       "stateValues": 0,
-      "id": "dea"
+      "id": "dea",
+      "index": 13,
+      "name": "Thoughts of Death"
     }
   ],
   "links": [
