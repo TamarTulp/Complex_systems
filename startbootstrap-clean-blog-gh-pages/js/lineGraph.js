@@ -477,7 +477,7 @@ function drawLineGraph2(array_data, divRem, div) {
         .attr("y", 50)
         .attr("width", 10)
         .attr("height", 10)
-        .style("fill", "#571845");
+        .style("fill", "#FF5733");
 
     svg.append('text')
         .attr("x", width + 38)
@@ -495,7 +495,7 @@ function drawLineGraph2(array_data, divRem, div) {
         .attr("y", 70)
         .attr("width", 10)
         .attr("height", 10)
-        .style("fill", "#FF5733");
+        .style("fill", "#571845");
 
     svg.append('text')
         .attr("x", width + 38)

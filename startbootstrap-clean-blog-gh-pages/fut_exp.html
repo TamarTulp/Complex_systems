@@ -21,6 +21,7 @@
     <!-- Custom styles for this template -->
     <link href="css/clean-blog.min.css" rel="stylesheet">
     <link rel="icon" href="img/icon.png">
+    <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
 
   </head>
 
@@ -88,11 +89,9 @@
 
             <p>To see which symptom or symptoms can best be treated, we simulated what happend when 1 till 14 parameters influences were diminished randomly. Parameters thresholds were randomly raised to 100. This was done 100 times for all parameters.</p>
 
-            <a href="#">
-              <img class="img-fluid" src="img/general.png" alt="">
-            </a>
+            <div id="general"></div>
             <span class="caption text-muted">General cases.</span>
-
+            <script type="text/javascript">fut_drawGraph("generalSVG", "general");</script>
 
             <p>The image shows us the average time spend not in a Major Depression with a number of symptom thresholds raised randomly. It shows the time not spend in a Major Depression in the simulation, since we can not be sure that somebody is suffering from one from our simulation. According to the DSM-V <cite>[3]</cite>, somebody is suffering from a Major Depression when 5 of the 9 symptoms are manifesting itself for longer than two weeks. Since our simulation unfortunately do not have a time scale, we can never fulfil this condition, so we can not actually diagnose in the simulation.</p>
 
@@ -102,11 +101,23 @@
 
             <p>Of course changes are slim, that a treatment will be able to include 9 symptoms, so the next step is to find out which are most important.</p>
 
-
-            <a href="#">
-              <img class="img-fluid" src="img/post-sample-image.jpg" alt="">
-            </a>
-            <span class="caption text-muted">Specific cases.</span>            
+            <div class="switch-toggle switch-2 switch-candy">
+              <input id="LVL-1" name="state-d" type="radio" checked="" />
+              <label for="LVL-1" onclick="fut_expGraph(1, 'general_specificSVG', 'general_specific')">LVL-1</label>
+              <input id="LVL-2" name="state-d" type="radio" />
+              <label for="LVL-2" onclick="fut_expGraph(2)">LVL-2</label>
+              <input id="LVL-3" name="state-d" type="radio" />
+              <label for="LVL-3" onclick="fut_expGraph(3)">LVL-3</label>
+              <input id="LVL-4" name="state-d" type="radio" />
+              <label for="LVL-4" onclick="fut_expGraph(4)">LVL-4</label>
+              <input id="LVL-5" name="state-d" type="radio" />
+              <label for="LVL-5" onclick="fut_expGraph(5)">LVL-5</label>
+              <input id="LVL-6" name="state-d" type="radio" />
+              <label for="LVL-6" onclick="fut_expGraph(6)">LVL-6</label>
+              <a></a>
+            </div>
+            <div id="general_specific"></div>
+            <span class="caption text-muted">Specific cases.</span>
 
             <table>
               <tr>

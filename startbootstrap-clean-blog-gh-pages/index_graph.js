@@ -27,13 +27,6 @@ function select(index) {
     request();
 }
 
-var slider = document.getElementById("myRange");
-slider.oninput = function() {
-    if (circle != null && data != null) {
-        update(this.value);
-    }
-}
-
 client.onopen = function(evt) {
     console.log("Connection Opened");
     request();
@@ -41,7 +34,7 @@ client.onopen = function(evt) {
 
 client.onmessage = function(evt) {
     data = JSON.parse(evt.data);
-    if (circle != null) { update(slider.value); };
+    if (circle != null) { update(999); };
     console.log(data);
 }
 client.onclose = function(ect) {
@@ -61,7 +54,7 @@ var simulation = d3.forceSimulation()
     .force('collision', d3.forceCollide().radius(function(d) { return 25;}))
     .force("center", d3.forceCenter(width / 2, height / 2));
 
-d3.json("graph.json", function(error, graph) {
+d3.json("data/data.json", function(error, graph) {
     if (error) throw error;
 
     link = svg.append("g")
