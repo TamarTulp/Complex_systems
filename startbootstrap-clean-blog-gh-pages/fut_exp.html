@@ -54,15 +54,15 @@
     </nav>
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('img/post-bg.jpg')">
+    <header class="masthead" style="background-image: url('img/mentalhealth.jpg')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-heading">
-              <h1>Future work realised</h1>
-              <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
-              <span class="meta">But we took them on, and prevailed</span>
+              <h1>Above and Beyond</h1>
+              <h2 class="subheading">Adding our own research</h2>
+              <!-- <span class="meta">But we took them on, and prevailed</span> -->
             </div>
           </div>
         </div>
@@ -74,42 +74,115 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-            <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</p>
+            <p>With a heavily connected network, it is nearly impossible for someone to not get depressed and also virtually impossible to get out of this depressed state without help.</p>
 
-            <p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
+            <a href="#">
+              <img class="img-fluid" src="img/high.png" alt="">
+            </a>
+            <span class="caption text-muted">Heavily connected network.</span>
 
-            <p>What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.</p>
 
-            <p>A Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.</p>
+            <p>This help can be given in different ways. A lot of treatments for Major Depression, like Cognitive-Behavioural Therapy (CBT), focus firstly on the symptoms of depression <cite>[1]</cite>. As example, CBT focusses on the symptoms to relieve the patients suffering to be better able to tackle the underlying problem <cite>[2]</cite>. We try to hypothesize which symptoms would be most helpful to focus on during the treatment. This is of course a general case, but could be a helpful start.</p>
 
-            <p>For those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us.</p>
+            <p>A way to test this, is to make the threshold of a symptom higher, since this effectively diminishes the influence it has on the other symptoms around it and so decreases the connectivity of the system. This makes it possible to get out of a depressed state.</p>
 
-            <h2 class="section-heading">The Final Frontier</h2>
+            <p>To see which symptom or symptoms can best be treated, we simulated what happend when 1 till 14 parameters influences were diminished randomly. Parameters thresholds were randomly raised to 100. This was done 100 times for all parameters.</p>
 
-            <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+            <a href="#">
+              <img class="img-fluid" src="img/general.png" alt="">
+            </a>
+            <span class="caption text-muted">General cases.</span>
 
-            <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
 
-            <blockquote class="blockquote">The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</blockquote>
+            <p>The image shows us the average time spend not in a Major Depression with a number of symptom thresholds raised randomly. It shows the time not spend in a Major Depression in the simulation, since we can not be sure that somebody is suffering from one from our simulation. According to the DSM-V <cite>[3]</cite>, somebody is suffering from a Major Depression when 5 of the 9 symptoms are manifesting itself for longer than two weeks. Since our simulation unfortunately do not have a time scale, we can never fulfil this condition, so we can not actually diagnose in the simulation.</p>
 
-            <p>Spaceflights cannot be stopped. This is not the work of any one man or even a group of men. It is a historical process which mankind is carrying out in accordance with the natural laws of human development.</p>
+            <!-- <h2 class="section-heading">The Final Frontier</h2> -->
 
-            <h2 class="section-heading">Reaching for the Stars</h2>
+            <p>When one symptom threshold is raised, you already see an increase in time spend in a not in a Major Depression. When even more thresholds are increased, this time increases even more. As more thresholds are increased the less connected the network becomes and when an average of 9 (out of 14) thresholds is increased, the network becomes so unconnected, that it never gets into a Major Depression.</p>
 
-            <p>As we got further and further away, it [the Earth] diminished in size. Finally it shrank to the size of a marble, the most beautiful you can imagine. That beautiful, warm, living object looked so fragile, so delicate, that if you touched it with a finger it would crumble and fall apart. Seeing this has to change a man.</p>
+            <p>Of course changes are slim, that a treatment will be able to include 9 symptoms, so the next step is to find out which are most important.</p>
+
 
             <a href="#">
               <img class="img-fluid" src="img/post-sample-image.jpg" alt="">
             </a>
-            <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
+            <span class="caption text-muted">Specific cases.</span>            
 
-            <p>Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before.</p>
+            <table>
+              <tr>
+                <th>Symptom number (DSM)</th>
+                <th>Symptom</th>
+              </tr>
+              <tr>
+                <td>1 &nbsp;(1)</td>
+                <td>Depressed mood (dep)</td>
+              </tr>
+              <tr>
+                <td>2 &nbsp;(2)</td>
+                <td>Loss of interest (int)</td>
+              </tr>
+              <tr>
+                <td>3 &nbsp;(3)</td>
+                <td>Weight loss (los)</td>
+              </tr>
+              <tr>
+                <td>4 &nbsp;(3)</td>
+                <td>Weight gain (gai)</td>
+              </tr>
+              <tr>
+                <td>5 &nbsp;(3)</td>
+                <td>Decreased appetite (dap)</td>
+              </tr>
+              <tr>
+                <td>6 &nbsp;(3)</td>
+                <td>Increased appetite (iap)</td>
+              </tr>
+              <tr>
+                <td>7 &nbsp;(4)</td>
+                <td>Insomnia (iso)</td>
+              </tr>
+              <tr>
+                <td>8 &nbsp;(4)</td>
+                <td>Hyposomnia (hso)</td>
+              </tr>
+              <tr>
+                <td>9 &nbsp;(5)</td>
+                <td>Psychomotor agitation (agi)</td>
+              </tr>
+              <tr>
+                <td>10 (5)</td>
+                <td>Psychomotor retardation (ret)</td>
+              </tr>
+              <tr>
+                <td>11 (6)</td>
+                <td>Fatigue (fat)</td>
+              </tr>
+              <tr>
+                <td>12 (7)</td>
+                <td>Feelings of worthlessness (wor)</td>
+              </tr>
+              <tr>
+                <td>13 (8)</td>
+                <td>Concentration problems (con)</td>
+              </tr>
+              <tr>
+                <td>14 (9)</td>
+                <td>Thoughts of death (dea)</td>
+              </tr>
+            </table>
 
-            <p>As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.</p>
 
-            <p>Placeholder text by
-              <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by
-              <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.</p>
+            <p>If you swipe/slide through the different graphs, on the x axis is specific symptom or combination of symptoms is shown. Interesting cases are highlighted (maybe). Especially symptom 1 (depressed mood) seems to be an important symptom to treat. You can play with this yourself below by raising the thresholds for some symptoms and so diminish their influence from the network.</p>
+
+            <p>
+              <small>
+                <ol>
+                  <li>Baardseth, T. P., Goldberg, S. B., Pace, B. T., Wislocki, A. P., Frost, N. D., Siddiqui, J. R., ... & Minami, T. (2013). Cognitive-behavioral therapy versus other therapies: Redux. <i>Clinical Psychology Review, 33</i>(3), 395-405.</li>
+                  <li>Beck, J. S. (2011). <i>Cognitive behavior therapy: Basics and beyond.</i> Guilford press.</li>
+                  <li>American Psychiatric Association. (2013). <i>Diagnostic and statistical manual of mental disorders (DSM-5®).</i> American Psychiatric Pub.</li>
+                </ol>
+              </small>
+            </p>
           </div>
         </div>
       </div>
