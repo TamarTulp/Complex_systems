@@ -91,7 +91,7 @@
 
             <div id="general"></div>
             <span class="caption text-muted">General cases.</span>
-            <script type="text/javascript">fut_drawGraph("generalSVG", "general");</script>
+            <script type="text/javascript">fut_drawGraph("", "generalSVG", "general");</script>
 
             <p>The image shows us the average time spend not in a Major Depression with a number of symptom thresholds raised randomly. It shows the time not spend in a Major Depression in the simulation, since we can not be sure that somebody is suffering from one from our simulation. According to the DSM-V <cite>[3]</cite>, somebody is suffering from a Major Depression when 5 of the 9 symptoms are manifesting itself for longer than two weeks. Since our simulation unfortunately do not have a time scale, we can never fulfil this condition, so we can not actually diagnose in the simulation.</p>
 
@@ -105,15 +105,15 @@
               <input id="LVL-1" name="state-d" type="radio" checked="" />
               <label for="LVL-1" onclick="fut_expGraph(1, 'general_specificSVG', 'general_specific')">LVL-1</label>
               <input id="LVL-2" name="state-d" type="radio" />
-              <label for="LVL-2" onclick="fut_expGraph(2)">LVL-2</label>
+              <label for="LVL-2" onclick="fut_expGraph(2, 'general_specificSVG', 'general_specific')">LVL-2</label>
               <input id="LVL-3" name="state-d" type="radio" />
-              <label for="LVL-3" onclick="fut_expGraph(3)">LVL-3</label>
+              <label for="LVL-3" onclick="fut_expGraph(3, 'general_specificSVG', 'general_specific')">LVL-3</label>
               <input id="LVL-4" name="state-d" type="radio" />
-              <label for="LVL-4" onclick="fut_expGraph(4)">LVL-4</label>
+              <label for="LVL-4" onclick="fut_expGraph(4, 'general_specificSVG', 'general_specific')">LVL-4</label>
               <input id="LVL-5" name="state-d" type="radio" />
-              <label for="LVL-5" onclick="fut_expGraph(5)">LVL-5</label>
+              <label for="LVL-5" onclick="fut_expGraph(5, 'general_specificSVG', 'general_specific')">LVL-5</label>
               <input id="LVL-6" name="state-d" type="radio" />
-              <label for="LVL-6" onclick="fut_expGraph(6)">LVL-6</label>
+              <label for="LVL-6" onclick="fut_expGraph(6, 'general_specificSVG', 'general_specific')">LVL-6</label>
               <a></a>
             </div>
             <div id="general_specific"></div>
@@ -207,22 +207,6 @@
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <ul class="list-inline text-center">
-            <!--   <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li> -->
               <li class="list-inline-item">
                 <a target="_blank" href="https://github.com/popoiopo/Complex_systems">
                   <span class="fa-stack fa-lg">
@@ -244,6 +228,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/clean-blog.min.js"></script>
+    <script src="js/fut_exp.js"></script>
 
   </body>
 

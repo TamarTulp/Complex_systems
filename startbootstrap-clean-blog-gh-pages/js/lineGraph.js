@@ -141,6 +141,7 @@ function drawLineGraph(array_data, divRem, div) {
     }
 }
 
+
 function drawSlider(div1, div2, extension) {
 
   var data1 = [0.5, 1, 1.5, 2, 2.5, 3];
@@ -209,12 +210,9 @@ function drawSlider(div1, div2, extension) {
   d3.select("p#value2" + extension).text(d3.format('.2')(slider2.value()))
 }
 
+
 function changeGraph(div1, div2, extension) {
-  console.log(d3.select("p#value2").text());
-  console.log(extension, div1, div2, "p#value2" + extension);
   if (extension){ string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}'; }
-  else { string = '{"simulation":1, "I":' + d3.select("p#value2").text() + ', "c":' + d3.select("p#value1").text() + '}'; }
-  console.log(string);
 
   var client = new WebSocket("ws://localhost:39822");
       client.onopen = function(evt) {
@@ -222,13 +220,13 @@ function changeGraph(div1, div2, extension) {
           client.send(string);
       };
       client.onmessage = function(evt) {
-          console.log(JSON.parse(evt.data));
           drawLineGraph(JSON.parse(evt.data)["D"], div1, div2);
       };
       client.onclose = function(ect) {
           console.log("Connection Closed");
       };
 }
+
 
 function adjacency() {
 
@@ -303,7 +301,6 @@ function adjacency() {
     .style("text-anchor","end")
     .style("font-size","10px");
 
-
   d3.selectAll("rect.grid").on("mouseover", function(d){
       div.transition()
        .duration(200)
@@ -328,10 +325,9 @@ function adjacency() {
   }
   }
 }
-adjacency();
+
 
 function drawLineGraph2(array_data, divRem, div) {
-  console.log(array_data);
   d3.select(divRem).remove();
 
   data_graph = []
@@ -482,7 +478,6 @@ function drawLineGraph2(array_data, divRem, div) {
     svg.append('text')
         .attr("x", width + 38)
         .attr("y", 59)
-    //.attr("dy", ".35em")
     .html("Low &rarr; High")
         .attr("class", "textselected")
         .style("text-anchor", "start")
@@ -500,7 +495,6 @@ function drawLineGraph2(array_data, divRem, div) {
     svg.append('text')
         .attr("x", width + 38)
         .attr("y", 79)
-    //.attr("dy", ".35em")
     .html("High &rarr; Low")
         .attr("class", "textselected")
         .style("text-anchor", "start")
@@ -593,6 +587,7 @@ function changeGraph2(div1,div2,extension) {
           console.log("Connection Closed");
       };
 }
+
 
 function initFunctions(array_data) {
   if (array_data["simulation"] == 1) {
