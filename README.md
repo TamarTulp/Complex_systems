@@ -2,9 +2,11 @@ Major Depression as a Network: Complex System Simulation
 --------------------------------------------------------
 
 #### Requirements
-- Modern Webbrowser
+- A Modern Webbrowser
 - Python 3.6
 - Websockets for Python: ```pip install websockets```
 
+Other required libraries are included with the Python Anaconda distribution by default, we recommend using this!
+
 #### Run
-Executing ```python run.py``` will start the web server, socket server and launch the website!
+Executing ```python run.py``` from the command line will start the web server, socket server and launch the website!
