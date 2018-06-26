@@ -1,8 +1,8 @@
 function drawLineGraph(array_data, divRem, div) {
   d3.select(divRem).remove();
-  console.log(divRem, divRem.slice(1));
+
   // dimensions
-  var width = 750;
+  var width = 500;
   var height = 400;
 
   var margin = {
@@ -59,7 +59,7 @@ function drawLineGraph(array_data, divRem, div) {
   function make_y_gridlines() {
       return d3.axisLeft(y);
   }
-
+  console.log(array_data, divRem, div);
   var data = [];
   var N = array_data.length;
   xdata = Array.apply(null, {length: N}).map(Number.call, Number);
@@ -107,11 +107,6 @@ function drawLineGraph(array_data, divRem, div) {
         .attr("y1", 0)
         .attr("y2", height);
 
-    focus.append("line")
-        .attr("class", "y-hover-line hover-line")
-        .attr("x1", width)
-        .attr("x2", width);
-
     focus.append("circle")
         .attr("r", 15);
 
@@ -147,8 +142,7 @@ function drawLineGraph(array_data, divRem, div) {
 }
 
 function drawSlider(div1, div2, extension) {
-  console.log(div1, div2);
-  console.log("p#value" + div1.slice(4),div2.slice(4))
+
   var data1 = [0.5, 1, 1.5, 2, 2.5, 3];
   var data2 = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000];
 
@@ -217,9 +211,10 @@ function drawSlider(div1, div2, extension) {
 
 function changeGraph(div1, div2, extension) {
   console.log(d3.select("p#value2").text());
-  console.log("dit wel?");
-  string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
-  string2 = '{"simulation":2, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
+  console.log(extension, div1, div2, "p#value2" + extension);
+  if (extension){ string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}'; }
+  else { string = '{"simulation":1, "I":' + d3.select("p#value2").text() + ', "c":' + d3.select("p#value1").text() + '}'; }
+  console.log(string);
 
   var client = new WebSocket("ws://localhost:39822");
       client.onopen = function(evt) {
@@ -522,11 +517,6 @@ function drawLineGraph2(array_data, divRem, div) {
         .attr("y1", 0)
         .attr("y2", height);
 
-    focus.append("line")
-        .attr("class", "y-hover-line hover-line")
-        .attr("x1", width)
-        .attr("x2", width);
-
     focus.append("circle")
         .attr("id", "down")
         .attr("r", 15);
@@ -607,9 +597,11 @@ function changeGraph2(div1,div2,extension) {
 function initFunctions(array_data) {
   if (array_data["simulation"] == 1) {
     drawLineGraph(array_data["D"], "#graphSVG1", "div#lineGraph");
-    drawSlider("div#slider1", "div#slider2");
+    drawSlider("div#slider1", "div#slider2", "");
+    drawLineGraph(array_data["D"], "#nwSVG1", "#graph_nw_lines");
+    drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
   }
-  if (array_data["simulation"] == 2) {
+  else if (array_data["simulation"] == 2) {
     drawLineGraph2(array_data, "#graphSVG2", "#lineGraph_sim2");
     drawSlider("div#slider1_sim2", "div#slider2_sim2", "_sim2");
   }

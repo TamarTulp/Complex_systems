@@ -84,26 +84,43 @@
     <!-- Main Content -->
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <p>In the article of <i>Cramer et al. (2016)</i>, they propose a theory that explains the difference in vulnerability to MD between individuals. Their model is built on the idea that individuals differ in the strength of the connections between different symptoms. This means that one person only experiences fatigue after several sleepless nights, while another person already experiences fatigue after one sleepless night. This network can be seen as a game of domino, where <i>strong</i> connected networks are domino tiles that are close to each other; one tile tipping makes other tiles tip over as well. <i>Weak</i> connections are tiles placed far apart; one tile tipping over does noet likely cause other tiles to tip over too.</p>
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <p>In the article of <a href="/pdf/MD_complex_dynamic_system.pdf" target="_blank"><i>Cramer et al. (2016)</i></a>, they propose a theory that explains the difference in vulnerability to MD between individuals. Their model is built on the idea that individuals differ in the strength of the connections between different symptoms. This means that one person only experiences fatigue after several sleepless nights, while another person already experiences fatigue after one sleepless night. This network can be seen as a game of domino, where <i>strong</i> connected networks are domino tiles that are close to each other; one tile tipping makes other tiles tip over as well. <i>Weak</i> connections are tiles placed far apart; one tile tipping over does noet likely cause other tiles to tip over too.</p>
 
-          <img class="img-fluid" src="img/Fig_dominos.png" alt="">
+          <img class="img-fluid centerIt" src="img/Fig_dominos.png" alt="" width="75%">
           <span class="caption text-muted">The analogy between vulnerability in a network and spacing of domino tiles (obtained from <i>Cramer et al. (2016)</i>)</span>
 
-          <p>The model was studied in two parts. The fist simulation investiged the influence of increasing connectivity on the behavior of the MD system. <i>Cramer et al. (2016)</i> tried to answer the question if a system with stronger connections was more prone to end up in a despressed state than the systems with relatively weak connections. The second simulation examined the influence of stress on the behavior of the networks.</p>
+          <p>The model was studied in two parts. The fist simulation focussed on the influence of increasing connectivity on the behavior of the MD system. <i>Cramer et al. (2016)</i> tried to answer the question if a system with stronger connections was more prone to end up in a despressed state than the systems with relatively weak connections. The second simulation examined the influence of stress on the behavior of the networks.</p>
 
-          <div class="container">
+          <div class="container col-sm-10">
               <div class="row">
                   <div class="col-sm-6">
-                    <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="480" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/failure-6pg8hzcQkTDoc">via GIPHY</a></p>
+                    <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="500" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/failure-6pg8hzcQkTDoc">via GIPHY</a></p>
                   </div>
                   <div class="col-sm-6">
-                    <iframe src="https://giphy.com/embed/WmkYhCt0Ddnyw" width="480" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/dominos-WmkYhCt0Ddnyw">via GIPHY</a></p>
+                    <iframe src="https://giphy.com/embed/WmkYhCt0Ddnyw" width="450" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/dominos-WmkYhCt0Ddnyw">via GIPHY</a></p>
                   </div>
               </div>
           </div>
 
-          
+
+          <p><b>Simulation I: The vulnerability hypothesis</b></p>
+
+          <p>For the first simulation, an intra-individual MD model was constructed, which was able to develop over time. In this model, symptoms can be either 'on' (active) or 'off' (inactive). The probability of a symptom becoming active depends on both its <i>threshold</i> and <i>weight parameters</i>. Each symptom has a threshold, which represents the symptoms 'preference' to be active or inactive. <font color="red">A threshold of 0 means that the symptom has no preference, while a positive threshold means the symptom prefers to be active (and a negative threshold represents the preference for being inactive).</font> The weights represent the undirected connections between two symptoms. If the weight is 0, there is no connection. The higher the value of the weight, the more the two corresponding sympoms prefer to be in the same state ('on' or 'off'). Together, the two parameters influence the probability that a symptom becomes active at a particular point in time. The lower its threshold, and the more activation it recieves from its neighbors, the higher the probability the symptom becomes active itself.</p>
+
+          <p>The model is constructed in the following way:
+          <ul>
+            <li>It is assumed that the total amount of activation symptom <i>i</i> receives at time <i>t</i> is the weighted summation of all neighboring symptoms <b>X</b>. This is represented by the <i>total activation function</i>: 
+                      <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> <b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup></font></p></li>
+            <li>The probability that a symptom becomes active at time <i>t</i> depends on the difference between the total activation of its neighbors and the symptoms threshold. <font color="red">The parameter <b>b<sub>i</sub></b> denotes the absolute value of the thresholds. The higher the total activation exceeds the threshold of that symptom, the higher the probability that the symptom becomes active. This is represented by the <i>probability function</i>:</font>
+                      <p><b>P</b>(<b>X</b><sub>i</sub><sup>t</sup> = 1) = 1 &#8725 (1 + <i>e</i><sup>(<b>b<sub>i</sub></b> - A<sub>i</sub><sup>t</sup>)</sup></li>
+          </ul>
+          <p><b>The simulation I study</b>
+              <p>To investigate the differences in vulnerability between strongly and weakly connected networks, the activation function is modified. The connectivity of the system is represented by the <i>connectivity parameter c</i>, which is multiplied with the weights-matrix <b>W</b>. This results in the following <i>total activation function</i>:
+              <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> c<b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup></font></p></p></p>
+
+            <p>The connectivity parameter <i>c</i> had three different values, in order to create three networks: a weak <i>c</i> = 0.80), a medium (<i>c</i> = 1.10) and a strong connected network (<i>c</i> = 2.00). For all networks, the simulation was started with all symptoms in an inactive state. The simulation run for 10000 time steps, and each time step the total activation and the probability of symptom-activation was calculated. <font color="red">From these probabilities, the symptom values for the next time step were sampled. HOE?</font><br> 
+            At each time point, the total number of activated symptoms was tracked, and labelled as <i>D</i> (the depression of the system). The more symptoms are active, the more 'depressed' the system is. </p>
 
           <p><b>Simulation I: The vulnerability hypothesis</b></p>
 
@@ -111,9 +128,7 @@
           <img class="img-fluid" src="img/Simulation1.png" alt="">
           <span class="caption text-muted">The state of the MD system in response to stress for varying connectivity</span>
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
-
-           <div class="container">
+           <div class="container centerIt">
               <div class="row">
                   <div class="col-sm-6">
                       <div class="row align-items-center">
@@ -134,20 +149,18 @@
               </div>
           </div>
 
-          <div id="lineGraph"></div>
+          <div id="lineGraph" class="centerIt"></div>
           <div id='tooltip' style='position:absolute;background-color:lightgray;padding:5px'></div>
-          <button onclick='changeGraph("#graphSVG1", "div#lineGraph");'>Change Graph</button>
+          <button onclick='changeGraph("#graphSVG1", "div#lineGraph", "");'>Change Graph</button>
 
-          <p>What is Lorem Ipsum?
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+          <svg id="adjacency" class="centerIt" width="550" height="550"></svg>
 
-          <svg id="adjacency" width="550" height="550"></svg>
+            <p><b>Simulation II: Investigating the influence of external stress on the MD systems</b></p>
 
-          <p>Why do we use it?
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-</p>
+            As external stressful pressures (like the death of a loved one) have an impact on the development of MD, the simulation study above does not do justice to the real life. In this second simulation study, there is an additional factor influencing the MD network: <b>Stress</b>. The aim of this addition is trying to answer the following question:<br>
+            <b>What happens to systems with increasing connectivity, when external stess is added?</b><br>
 
-          <div class="container">
+          <div class="container centerIt">
               <div class="row">
                   <div class="col-sm-6">
                       <div class="row align-items-center">
@@ -167,12 +180,40 @@ It is a long established fact that a reader will be distracted by the readable c
                   </div>
               </div>
           </div>
-          <div id="lineGraph_sim2"></div>
+          <div id="lineGraph_sim2" class="centerIt"></div>
           <button onclick='changeGraph2("#graphSVG2", "#lineGraph_sim2", "_sim2");'>Change Graph</button>
 
-
-          <p>Why do we use it?
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+          <div class="container">
+                <div class="switch-toggle switch-3 switch-candy">
+                  <input id="on" name="state-d" type="radio" checked="" />
+                  <label for="on" onclick="sim1()">Simulation-1</label>
+                  <input id="off" name="state-d" type="radio" />
+                  <label for="off" onclick="sim2()">Simulation-2</label>
+                  <a></a>
+                </div>
+              <select id="dropdown"></select>
+          </div>
+          <div class="container centerIt">
+            <div class="row align-items-center">
+              <div class="col-sm-6">
+                <div id="slider1_sim3"></div>
+                <p id="value1_sim3" class="valueSlider"></p>
+              </div>
+              <div class="col-sm-6">
+                <div id="slider2_sim3"></div>
+                <p id="value2_sim3" class="valueSlider"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div id="graph_nw_lines"></div>
+              </div>
+              <div class="col-sm-6">
+                <div id="graph_network" width="400" height="400"></div>
+              </div>
+              <button onclick="sim1_2();">Change Graph</button>
+            </div>
+          </div>
 
           <script>
               var client = new WebSocket("ws://localhost:39822");
@@ -189,45 +230,6 @@ It is a long established fact that a reader will be distracted by the readable c
               };
 
           </script>
-          <div class="container">
-                <div class="switch-toggle switch-3 switch-candy">
-                  <input id="on" name="state-d" type="radio" checked="" />
-                  <label for="on" onclick="sim1()">Simulation-1</label>
-                  <input id="off" name="state-d" type="radio" />
-                  <label for="off" onclick="sim2()">Simulation-2</label>
-                  <a></a>
-                </div>
-              <select id="dropdown"></select>
-          </div>
-          <div class="container">
-                  <div class="row">
-                      <div class="col-sm-6">
-                          <div class="row align-items-center">
-                            <div class="col-sm">
-                              <div id="slider1_sim3"></div>
-                              <p id="value1_sim3" class="valueSlider"></p>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6">
-                          <div class="row align-items-center">
-                            <div class="col-sm">
-                              <div id="slider2_sim3"></div>
-                              <p id="value2_sim3" class="valueSlider"></p>
-                            </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div id="graph_nw_lines"></div>
-              <button onclick="sim1_2();">Change Graph</button>
-            </div>
-            <div class="row">
-              <div id="graph_network" width="400" height="400"></div>
-            </div>
-          </div>
-
-
         </div>
       </div>
     </div>
