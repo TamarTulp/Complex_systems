@@ -43,7 +43,7 @@ def simulation_2(I: int, c: float):
     X = np.zeros((I, *b.shape), np.bool)
     P = np.zeros((I, *b.shape), np.float32)
     D = np.zeros((I), np.uint8)
-    S = np.concatenate((np.linspace(-10, 5, I2), np.linspace(10, -5, I2)))
+    S = np.concatenate((np.linspace(-10, 5, I2), np.linspace(5, -10, I2)))
 
     for i in range(1, I):
         A = np.sum(c * W * X[i-1] + S[i], axis=1)
