@@ -1,30 +1,13 @@
 var client = new WebSocket("ws://localhost:39822");
-var data, link, node, circle_mask, circle, label;
-var selected = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+var data, link, node, circle, label;
 
 
-function request(){
-    json = '{"simulation": 1, "I":1000, "c": 2, "select": ' + JSON.stringify(selected) + '}';
-    console.log(json);
-    client.send(json);
-}
-
-function update(i) {
-    X = data.X[i];
-    P = data.P[i];
-
-    circle
-        .attr("fill-opacity", function(d) { return P[d.index]; })
-        .attr("stroke-opacity", function(d) { return X[d.index] ? 1 : 0; });
-
+function update(index) {
+    X = data.X[index];
+    P = data.P[index];
+    circle.attr("fill-opacity", function(d) { return P[d.index]; });
+    circle.attr("stroke-opacity", function(d) { return X[d.index] ? 1 : 0; });
     label.attr("opacity", function(d) { return X[d.index] ? 1 : 0.7; } )
-}
-
-function select(index) {
-    selected[index] = selected[index] ? 0 : 1;
-    circle_mask.style("stroke", function(d) { return (selected[d.index]) ? 'grey' : 'red'; })
-    circle.style("stroke", function(d) { return (selected[d.index]) ? 'black' : 'red'; })
-    request();
 }
 
 var slider = document.getElementById("myRange");
@@ -32,6 +15,12 @@ slider.oninput = function() {
     if (circle != null && data != null) {
         update(this.value);
     }
+}
+
+function request(){
+    json = '{"simulation": 1, "I":1000, "c": 1.1}'
+    console.log(json);
+    client.send(json);
 }
 
 client.onopen = function(evt) {
@@ -80,15 +69,14 @@ d3.json("graph.json", function(error, graph) {
         .data(graph.nodes)
         .enter().append("g")
 
-    circle_mask = node.append("circle")
+    var circle_mask = node.append("circle")
         .attr("r", 10)
-        .style("fill", 'white');
+        .attr("fill", 'white')
+        .attr("stroke-opacity", 0.3);
 
     circle = node.append("circle")
         .attr("r", 10)
-        .style("fill", function(d) { return color(d.id); })
-        .style("stroke", "black")
-        .on("click", function(d) { return select(d.index); })
+        .attr("fill", function(d) { return color(d.id); })
         .call(d3.drag()
             .on("start", dragstarted)
             .on("drag", dragged)
