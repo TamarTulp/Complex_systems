@@ -159,10 +159,18 @@ function drawGraph() {
   });
 }
 
-var global_nodeList = [];
-drawGraph();
-
-function readMe() {
-  console.log("hallo");
-  console.log(d3.select("#tswitch").node().value)
+function sim1() {
+    global_1or2 = 1;
+    changeGraph("#nwSVG1", "#graph_nw_lines", "_sim3");
 }
+
+function sim2() {
+    global_1or2 = 2;
+    changeGraph2("#nwSVG1", "#graph_nw_lines", "_sim3");
+}
+
+function sim1_2() {if (global_1or2 == 1) { sim1(); } else { sim2(); }}
+
+var global_nodeList = [];
+var global_1or2 = 1;
+drawGraph();

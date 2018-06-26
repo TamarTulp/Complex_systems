@@ -1,8 +1,8 @@
-function drawLineGraph(array_data, div) {
-  d3.select("#graphSVG1").remove();
+function drawLineGraph(array_data, divRem, div) {
+  d3.select(divRem).remove();
 
   // dimensions
-  var width = 750;
+  var width = 500;
   var height = 400;
 
   var margin = {
@@ -23,9 +23,9 @@ function drawLineGraph(array_data, div) {
   }
 
   // create an svg to draw in
-  var svg = d3.select("div#lineGraph")
+  var svg = d3.select(div)
       .append("svg")
-      .attr("id", "graphSVG1")
+      .attr("id", divRem.slice(1))
       .attr("width", width)
       .attr("height", height)
       .append('g')
@@ -59,7 +59,7 @@ function drawLineGraph(array_data, div) {
   function make_y_gridlines() {
       return d3.axisLeft(y);
   }
-
+  console.log(array_data, divRem, div);
   var data = [];
   var N = array_data.length;
   xdata = Array.apply(null, {length: N}).map(Number.call, Number);
@@ -107,11 +107,6 @@ function drawLineGraph(array_data, div) {
         .attr("y1", 0)
         .attr("y2", height);
 
-    focus.append("line")
-        .attr("class", "y-hover-line hover-line")
-        .attr("x1", width)
-        .attr("x2", width);
-
     focus.append("circle")
         .attr("r", 15);
 
@@ -146,7 +141,8 @@ function drawLineGraph(array_data, div) {
     }
 }
 
-function drawSlider() {
+function drawSlider(div1, div2, extension) {
+
   var data1 = [0.5, 1, 1.5, 2, 2.5, 3];
   var data2 = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000];
 
@@ -158,10 +154,10 @@ function drawSlider() {
     .ticks(5)
     .default(1.1)
     .on('onchange', val => {
-      d3.select("p#value1").text(Math.round(val * 100) / 100);
+      d3.select("p#value1" + extension).text(Math.round(val * 100) / 100);
     });
 
-  var g = d3.select("div#slider1").append("svg")
+  var g = d3.select(div1).append("svg")
     .attr("width", 400)
     .attr("height", 100)
     .append("g")
@@ -179,8 +175,7 @@ function drawSlider() {
 
   g.call(slider1);
 
-  d3.select("p#value1").text(d3.format('.2')(slider1.value()));
-  d3.select("a#setValue1").on("click", () => slider1.value(1.1));
+  d3.select("p#value1" + extension).text(d3.format('.2')(slider1.value()));
 
   var slider2 = d3.sliderHorizontal()
     .min(d3.min(data2))
@@ -190,10 +185,10 @@ function drawSlider() {
     .ticks(5)
     .default(1500)
     .on('onchange', val => {
-      d3.select("p#value2").text(Math.round(val));
+      d3.select("p#value2" + extension).text(Math.round(val));
     });
 
-  var g = d3.select("div#slider2").append("svg")
+  var g = d3.select(div2).append("svg")
     .attr("width", 400)
     .attr("height", 100)
     .append("g")
@@ -211,13 +206,15 @@ function drawSlider() {
 
   g.call(slider2);
 
-  d3.select("p#value2").text(d3.format('.2')(slider2.value()))
-  d3.select("a#setValue2").on("click", () => slider2.value(1500));
+  d3.select("p#value2" + extension).text(d3.format('.2')(slider2.value()))
 }
 
-function changeGraph() {
-  string = '{"simulation":1, "I":' + d3.select("p#value2").text() + ', "c":' + d3.select("p#value1").text() + '}';
-  string2 = '{"simulation":2, "I":' + d3.select("p#value2").text() + ', "c":' + d3.select("p#value1").text() + '}';
+function changeGraph(div1, div2, extension) {
+  console.log(d3.select("p#value2").text());
+  console.log(extension, div1, div2, "p#value2" + extension);
+  if (extension){ string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}'; }
+  else { string = '{"simulation":1, "I":' + d3.select("p#value2").text() + ', "c":' + d3.select("p#value1").text() + '}'; }
+  console.log(string);
 
   var client = new WebSocket("ws://localhost:39822");
       client.onopen = function(evt) {
@@ -226,7 +223,7 @@ function changeGraph() {
       };
       client.onmessage = function(evt) {
           console.log(JSON.parse(evt.data));
-          drawLineGraph(JSON.parse(evt.data)["D"]);
+          drawLineGraph(JSON.parse(evt.data)["D"], div1, div2);
       };
       client.onclose = function(ect) {
           console.log("Connection Closed");
@@ -333,8 +330,9 @@ function adjacency() {
 }
 adjacency();
 
-function drawLineGraph2(array_data) {
-  d3.select("#graphSVG2").remove();
+function drawLineGraph2(array_data, divRem, div) {
+  console.log(array_data);
+  d3.select(divRem).remove();
 
   data_graph = []
 
@@ -364,9 +362,9 @@ function drawLineGraph2(array_data) {
   }
 
   // create an svg to draw in
-  var svg = d3.select("#lineGraph_sim2")
+  var svg = d3.select(div)
       .append("svg")
-      .attr("id", "graphSVG2")
+      .attr("id", divRem.slice(1))
       .attr("width", width)
       .attr("height", height)
       .append('g')
@@ -519,11 +517,6 @@ function drawLineGraph2(array_data) {
         .attr("y1", 0)
         .attr("y2", height);
 
-    focus.append("line")
-        .attr("class", "y-hover-line hover-line")
-        .attr("x1", width)
-        .attr("x2", width);
-
     focus.append("circle")
         .attr("id", "down")
         .attr("r", 15);
@@ -584,77 +577,9 @@ function drawLineGraph2(array_data) {
     }
 }
 
-function drawSlider2() {
-  var data1 = [0.5, 1, 1.5, 2, 2.5, 3];
-  var data2 = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000];
 
-  var slider1 = d3.sliderHorizontal()
-    .min(d3.min(data1))
-    .max(d3.max(data1))
-    .width(300)
-    .tickFormat(d3.format('.2'))
-    .ticks(5)
-    .default(1.1)
-    .on('onchange', val => {
-      d3.select("p#value1_sim2").text(Math.round(val * 100) / 100);
-    });
-
-  var g = d3.select("div#slider1_sim2").append("svg")
-    .attr("width", 400)
-    .attr("height", 100)
-    .append("g")
-    .attr("transform", "translate(30,30)");
-
-  var text = g.append("text")
-    .attr("x", 0)
-    .attr("y", 60)
-    .attr("dy", ".15em")
-    .style("fill", "#8b8d8f")
-    .attr("font-family", "Times New Roman")
-    .attr("font-size", "18px")
-    .attr("font-weight", "bold")
-    .text("C-Value");
-
-  g.call(slider1);
-
-  d3.select("p#value1_sim2").text(d3.format('.2')(slider1.value()));
-  d3.select("a#setValue1_sim2").on("click", () => slider1.value(1.1));
-
-  var slider2 = d3.sliderHorizontal()
-    .min(d3.min(data2))
-    .max(d3.max(data2))
-    .width(300)
-    .tickFormat(d3.format('.2'))
-    .ticks(5)
-    .default(1500)
-    .on('onchange', val => {
-      d3.select("p#value2_sim2").text(2 * Math.round(val / 2));
-    });
-
-  var g = d3.select("div#slider2_sim2").append("svg")
-    .attr("width", 400)
-    .attr("height", 100)
-    .append("g")
-    .attr("transform", "translate(30,30)");
-
-  var text = g.append("text")
-    .attr("x", 0)
-    .attr("y", 60)
-    .attr("dy", ".15em")
-    .style("fill", "#8b8d8f")
-    .attr("font-family", "Times New Roman")
-    .attr("font-size", "18px")
-    .attr("font-weight", "bold")
-    .text("Number of Iterations");
-
-  g.call(slider2);
-
-  d3.select("p#value2_sim2").text(d3.format('.2')(slider2.value()))
-  d3.select("a#setValue2_sim2").on("click", () => slider2.value(1500));
-}
-
-function changeGraph2() {
-  string2 = '{"simulation":2, "I":' + d3.select("p#value2_sim2").text() + ', "c":' + d3.select("p#value1_sim2").text() + '}';
+function changeGraph2(div1,div2,extension) {
+  string2 = '{"simulation":2, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
 
   var client = new WebSocket("ws://localhost:39822");
       client.onopen = function(evt) {
@@ -662,7 +587,7 @@ function changeGraph2() {
           client.send(string2);
       };
       client.onmessage = function(evt) {
-          drawLineGraph2(JSON.parse(evt.data));
+          drawLineGraph2(JSON.parse(evt.data), div1, div2);
       };
       client.onclose = function(ect) {
           console.log("Connection Closed");
@@ -671,11 +596,13 @@ function changeGraph2() {
 
 function initFunctions(array_data) {
   if (array_data["simulation"] == 1) {
-    drawLineGraph(array_data["D"], "#graphSVG1");
-    drawSlider();
+    drawLineGraph(array_data["D"], "#graphSVG1", "div#lineGraph");
+    drawSlider("div#slider1", "div#slider2", "");
+    drawLineGraph(array_data["D"], "#nwSVG1", "#graph_nw_lines");
+    drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
   }
-  if (array_data["simulation"] == 2) {
-    drawLineGraph2(array_data, "#graphSVG2");
-    drawSlider2();
+  else if (array_data["simulation"] == 2) {
+    drawLineGraph2(array_data, "#graphSVG2", "#lineGraph_sim2");
+    drawSlider("div#slider1_sim2", "div#slider2_sim2", "_sim2");
   }
 }
