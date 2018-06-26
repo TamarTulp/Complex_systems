@@ -4,7 +4,7 @@
 }
 
 .nodes circle {
-  stroke: #000;
+  stroke: grey;
   stroke-width: 2px;
 }
 
