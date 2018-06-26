@@ -22,8 +22,11 @@
     <link href="css/clean-blog.min.css" rel="stylesheet">
     <link rel="icon" href="img/icon.png">
 
-    <!-- D3 library -->
+    <!-- libraries -->
     <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider@0.2.1/build/d3-simple-slider.js"></script>
+    <script src="js/jsnetworkx.js"></script>
+    <script src="js/lineGraph.js"></script>
 
   </head>
 
@@ -32,7 +35,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand" href="index.html">MD: A simulation</a>
+        <a class="navbar-brand" href="index.html">MD simulation</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -64,7 +67,7 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>Major Depression</h1>
-              <span class="subheading">A complex dynamic system characterized by depression symtoms</span>
+              <span class="subheading">A complex system simulation characterized by depression symtoms</span>
             </div>
           </div>
         </div>
@@ -88,9 +91,7 @@
 
           <p>The MD-network as shown below is referred to as a <i>complex dynamic system</i>. <i>Complex</i> because the relations between symptoms may lead may lead to properties of the system that are impossible to predict from the individual systems. <b>The whole is more than the sum of the parts!</b> The system is <i>dynamic</i>, because this network of symptom-relations develops over time. The MD system has two <i>attractor</i> states: 'depressed' and 'non-depressed'. </p>
 
-          <p>In this project, we aim to reconstruct the results from the paper of <i>Cramer et al. (2016)</i>. In addition, we enable the deletion of certain symptoms from the network. By doing so we want to answer the question if the development of MD can be countered by aiming therapy or medication on specific symptoms. </p> 
-
-          <p>The following pages contain the 'article work' (where we explain the model of <i>Cramer et al. (2016)</i> and display our recreated results) and our own addition to the model (in 'future work'). If you have questions, our contact-details can be found on the 'contact' page!</p>
+          <p><font color="red">In this project, we aim to reconstruct the figures from the paper of <i>Cramer et al. (2016)</i>. NOG VERDER SCHRIJVEN!</font></p> 
 
         </div>
       </div>
@@ -141,7 +142,8 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/clean-blog.min.js"></script>
-    <script src="js/graph.js"></script>
+    <!-- <script src="js/graph.js"></script> -->
+    <script src="js/jsnetworkGraph.js"></script>
 
   </body>
 

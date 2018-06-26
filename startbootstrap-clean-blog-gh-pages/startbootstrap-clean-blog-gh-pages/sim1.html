@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog - Start Bootstrap Theme</title>
+    <title>MD simulation</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +21,19 @@
     <!-- Custom styles for this template -->
     <link href="css/clean-blog.min.css" rel="stylesheet">
     <link rel="icon" href="img/icon.png">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <!-- D3 library -->
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider@0.2.1/build/d3-simple-slider.js"></script>
+    <script src="js/jsnetworkx.js"></script>
+    <script src="js/lineGraph.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js" type="text/javascript"></script>
+    <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+          <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
 
   </head>
 
@@ -29,7 +42,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand" href="index.html">MD: A simulation</a>
+        <a class="navbar-brand" href="index.html">MD simulation</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -54,13 +67,13 @@
     </nav>
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('img/Simulation1.png')">
+    <header class="masthead" style="background-image: url('img/sim1.png')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="page-heading">
-              <h1>Recreating the MD model</h1>
+              <h1>Recreating the article</h1>
               <span class="subheading">Creating the model in Python and JavaScript.</span>
             </div>
           </div>
@@ -71,13 +84,25 @@
     <!-- Main Content -->
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <p>In the article of <i>Cramer et al. (2016)</i>, they propose a theory that explains the difference in vulnerability to MD between individuals. Their model is built on the idea that individuals differ in the strength of the connections between different symptoms. This means that one person only experiences fatigue after several sleepless nights, while another person already experiences fatigue after one sleepless night. This network can be seen as a game of domino, where <i>strong</i> connected networks are domino tiles that are close to each other; one tile tipping makes other tiles tip over as well. <i>Weak</i> connections are tiles placed far apart; one tile tipping over does noet likely cause other tiles to tip over too.</p>
+        <div class="col-lg-10 col-md-10 mx-auto">
+          <p>In the article of <a href="/pdf/MD_complex_dynamic_system.pdf" target="_blank"><i>Cramer et al. (2016)</i></a>, they propose a theory that explains the difference in vulnerability to MD between individuals. Their model is built on the idea that individuals differ in the strength of the connections between different symptoms. This means that one person only experiences fatigue after several sleepless nights, while another person already experiences fatigue after one sleepless night. This network can be seen as a game of domino, where <i>strong</i> connected networks are domino tiles that are close to each other; one tile tipping makes other tiles tip over as well. <i>Weak</i> connections are tiles placed far apart; one tile tipping over does noet likely cause other tiles to tip over too.</p>
 
-          <img class="img-fluid" src="img/Fig_dominos.png" alt="">
+          <img class="img-fluid centerIt" src="img/Fig_dominos.png" alt="" width="75%">
           <span class="caption text-muted">The analogy between vulnerability in a network and spacing of domino tiles (obtained from <i>Cramer et al. (2016)</i>)</span>
 
           <p>The model was studied in two parts. The fist simulation focussed on the influence of increasing connectivity on the behavior of the MD system. <i>Cramer et al. (2016)</i> tried to answer the question if a system with stronger connections was more prone to end up in a despressed state than the systems with relatively weak connections. The second simulation examined the influence of stress on the behavior of the networks.</p>
+
+          <div class="container col-sm-10">
+              <div class="row">
+                  <div class="col-sm-6">
+                    <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="500" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/failure-6pg8hzcQkTDoc">via GIPHY</a></p>
+                  </div>
+                  <div class="col-sm-6">
+                    <iframe src="https://giphy.com/embed/WmkYhCt0Ddnyw" width="450" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/dominos-WmkYhCt0Ddnyw">via GIPHY</a></p>
+                  </div>
+              </div>
+          </div>
+
 
           <p><b>Simulation I: The vulnerability hypothesis</b></p>
 
@@ -97,22 +122,114 @@
             <p>The connectivity parameter <i>c</i> had three different values, in order to create three networks: a weak <i>c</i> = 0.80), a medium (<i>c</i> = 1.10) and a strong connected network (<i>c</i> = 2.00). For all networks, the simulation was started with all symptoms in an inactive state. The simulation run for 10000 time steps, and each time step the total activation and the probability of symptom-activation was calculated. <font color="red">From these probabilities, the symptom values for the next time step were sampled. HOE?</font><br> 
             At each time point, the total number of activated symptoms was tracked, and labelled as <i>D</i> (the depression of the system). The more symptoms are active, the more 'depressed' the system is. </p>
 
-            <p><font color="red">HIER TEKST OVER ONZE RESULTATEN</font></p>
+          <p><b>Simulation I: The vulnerability hypothesis</b></p>
 
-            <p><font color="red">HIER PLAATJE VAN ONZE RESULTATEN?</font></p>
+
+          <img class="img-fluid" src="img/Simulation1.png" alt="">
+          <span class="caption text-muted">The state of the MD system in response to stress for varying connectivity</span>
+
+           <div class="container centerIt">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider1"></div>
+                          <p id="value1" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider2"></div>
+                          <p id="value2" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div id="lineGraph" class="centerIt"></div>
+          <div id='tooltip' style='position:absolute;background-color:lightgray;padding:5px'></div>
+          <button onclick='changeGraph("#graphSVG1", "div#lineGraph", "");'>Change Graph</button>
+
+          <svg id="adjacency" class="centerIt" width="550" height="550"></svg>
 
             <p><b>Simulation II: Investigating the influence of external stress on the MD systems</b></p>
 
             As external stressful pressures (like the death of a loved one) have an impact on the development of MD, the simulation study above does not do justice to the real life. In this second simulation study, there is an additional factor influencing the MD network: <b>Stress</b>. The aim of this addition is trying to answer the following question:<br>
             <b>What happens to systems with increasing connectivity, when external stess is added?</b><br>
-            
-            To try and answer this question, the model is extended by adding a stress-factor. For simplicity, it is assumed that stress had the same effect on every symptom. It is added to the total activation, resulting in the following modified <i>total activation function</i> (the probability functions remains unchanged):
-            <p><font color="red">A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> c<b>W</b><sub>ij</sub><b>X</b><sub>j</sub><sup>t-1</sup> + S<sub>i</sub><sup>t</sup></font></p></p></p>
 
-            <p><font color="red">HIER TEKST OVER ONZE RESULTATEN</font></p>
+          <div class="container centerIt">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider1_sim2"></div>
+                          <p id="value1_sim2" class="valueSlider"></p>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="row align-items-center">
+                        <div class="col-sm">
+                          <div id="slider2_sim2"></div>
+                          <p id="value2_sim2" class="valueSlider">2</p>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div id="lineGraph_sim2" class="centerIt"></div>
+          <button onclick='changeGraph2("#graphSVG2", "#lineGraph_sim2", "_sim2");'>Change Graph</button>
 
-            <p><font color="red">HIER PLAATJE VAN ONZE RESULTATEN?</font></p>
-          <p>
+          <div class="container">
+                <div class="switch-toggle switch-3 switch-candy">
+                  <input id="on" name="state-d" type="radio" checked="" />
+                  <label for="on" onclick="sim1()">Simulation-1</label>
+                  <input id="off" name="state-d" type="radio" />
+                  <label for="off" onclick="sim2()">Simulation-2</label>
+                  <a></a>
+                </div>
+              <select id="dropdown"></select>
+          </div>
+          <div class="container centerIt">
+            <div class="row align-items-center">
+              <div class="col-sm-6">
+                <div id="slider1_sim3"></div>
+                <p id="value1_sim3" class="valueSlider"></p>
+              </div>
+              <div class="col-sm-6">
+                <div id="slider2_sim3"></div>
+                <p id="value2_sim3" class="valueSlider"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div id="graph_nw_lines"></div>
+              </div>
+              <div class="col-sm-6">
+                <div id="graph_network" width="400" height="400"></div>
+              </div>
+              <button onclick="sim1_2();">Change Graph</button>
+            </div>
+          </div>
+
+          <script>
+              var client = new WebSocket("ws://localhost:39822");
+              client.onopen = function(evt) {
+                  console.log("Connection Opened");
+                  client.send('{"simulation": 1, "I":1000, "c":1.1}');
+                  client.send('{"simulation": 2, "I":1000, "c":1.1}');
+              };
+              client.onmessage = function(evt) {
+                  initFunctions(JSON.parse(evt.data));
+              };
+              client.onclose = function(ect) {
+                  console.log("Connection Closed");
+              };
+
+          </script>
         </div>
       </div>
     </div>
@@ -162,6 +279,8 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/clean-blog.min.js"></script>
+    <script src="js/lineGraph.js"></script>
+    <script src="js/graph_network.js"></script>
 
   </body>
 
