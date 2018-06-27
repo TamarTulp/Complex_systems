@@ -37,7 +37,7 @@ function drawGraph() {
     if (global_nodeList.length != 0) {
       graph = removeNodes(graph, global_nodeList);
     }
-    console.log(graph["nodes"])
+
     optionList = graph["nodes"]
     optionList.push({"14":"Remove node"})
 

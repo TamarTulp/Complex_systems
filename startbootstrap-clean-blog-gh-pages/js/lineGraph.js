@@ -1,4 +1,5 @@
 function drawLineGraph(array_data, divRem, div) {
+  console.log(array_data, divRem, div);
   d3.select(divRem).remove();
 
   // dimensions
@@ -69,7 +70,7 @@ function drawLineGraph(array_data, divRem, div) {
   });
 
   x.domain(d3.extent(data, function(d) { return d.year; }));
-  y.domain([0,14]);
+  y.domain(d3.extent(data, function(d) { return d.value; }));
 
   // add the Y gridlines
   g.append("g")
@@ -160,7 +161,7 @@ function drawSlider(div1, div2, extension) {
     .on('onchange', val => {
       d3.select("p#value1" + extension).text(Math.round(val * 100) / 100);
     });
-  console.log(height);
+
   var g = d3.select(div1).append("svg")
     .attr("preserveAspectRatio", "xMinYMin meet")
     .attr("viewBox", "0 0 400 100")
@@ -242,6 +243,7 @@ function adjacency() {
      });
 
     function createAdjacencyMatrix(nodes,edges){
+    console.log(nodes, edges);
 
     var width = 600;
     var height = 600;
@@ -601,6 +603,7 @@ function changeGraph2(div1,div2,extension) {
 
 
 function initFunctions(array_data) {
+  adjacency();
   if (array_data["simulation"] == 1) {
     drawLineGraph(array_data["D"], "#graphSVG1", "div#lineGraph");
     drawSlider("div#slider1", "div#slider2", "");

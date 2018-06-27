@@ -95,17 +95,10 @@
           <div class="container col-sm-10">
               <div class="row">
                   <div class="col-sm-6">
-<<<<<<< HEAD
-                    <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="625" height="250" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/failure-6pg8hzcQkTDoc">via GIPHY</a></p>
+                    <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="625" height="250" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
                   </div>
                   <div class="col-sm-6">
-                    <iframe src="https://giphy.com/embed/WmkYhCt0Ddnyw" width="495" height="250" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/dominos-WmkYhCt0Ddnyw">via GIPHY</a></p>
-=======
-                    <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="500" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-                  </div>
-                  <div class="col-sm-6">
-                    <iframe src="https://giphy.com/embed/WmkYhCt0Ddnyw" width="450" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
->>>>>>> edbfa10184e79908e61afb55794eccd05827e99a
+                    <iframe src="https://giphy.com/embed/WmkYhCt0Ddnyw" width="495" height="250" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
                   </div>
               </div>
           </div>
@@ -117,11 +110,11 @@
 
           <p>The graph below represents the weights between two nodes. The darker a tile, the higher the value of the weight. The exact values of the weights can be found when you hover over the tiles.</p>
 
-          <svg id="adjacency" class="centerIt" width="550" height="550"></svg>
+          <div id="adjacencyDIV" class="svg-container"></div>
 
           <p>This first model is constructed in the following way:
           <ul>
-            <li>It is assumed that the total amount of activation symptom <i>i</i> receives at time <i>t</i> is the weighted summation of all neighboring symptoms <b>X</b>. This is represented by the <i>total activation function</i>: 
+            <li>It is assumed that the total amount of activation symptom <i>i</i> receives at time <i>t</i> is the weighted summation of all neighboring symptoms <b>X</b>. This is represented by the <i>total activation function</i>:
                       <p>A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> <b>W</b><sub>ij</sub>X<sub>j</sub><sup>t-1</sup></p></li>
             <li>The probability that a symptom becomes active at time <i>t</i> depends on the difference between the total activation of its neighbors and the symptom threshold. The parameter <b>b<sub>i</sub></b> denotes the absolute value of the thresholds. The higher the total activation exceeds the threshold of that symptom, the higher the probability that the symptom becomes active. This is represented by the <i>probability function</i>:
                       <p>P (X<sub>i</sub><sup>t</sup> = 1) = 1 &#8725 (1 + <i>e</i><sup>(b<sub>i</sub> - A<sub>i</sub><sup>t</sup>)</sup>)</li>
@@ -130,15 +123,12 @@
               <p>To investigate the differences in vulnerability between strongly and weakly connected networks, the activation function is modified. The connectivity of the system is represented by the <i>connectivity parameter c</i>, which is multiplied with the weights matrix <b>W</b>. This results in the following <i>total activation function</i>:
               <p>A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> c<b>W</b><sub>ij</sub>X<sub>j</sub><sup>t-1</sup></p></p></p>
 
-             <p>In the article, the connectivity parameter <i>c</i> had three different values, in order to create three networks: a weak <i>c</i> = 0.80), a medium (<i>c</i> = 1.10) and a strong connected network (<i>c</i> = 2.00). We used <i>c</i> in the range 0.5 - 3.0. For all networks, the simulation was started with all symptoms in an inactive state. The simulation was run for 10000 time steps and each time step the total activation and the probability of symptom activation was calculated. From these probabilities, the symptom values for the next time step were sampled. <br> 
+             <p>In the article, the connectivity parameter <i>c</i> had three different values, in order to create three networks: a weak <i>c</i> = 0.80), a medium (<i>c</i> = 1.10) and a strong connected network (<i>c</i> = 2.00). We used <i>c</i> in the range 0.5 - 3.0. For all networks, the simulation was started with all symptoms in an inactive state. The simulation was run for 10000 time steps and each time step the total activation and the probability of symptom activation was calculated. From these probabilities, the symptom values for the next time step were sampled. <br>
             At each time point, the total number of activated symptoms was tracked, and labelled as <i>D</i> (the state of the system). The more symptoms are active, the more 'depressed' the system is. </p>
 
             <p>As the graphs below show, depression increases with connectivity. For a weakly connected system (<i>c</i> < 1.0) there are moments where several sympoms occur, but the system never develops into a 'depressed' one. As connecitivity increases, the system starts to oscillate between the 'non-depressed' and 'depressed' state. The system is able to go back to a 'non-depressed' state without changes to the network (in the real world, that would be therapy or medication). The strongly connected network (<i>c</i> > 1.2) becomes 'depressed' after a short time, and does not change back to the 'non-depressed' state. This can be regarded as a person that will not be able to get out of a depression without external help.</p>
 
-
-
           <!-- <p><b>Simulation I: The vulnerability hypothesis</b></p> -->
-
 
           <img class="img-fluid" src="img/Simulation1.png" alt="">
           <span class="caption text-muted">The state of the MD system in response to stress for varying connectivity</span>
@@ -168,15 +158,8 @@
           <div id='tooltip' style='position:absolute;background-color:lightgray;padding:5px'></div>
           <button onclick='changeGraph("#graphSVG1", "div#lineGraph", "");'>Change Graph</button>
 
-<<<<<<< HEAD
-          <div id="adjacencyDIV" class="svg-container"></div>
-=======
-          <!-- <svg id="adjacency" class="centerIt" width="550" height="550"></svg> -->
->>>>>>> edbfa10184e79908e61afb55794eccd05827e99a
-
           <p>The model used in simulation I represents the development of MD without an external trigger. To include the influence of these events, a second simulation was done.</p>
 
-          
             <p><b>Simulation II: Investigating the influence of external stress on the MD systems</b></p>
 
             As external stressful pressures (like the death of a loved one) have an impact on the development of MD, the simulation study above does not do justice to real life. In this second simulation study, there is an additional factor influencing the MD network: <b>stress</b>. The aim of this addition is to try to answer the following question:<br>
@@ -189,7 +172,7 @@
 
           For a weakly connected network in a 'depressed' state, decreasing the stress level makes it switch back to a 'non-depressed' state at the initial tipping point on which it switched to a 'depressed' state in the first place (see the red lines). For a heavilly connected network, this tipping point lays after the initial tipping point. So, to get into a 'depressed' state a different level of stress is needed, than to get out again. For someone with a heavily connected network to get out of this 'depressed' state, a lower amount of stress is needed, than the initial tipping point. In the graph you see, for a weakly connected network, that going to a depressed state happens at the same stress level as going back to a 'non-depressed' state, while a network which is heavily connected needs a lower stress level to switch back to a 'non-depressed' state.</p>
 
-<img class="img-fluid centerIt" src="img/3D_plot.png" alt="" width="100%">
+          <img class="img-fluid centerIt" src="img/3D_plot.png" alt="" width="100%">
 
           <div class="container centerIt">
               <div class="row">
@@ -214,7 +197,6 @@
           <div id="lineGraph_sim2" class="svg-container centerIt"></div>
           <button onclick='changeGraph2("#graphSVG2", "#lineGraph_sim2", "_sim2");'>Change Graph</button>
 
-<<<<<<< HEAD
           <!-- <div class="container">
 =======
 
@@ -270,7 +252,7 @@
           <p>
             <small>
               <ol>
-                <li id="Cramer"> <a href="/pdf/MD_complex_dynamic_system.pdf" target="_blank">Cramer, A. O., van Borkulo, C. D., Giltay, E. J., van der Maas, H. L., Kendler, K. S., Scheffer, M., & Borsboom, D. (2016). Major depression as a complex dynamic system. <i>PloS one, 11</i>(12), e0167490.</a></li>
+                <li id="Cramer"> <a href="startbootstrap-clean-blog-gh-pages/pdf/MD_complex_dynamic_system.pdf" target="_blank">Cramer, A. O., van Borkulo, C. D., Giltay, E. J., van der Maas, H. L., Kendler, K. S., Scheffer, M., & Borsboom, D. (2016). Major depression as a complex dynamic system. <i>PloS one, 11</i>(12), e0167490.</a></li>
               </ol>
             </small>
           </p>
