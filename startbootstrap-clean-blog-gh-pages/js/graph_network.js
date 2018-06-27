@@ -160,12 +160,12 @@ function drawGraph() {
 
 function sim1() {
     global_1or2 = 1;
-    changeGraph("#nwSVG1", "#graph_nw_lines", "_sim3");
+    changeGraph("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3");
 }
 
 function sim2() {
     global_1or2 = 2;
-    changeGraph2("#nwSVG1", "#graph_nw_lines", "_sim3");
+    changeGraph2("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3");
 }
 
 function sim1_2() {if (global_1or2 == 1) { sim1(); } else { sim2(); }}

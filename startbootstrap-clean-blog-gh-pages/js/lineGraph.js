@@ -235,7 +235,7 @@ function drawSlider(div1, div2, extension, defaultVal=1.1) {
 
 function changeGraph(div1, div2, extension) {
   string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
-
+console.log(string);
   var client = new WebSocket("ws://localhost:39822");
     client.onopen = function(evt) {
         console.log("Connection Opened");

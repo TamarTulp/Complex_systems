@@ -45,6 +45,7 @@ client.onmessage = function(evt) {
     if (circle != null) { update(slider.value); };
     drawLineGraph(JSON.parse(evt.data)["D"], "#heavy_networkSVG", "#heavy_network");
     drawSlider("div#slider1_HN", "div#slider2_HN", "_HN", 2);
+    drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
     console.log(data);
 }
 client.onclose = function(ect) {
@@ -153,3 +154,18 @@ function dragended(d) {
     d.fx = null;
     d.fy = null;
 }
+
+function sim1() {
+    global_1or2 = 1;
+    changeGraph("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3");
+}
+
+function sim2() {
+    global_1or2 = 2;
+    changeGraph2("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3");
+}
+
+function sim1_2() {if (global_1or2 == 1) { sim1(); } else { sim2(); }}
+
+var global_nodeList = [];
+var global_1or2 = 1;

@@ -234,33 +234,41 @@
             <div class="container">
               <div class="switch-toggle switch-3 switch-candy">
                 <input id="on" name="state-d" type="radio" checked="" />
-                <label for="on" onclick="sim1()">Simulation-1</label>
+                <label for="on" onclick='sim1()'>Simulation-1</label>
                 <input id="off" name="state-d" type="radio" />
-                <label for="off" onclick="sim2()">Simulation-2</label>
+                <label for="off" onclick='sim2()'>Simulation-2</label>
                 <a></a>
               </div>
             </div>
             <div class="container centerIt">
-              <div class="row align-items-center">
+              <div class="row">
                 <div class="col-sm-6">
-                  <div id="slider1_sim3" class="svg-container"></div>
-                  <p id="value1_sim3" class="valueSlider"></p>
+                  <div class="row align-items-center">
+                    <div class="col-sm">
+                      <div id="slider1_sim3" class="svg-container"></div>
+                      <p id="value1_sim3" class="valueSlider"></p>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-sm-6">
-                  <div id="slider2_sim3" class="svg-container"></div>
-                  <p id="value2_sim3" class="valueSlider"></p>
+                  <div class="row align-items-center">
+                    <div class="col-sm">
+                      <div id="slider2_sim3" class="svg-container"></div>
+                      <p id="value2_sim3" class="valueSlider"></p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-6">
                   <div id="graph_nw_lines" class="svg-container"></div>
+                  <button onclick='sim1_2()'>Change Graph</button>
                 </div>
                 <div class="col-sm-6">
                   <div id="graph_network" class="svg-container"></div>
                   <button onclick="request();">Update</button>
                   <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
                 </div>
-                <button onclick="sim1_2();">Change Graph</button>
               </div>
             </div>
 
