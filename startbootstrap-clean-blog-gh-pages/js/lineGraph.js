@@ -2,7 +2,7 @@ function drawLineGraph(array_data, divRem, div) {
   d3.select(divRem).remove();
 
   // dimensions
-  var width = 500;
+  var width = 750;
   var height = 400;
 
   var margin = {
@@ -26,8 +26,9 @@ function drawLineGraph(array_data, divRem, div) {
   var svg = d3.select(div)
       .append("svg")
       .attr("id", divRem.slice(1))
-      .attr("width", width)
-      .attr("height", height)
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 " + width + " " + height)
+      .classed("svg-content", true)
       .append('g')
       .attr('transform', 'translate(' + margin.top + ',' + margin.left + ')');
 
@@ -59,7 +60,7 @@ function drawLineGraph(array_data, divRem, div) {
   function make_y_gridlines() {
       return d3.axisLeft(y);
   }
-  console.log(array_data, divRem, div);
+
   var data = [];
   var N = array_data.length;
   xdata = Array.apply(null, {length: N}).map(Number.call, Number);
@@ -146,21 +147,24 @@ function drawSlider(div1, div2, extension) {
 
   var data1 = [0.5, 1, 1.5, 2, 2.5, 3];
   var data2 = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000];
+  var width = 400;
+  var height = 100;
 
   var slider1 = d3.sliderHorizontal()
     .min(d3.min(data1))
     .max(d3.max(data1))
-    .width(300)
+    .width(width * (3/4))
     .tickFormat(d3.format('.2'))
     .ticks(5)
     .default(1.1)
     .on('onchange', val => {
       d3.select("p#value1" + extension).text(Math.round(val * 100) / 100);
     });
-
+  console.log(height);
   var g = d3.select(div1).append("svg")
-    .attr("width", 400)
-    .attr("height", 100)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 400 100")
+    .classed("svg-content", true)
     .append("g")
     .attr("transform", "translate(30,30)");
 
@@ -181,17 +185,18 @@ function drawSlider(div1, div2, extension) {
   var slider2 = d3.sliderHorizontal()
     .min(d3.min(data2))
     .max(d3.max(data2))
-    .width(300)
+    .width(width * (3/4))
     .tickFormat(d3.format('.2'))
     .ticks(5)
     .default(1500)
     .on('onchange', val => {
-      d3.select("p#value2" + extension).text(Math.round(val));
+      d3.select("p#value2" + extension).text(2 * Math.round(val / 2));
     });
 
   var g = d3.select(div2).append("svg")
-    .attr("width", 400)
-    .attr("height", 100)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 " + width + " " + height)
+    .classed("svg-content", true)
     .append("g")
     .attr("transform", "translate(30,30)");
 
@@ -212,7 +217,7 @@ function drawSlider(div1, div2, extension) {
 
 
 function changeGraph(div1, div2, extension) {
-  if (extension){ string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}'; }
+  string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
 
   var client = new WebSocket("ws://localhost:39822");
       client.onopen = function(evt) {
@@ -258,13 +263,18 @@ function adjacency() {
       });
     });
 
-  var svg = d3.select("svg#adjacency");
+  var svg = d3.select("div#adjacencyDIV")
+      .append("svg")
+      .attr("id", "adjacency")
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 " + width + " " + height)
+      .classed("svg-content", true);
 
   var div = d3.select("body").append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
 
-  d3.select("svg#adjacency").append("g")
+  d3.select("svg#adjacency").attr("align","center").append("g")
     .attr("transform","translate(50,50)")
     .attr("id","adjacencyG")
     .selectAll("rect")
@@ -361,8 +371,9 @@ function drawLineGraph2(array_data, divRem, div) {
   var svg = d3.select(div)
       .append("svg")
       .attr("id", divRem.slice(1))
-      .attr("width", width)
-      .attr("height", height)
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 " + width + " " + height)
+      .classed("svg-content", true)
       .append('g')
       .attr('transform', 'translate(' + margin.top + ',' + margin.left + ')');
 

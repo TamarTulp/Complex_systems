@@ -95,10 +95,10 @@
           <div class="container col-sm-10">
               <div class="row">
                   <div class="col-sm-6">
-                    <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="500" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/failure-6pg8hzcQkTDoc">via GIPHY</a></p>
+                    <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="625" height="250" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/failure-6pg8hzcQkTDoc">via GIPHY</a></p>
                   </div>
                   <div class="col-sm-6">
-                    <iframe src="https://giphy.com/embed/WmkYhCt0Ddnyw" width="450" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/dominos-WmkYhCt0Ddnyw">via GIPHY</a></p>
+                    <iframe src="https://giphy.com/embed/WmkYhCt0Ddnyw" width="495" height="250" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/dominos-WmkYhCt0Ddnyw">via GIPHY</a></p>
                   </div>
               </div>
           </div>
@@ -128,12 +128,12 @@
           <img class="img-fluid" src="img/Simulation1.png" alt="">
           <span class="caption text-muted">The state of the MD system in response to stress for varying connectivity</span>
 
-           <div class="container centerIt">
+           <div class="container centerIt" style="margin-bottom:100px;">
               <div class="row">
                   <div class="col-sm-6">
                       <div class="row align-items-center">
                         <div class="col-sm">
-                          <div id="slider1"></div>
+                          <div id="slider1" class="svg-container"></div>
                           <p id="value1" class="valueSlider"></p>
                         </div>
                       </div>
@@ -141,7 +141,7 @@
                   <div class="col-sm-6">
                       <div class="row align-items-center">
                         <div class="col-sm">
-                          <div id="slider2"></div>
+                          <div id="slider2" class="svg-container"></div>
                           <p id="value2" class="valueSlider"></p>
                         </div>
                       </div>
@@ -149,11 +149,11 @@
               </div>
           </div>
 
-          <div id="lineGraph" class="centerIt"></div>
+          <div id="lineGraph" class="svg-container centerIt"></div>
           <div id='tooltip' style='position:absolute;background-color:lightgray;padding:5px'></div>
           <button onclick='changeGraph("#graphSVG1", "div#lineGraph", "");'>Change Graph</button>
 
-          <svg id="adjacency" class="centerIt" width="550" height="550"></svg>
+          <div id="adjacencyDIV" class="svg-container"></div>
 
             <p><b>Simulation II: Investigating the influence of external stress on the MD systems</b></p>
 
@@ -165,7 +165,7 @@
                   <div class="col-sm-6">
                       <div class="row align-items-center">
                         <div class="col-sm">
-                          <div id="slider1_sim2"></div>
+                          <div id="slider1_sim2" class="svg-container"></div>
                           <p id="value1_sim2" class="valueSlider"></p>
                         </div>
                       </div>
@@ -173,17 +173,17 @@
                   <div class="col-sm-6">
                       <div class="row align-items-center">
                         <div class="col-sm">
-                          <div id="slider2_sim2"></div>
+                          <div id="slider2_sim2" class="svg-container"></div>
                           <p id="value2_sim2" class="valueSlider">2</p>
                         </div>
                       </div>
                   </div>
               </div>
           </div>
-          <div id="lineGraph_sim2" class="centerIt"></div>
+          <div id="lineGraph_sim2" class="svg-container centerIt"></div>
           <button onclick='changeGraph2("#graphSVG2", "#lineGraph_sim2", "_sim2");'>Change Graph</button>
 
-          <div class="container">
+          <!-- <div class="container">
                 <div class="switch-toggle switch-3 switch-candy">
                   <input id="on" name="state-d" type="radio" checked="" />
                   <label for="on" onclick="sim1()">Simulation-1</label>
@@ -214,7 +214,7 @@
               <button onclick="sim1_2();">Change Graph</button>
             </div>
           </div>
-
+ -->
           <script>
               var client = new WebSocket("ws://localhost:39822");
               client.onopen = function(evt) {
