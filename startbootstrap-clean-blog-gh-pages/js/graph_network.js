@@ -33,7 +33,6 @@ function drawGraph() {
   d3.json("data/data.json", function(error, graph) {
     if (error) throw error;
 
-    // console.log(graph, global_nodeList);
     if (global_nodeList.length != 0) {
       graph = removeNodes(graph, global_nodeList);
     }
@@ -138,17 +137,17 @@ function drawGraph() {
 
     function removeNodes(graph, nodeNames) {
       for (index in nodeNames) {
-        removeByKey(graph["nodes"], {
+        removeByKey(graph.nodes, {
           key: 'id',
           value: nodeNames[index]
         });
 
-        for (link in graph["links"]) {
-          removeByKey(graph["links"], {
+        for (link in graph.links) {
+          removeByKey(graph.links, {
             key: 'source',
             value: nodeNames[index]
           });
-          removeByKey(graph["links"], {
+          removeByKey(graph.links, {
             key: 'target',
             value: nodeNames[index]
           });

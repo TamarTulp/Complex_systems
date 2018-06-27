@@ -31,6 +31,7 @@
     <script src="js/jsnetworkx.js"></script>
     <script src="js/lineGraph.js"></script>
     <script src="js/fut_exp.js"></script>
+    <script src="js/graph_network.js"></script>
     <script src="http://d3js.org/queue.v1.min.js" type="text/javascript"></script>
     <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
@@ -90,30 +91,28 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <p>With a heavily connected network, it is nearly impossible for someone to not get depressed and also virtually impossible to get out of this depressed state without help.</p>
 
-            <div class="container centerIt" style="margin-bottom:100px;">
+            <div class="container centerIt">
               <div class="row">
                   <div class="col-sm-6">
                       <div class="row align-items-center">
                         <div class="col-sm">
-                          <div id="slider1_0" class="svg-container"></div>
-                          <p id="value1_0" class="valueSlider"></p>
+                          <div id="slider1_HN" class="svg-container"></div>
+                          <p id="value1_HN" class="valueSlider"></p>
                         </div>
                       </div>
                   </div>
                   <div class="col-sm-6">
                       <div class="row align-items-center">
                         <div class="col-sm">
-                          <div id="slider2_0" class="svg-container"></div>
-                          <p id="value2_0" class="valueSlider"></p>
+                          <div id="slider2_HN" class="svg-container"></div>
+                          <p id="value2_HN" class="valueSlider"></p>
                         </div>
                       </div>
                   </div>
               </div>
-            </div>
-
-            <div id="heavy_network" class="svg-container"></div>
-            <div id='tooltip' style='position:absolute;background-color:lightgray;padding:5px'></div>
-            <button onclick='fut_expGraph("0", "#heavy_networkSVG", "#heavy_network");'>Change Graph</button>
+          </div>
+          <div id="heavy_network" class="svg-container"></div>
+          <button onclick='changeGraph("#heavy_networkSVG", "#heavy_network", "_HN");'>Change Graph</button>
             <span class="caption text-muted">Heavily connected network.</span>
 
 
@@ -123,12 +122,8 @@
 
             <p>To see which symptom or symptoms can best be treated, we simulated what happend when 1 till 14 parameters influences were diminished randomly. Parameters thresholds were randomly raised to 100. This was done 100 times for all parameters.</p>
 
-            <a href="#">
-              <img class="img-fluid" src="img/general.png" alt="">
-            </a>
+            <div id="general" class="svg-container"></div>
             <span class="caption text-muted">General cases.</span>
-
-            <script type="text/javascript">fut_expGraph("0", "generalSVG", "general");</script>
 
             <p>The image shows us the average time spend not in a Major Depression with a number of symptom thresholds raised randomly. It shows the time not spend in a Major Depression in the simulation, since we can not be sure that somebody is suffering from one from our simulation. According to the DSM-V <cite>[3]</cite>, somebody is suffering from a Major Depression when 5 of the 9 symptoms are manifesting itself for longer than two weeks. Since our simulation unfortunately do not have a time scale, we can never fulfil this condition, so we can not actually diagnose in the simulation.</p>
 
@@ -138,87 +133,136 @@
 
             <div class="switch-toggle switch-2 switch-candy">
               <input id="LVL-1" name="state-d" type="radio" checked="" />
-              <label for="LVL-1" onclick="fut_expGraph('1', 'general_specificSVG', 'general_specific')">LVL-1</label>
+              <label for="LVL-1" onclick="fut_expGraph('1', '#general_specificSVG', '#general_specific')">LVL-1</label>
               <input id="LVL-2" name="state-d" type="radio" />
-              <label for="LVL-2" onclick="fut_expGraph('2', 'general_specificSVG', 'general_specific')">LVL-2</label>
+              <label for="LVL-2" onclick="fut_expGraph('2', '#general_specificSVG', '#general_specific')">LVL-2</label>
               <input id="LVL-3" name="state-d" type="radio" />
-              <label for="LVL-3" onclick="fut_expGraph('3', 'general_specificSVG', 'general_specific')">LVL-3</label>
+              <label for="LVL-3" onclick="fut_expGraph('3', '#general_specificSVG', '#general_specific')">LVL-3</label>
               <input id="LVL-4" name="state-d" type="radio" />
-              <label for="LVL-4" onclick="fut_expGraph('4', 'general_specificSVG', 'general_specific')">LVL-4</label>
+              <label for="LVL-4" onclick="fut_expGraph('4', '#general_specificSVG', '#general_specific')">LVL-4</label>
               <input id="LVL-5" name="state-d" type="radio" />
-              <label for="LVL-5" onclick="fut_expGraph('5', 'general_specificSVG', 'general_specific')">LVL-5</label>
+              <label for="LVL-5" onclick="fut_expGraph('5', '#general_specificSVG', '#general_specific')">LVL-5</label>
               <input id="LVL-6" name="state-d" type="radio" />
-              <label for="LVL-6" onclick="fut_expGraph('6', 'general_specificSVG', 'general_specific')">LVL-6</label>
+              <label for="LVL-6" onclick="fut_expGraph('6', '#general_specificSVG', '#general_specific')">LVL-6</label>
               <a></a>
             </div>
-            <div id="general_specific"></div>
+
+            <div id="general_specific" class="svg-container"></div>
             <span class="caption text-muted">Specific cases.</span>
 
-            <table>
+            <table class="table table-sm">
               <tr>
-                <th>Symptom number (DSM)</th>
-                <th>Symptom</th>
+                <th scope="col">Symptom number</th>
+                <th scope="col">DSM</th>
+                <th scope="col">Symptom</th>
               </tr>
               <tr>
-                <td>1 &nbsp;(1)</td>
+                <th scope="row">1</th>
+                <td>1</td>
                 <td>Depressed mood (dep)</td>
               </tr>
               <tr>
-                <td>2 &nbsp;(2)</td>
+                <th scope="row">2</th>
+                <td>2</td>
                 <td>Loss of interest (int)</td>
               </tr>
               <tr>
-                <td>3 &nbsp;(3)</td>
+                <th scope="row">3</th>
+                <td>3</td>
                 <td>Weight loss (los)</td>
               </tr>
               <tr>
-                <td>4 &nbsp;(3)</td>
+                <th scope="row">4</th>
+                <td>3</td>
                 <td>Weight gain (gai)</td>
               </tr>
               <tr>
-                <td>5 &nbsp;(3)</td>
+                <th scope="row">5</th>
+                <td>3</td>
                 <td>Decreased appetite (dap)</td>
               </tr>
               <tr>
-                <td>6 &nbsp;(3)</td>
+                <th scope="row">6</th>
+                <td>3</td>
                 <td>Increased appetite (iap)</td>
               </tr>
               <tr>
-                <td>7 &nbsp;(4)</td>
+                <th scope="row">7</th>
+                <td>4</td>
                 <td>Insomnia (iso)</td>
               </tr>
               <tr>
-                <td>8 &nbsp;(4)</td>
+                <th scope="row">8</th>
+                <td>4</td>
                 <td>Hyposomnia (hso)</td>
               </tr>
               <tr>
-                <td>9 &nbsp;(5)</td>
+                <th scope="row">9</th>
+                <td>5</td>
                 <td>Psychomotor agitation (agi)</td>
               </tr>
               <tr>
-                <td>10 (5)</td>
+                <th scope="row">10</th>
+                <td>5</td>
                 <td>Psychomotor retardation (ret)</td>
               </tr>
               <tr>
-                <td>11 (6)</td>
+                <th scope="row">11</th>
+                <td>6</td>
                 <td>Fatigue (fat)</td>
               </tr>
               <tr>
-                <td>12 (7)</td>
+                <th scope="row">12</th>
+                <td>7</td>
                 <td>Feelings of worthlessness (wor)</td>
               </tr>
               <tr>
-                <td>13 (8)</td>
+                <th scope="row">13</th>
+                <td>8</td>
                 <td>Concentration problems (con)</td>
               </tr>
               <tr>
-                <td>14 (9)</td>
+                <th scope="row">14</th>
+                <td>9</td>
                 <td>Thoughts of death (dea)</td>
               </tr>
             </table>
 
 
             <p>If you swipe/slide through the different graphs, on the x axis is specific symptom or combination of symptoms is shown. Interesting cases are highlighted (maybe). Especially symptom 1 (depressed mood) seems to be an important symptom to treat. You can play with this yourself below by raising the thresholds for some symptoms and so diminish their influence from the network.</p>
+
+            <div class="container">
+              <div class="switch-toggle switch-3 switch-candy">
+                <input id="on" name="state-d" type="radio" checked="" />
+                <label for="on" onclick="sim1()">Simulation-1</label>
+                <input id="off" name="state-d" type="radio" />
+                <label for="off" onclick="sim2()">Simulation-2</label>
+                <a></a>
+              </div>
+            </div>
+            <div class="container centerIt">
+              <div class="row align-items-center">
+                <div class="col-sm-6">
+                  <div id="slider1_sim3" class="svg-container"></div>
+                  <p id="value1_sim3" class="valueSlider"></p>
+                </div>
+                <div class="col-sm-6">
+                  <div id="slider2_sim3" class="svg-container"></div>
+                  <p id="value2_sim3" class="valueSlider"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div id="graph_nw_lines" class="svg-container"></div>
+                </div>
+                <div class="col-sm-6">
+                  <div id="graph_network" class="svg-container"></div>
+                  <button onclick="request();">Update</button>
+                  <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
+                </div>
+                <button onclick="sim1_2();">Change Graph</button>
+              </div>
+            </div>
 
             <p>
               <small>
@@ -234,6 +278,22 @@
       </div>
     </article>
 
+<!--     <script type="text/javascript">
+      var client = new WebSocket("ws://localhost:39822");
+      client.onopen = function(evt) {
+          console.log("Connection Opened");
+          client.send('{"simulation": 1, "I":1000, "c":2}');
+      };
+      client.onmessage = function(evt) {
+          drawLineGraph(JSON.parse(evt.data)["D"], "#heavy_networkSVG", "#heavy_network");
+          drawSlider("div#slider1_HN", "div#slider2_HN", "_HN", 2);
+      };
+      client.onclose = function(ect) {
+          console.log("Connection Closed");
+      };
+      fut_expGraph("0", "#generalSVG", "#general");
+      fut_expGraph('1', '#general_specificSVG', '#general_specific')
+    </script> -->
     <hr>
 
     <!-- Footer -->
@@ -263,6 +323,8 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/clean-blog.min.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/bram_graph.js"></script>
 
   </body>
 

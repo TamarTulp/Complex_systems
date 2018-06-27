@@ -1,5 +1,4 @@
-function drawLineGraph(array_data, divRem, div) {
-  console.log(array_data, divRem, div);
+function drawLineGraph(array_data, divRem, div, special="", parasData) {
   d3.select(divRem).remove();
 
   // dimensions
@@ -100,6 +99,19 @@ function drawLineGraph(array_data, divRem, div) {
         .attr("class", "line")
         .attr("d", line);
 
+    var dataText = []
+
+    if (special == "specific") {
+      g.append("text")
+        .attr("id", "specificText")
+        .attr("class", "onhover_set")
+        .attr("y", height + 10)
+        .attr("x", margin.left)
+        .attr("dy", ".71em")
+        .style("text-anchor", "begin")
+        .attr("fill", "#8b8d8f");
+    }
+
     var focus = g.append("g")
         .attr("class", "focus")
         .style("display", "none");
@@ -137,14 +149,18 @@ function drawLineGraph(array_data, divRem, div) {
           d1 = data[i],
           d = x0 - d0.year > d1.year - x0 ? d1 : d0;
       focus.attr("transform", "translate(" + x(d.year) + "," + y(d.value) + ")");
-      focus.select("text").text(function() { return zeroFill(d.value, 2); });
+      focus.select("circle").attr("r", function(k) { if (Number.isInteger(d.value )) { return 15; } else { return 25; }});
+      focus.select("text")
+        .text(function() { if (Number.isInteger(d.value )) { return zeroFill(d.value, 2); } else { return zeroFill(d.value.toFixed(3), 2); }})
+        .attr("x", function() { if (Number.isInteger(d.value )) { return  -10; } else { return -22; }});
       focus.select(".x-hover-line").attr("y2", height - y(d.value));
       focus.select(".y-hover-line").attr("x2", width + width);
+      if (special == "specific") { g.select("#specificText").text(function() { return "Removed nodes [" + parasData[i] + "]"})};
     }
 }
 
 
-function drawSlider(div1, div2, extension) {
+function drawSlider(div1, div2, extension, defaultVal=1.1) {
 
   var data1 = [0.5, 1, 1.5, 2, 2.5, 3];
   var data2 = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000];
@@ -157,7 +173,7 @@ function drawSlider(div1, div2, extension) {
     .width(width * (3/4))
     .tickFormat(d3.format('.2'))
     .ticks(5)
-    .default(1.1)
+    .default(defaultVal)
     .on('onchange', val => {
       d3.select("p#value1" + extension).text(Math.round(val * 100) / 100);
     });
@@ -221,16 +237,16 @@ function changeGraph(div1, div2, extension) {
   string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
 
   var client = new WebSocket("ws://localhost:39822");
-      client.onopen = function(evt) {
-          console.log("Connection Opened");
-          client.send(string);
-      };
-      client.onmessage = function(evt) {
-          drawLineGraph(JSON.parse(evt.data)["D"], div1, div2);
-      };
-      client.onclose = function(ect) {
-          console.log("Connection Closed");
-      };
+    client.onopen = function(evt) {
+        console.log("Connection Opened");
+        client.send(string);
+    };
+    client.onmessage = function(evt) {
+        drawLineGraph(JSON.parse(evt.data)["D"], div1, div2);
+    };
+    client.onclose = function(ect) {
+        console.log("Connection Closed");
+    };
 }
 
 
@@ -243,98 +259,95 @@ function adjacency() {
      });
 
     function createAdjacencyMatrix(nodes,edges){
-    console.log(nodes, edges);
 
-    var width = 600;
-    var height = 600;
+      var width = 600;
+      var height = 600;
 
-    var edgeHash = {};
-    edges.forEach(edge =>{
-      var id = edge.source + "-" + edge.target;
-      edgeHash[id] = edge;
-    });
-
-    var matrix = [];
-    nodes.forEach((source, a) => {
-      nodes.forEach((target, b) => {
-        var grid = {id: source.id + "-" + target.id, x: b, y: a, weight: 0};
-        if(edgeHash[grid.id]){
-          grid.weight = edgeHash[grid.id].weight;
-        }
-      matrix.push(grid);
+      var edgeHash = {};
+      edges.forEach(edge =>{
+        var id = edge.source + "-" + edge.target;
+        edgeHash[id] = edge;
       });
-    });
 
-  var svg = d3.select("div#adjacencyDIV")
-      .append("svg")
-      .attr("id", "adjacency")
-      .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 " + width + " " + height)
-      .classed("svg-content", true);
+      var matrix = [];
+      nodes.forEach((source, a) => {
+        nodes.forEach((target, b) => {
+          var grid = {id: source.id + "-" + target.id, x: b, y: a, weight: 0};
+          if(edgeHash[grid.id]){
+            grid.weight = edgeHash[grid.id].weight;
+          }
+        matrix.push(grid);
+        });
+      });
 
-  var div = d3.select("body").append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 0);
+    var svg = d3.select("div#adjacencyDIV")
+        .append("svg")
+        .attr("id", "adjacency")
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", "0 0 " + width + " " + height)
+        .classed("svg-content", true);
 
-  d3.select("svg#adjacency").attr("align","center").append("g")
-    .attr("transform","translate(50,50)")
-    .attr("id","adjacencyG")
-    .selectAll("rect")
-    .data(matrix)
-    .enter()
-    .append("rect")
-    .attr("class","grid")
-    .attr("width",35)
-    .attr("height",35)
-    .attr("x", d=> d.x*35)
-    .attr("y", d=> d.y*35)
-    .style("fill-opacity", d=> d.weight * .2);
+    var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
-  d3.select("svg#adjacency")
-    .append("g")
-    .attr("transform","translate(50,45)")
-    .selectAll("text")
-    .data(nodes)
-    .enter()
-    .append("text")
-    .attr("x", (d,i) => i * 35 + 17.5)
-    .text(d => d.id)
-    .style("text-anchor","middle")
-    .style("font-size","10px");
+    svg.attr("align","center").append("g")
+      .attr("transform","translate(50,50)")
+      .attr("id","adjacencyG")
+      .selectAll("rect")
+      .data(matrix)
+      .enter()
+      .append("rect")
+      .attr("class","grid")
+      .attr("width",35)
+      .attr("height",35)
+      .attr("x", d=> d.x*35)
+      .attr("y", d=> d.y*35)
+      .style("fill-opacity", d=> d.weight * .2);
 
-  d3.select("svg#adjacency")
-    .append("g").attr("transform","translate(45,50)")
-    .selectAll("text")
-    .data(nodes)
-    .enter()
-    .append("text")
-    .attr("y",(d,i) => i * 35 + 17.5)
-    .text(d => d.id)
-    .style("text-anchor","end")
-    .style("font-size","10px");
+    svg.append("g")
+      .attr("transform","translate(50,45)")
+      .selectAll("text")
+      .data(nodes)
+      .enter()
+      .append("text")
+      .attr("x", (d,i) => i * 35 + 17.5)
+      .text(d => d.id)
+      .style("text-anchor","middle")
+      .style("font-size","10px");
 
-  d3.selectAll("rect.grid").on("mouseover", function(d){
-      div.transition()
-       .duration(200)
-       .style("opacity", .9);
-     div.html(d.id + "<br/>" + d.weight)
-       .style("left", (d3.event.pageX) + "px")
-       .style("top", (d3.event.pageY - 28) + "px");
-     gridOver(d);
-     })
-    .on("mouseout", function(d) {
-      div.transition()
-         .duration(500)
-         .style("opacity", 0);
-      gridOut(d);
-    });
+    svg.append("g").attr("transform","translate(45,50)")
+      .selectAll("text")
+      .data(nodes)
+      .enter()
+      .append("text")
+      .attr("y",(d,i) => i * 35 + 17.5)
+      .text(d => d.id)
+      .style("text-anchor","end")
+      .style("font-size","10px");
 
-  function gridOver(d) {
-    d3.select("svg#adjacency").selectAll("rect").style("stroke-width", function(p) { return p.x == d.x || p.y == d.y ? "3px" : "1px"; });
-  }
-  function gridOut(d) {
-    d3.select("svg#adjacency").selectAll("rect").style("stroke-width", function(p) { return "1px"; });
-  }
+    d3.selectAll("rect.grid").on("mouseover", function(d){
+        div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html(d.id + "<br/>" + d.weight)
+         .style("left", (d3.event.pageX) + "px")
+         .style("top", (d3.event.pageY - 28) + "px");
+       gridOver(d);
+       })
+      .on("mouseout", function(d) {
+        div.transition()
+           .duration(500)
+           .style("opacity", 0);
+        gridOut(d);
+      });
+
+    function gridOver(d) {
+      d3.select("svg#adjacency").selectAll("rect").style("stroke-width", function(p) { return p.x == d.x || p.y == d.y ? "3px" : "1px"; });
+    }
+    function gridOut(d) {
+      d3.select("svg#adjacency").selectAll("rect").style("stroke-width", function(p) { return "1px"; });
+    }
   }
 }
 
@@ -604,13 +617,13 @@ function changeGraph2(div1,div2,extension) {
 
 function initFunctions(array_data) {
   adjacency();
-  if (array_data["simulation"] == 1) {
-    drawLineGraph(array_data["D"], "#graphSVG1", "div#lineGraph");
+  if (array_data.simulation == 1) {
+    drawLineGraph(array_data.D, "#graphSVG1", "div#lineGraph");
     drawSlider("div#slider1", "div#slider2", "");
-    drawLineGraph(array_data["D"], "#nwSVG1", "#graph_nw_lines");
+    drawLineGraph(array_data.D, "#nwSVG1", "#graph_nw_lines");
     drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
   }
-  else if (array_data["simulation"] == 2) {
+  else if (array_data.simulation == 2) {
     drawLineGraph2(array_data, "#graphSVG2", "#lineGraph_sim2");
     drawSlider("div#slider1_sim2", "div#slider2_sim2", "_sim2");
   }

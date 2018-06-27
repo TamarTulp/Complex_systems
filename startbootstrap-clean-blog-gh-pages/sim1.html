@@ -188,7 +188,7 @@
                       <div class="row align-items-center">
                         <div class="col-sm">
                           <div id="slider2_sim2" class="svg-container"></div>
-                          <p id="value2_sim2" class="valueSlider">2</p>
+                          <p id="value2_sim2" class="valueSlider"></p>
                         </div>
                       </div>
                   </div>
@@ -197,42 +197,6 @@
           <div id="lineGraph_sim2" class="svg-container centerIt"></div>
           <button onclick='changeGraph2("#graphSVG2", "#lineGraph_sim2", "_sim2");'>Change Graph</button>
 
-          <!-- <div class="container">
-=======
-
-          <div class="container">
->>>>>>> edbfa10184e79908e61afb55794eccd05827e99a
-                <div class="switch-toggle switch-3 switch-candy">
-                  <input id="on" name="state-d" type="radio" checked="" />
-                  <label for="on" onclick="sim1()">Simulation-1</label>
-                  <input id="off" name="state-d" type="radio" />
-                  <label for="off" onclick="sim2()">Simulation-2</label>
-                  <a></a>
-                </div>
-              <select id="dropdown"></select>
-          </div>
-          <div class="container centerIt">
-            <div class="row align-items-center">
-              <div class="col-sm-6">
-                <div id="slider1_sim3"></div>
-                <p id="value1_sim3" class="valueSlider"></p>
-              </div>
-              <div class="col-sm-6">
-                <div id="slider2_sim3"></div>
-                <p id="value2_sim3" class="valueSlider"></p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <div id="graph_nw_lines"></div>
-              </div>
-              <div class="col-sm-6">
-                <div id="graph_network" width="400" height="400"></div>
-              </div>
-              <button onclick="sim1_2();">Change Graph</button>
-            </div>
-          </div>
- -->
           <script>
               var client = new WebSocket("ws://localhost:39822");
               client.onopen = function(evt) {
