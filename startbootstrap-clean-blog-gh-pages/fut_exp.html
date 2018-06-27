@@ -116,7 +116,7 @@
             <span class="caption text-muted">Heavily connected network.</span>
 
 
-            <p>This help can be given in different ways. A lot of treatments for Major Depression, like Cognitive-Behavioural Therapy (CBT), focus firstly on the symptoms of depression <cite>[1]</cite>. As example, CBT focusses on the symptoms to relieve the patients suffering to be better able to tackle the underlying problem <cite>[2]</cite>. We try to hypothesize which symptoms would be most helpful to focus on during the treatment. This is of course a general case, but could be a helpful start.</p>
+            <p>This help can be given in different ways. A lot of treatments for MD, like Cognitive-Behavioural Therapy (CBT), focus firstly on the symptoms of depression <a href="#Baardseth">[1]</a>. As example, CBT focusses on the symptoms to relieve the patients suffering to be better able to tackle the underlying problem <a href="#Beck">[2]</a>. We try to hypothesize which symptoms would be most helpful to focus on during the treatment. This is of course a general case, but could be a helpful start.</p>
 
             <p>A way to test this, is to make the threshold of a symptom higher, since this effectively diminishes the influence it has on the other symptoms around it and so decreases the connectivity of the system. This makes it possible to get out of a depressed state.</p>
 
@@ -125,11 +125,11 @@
             <div id="general" class="svg-container"></div>
             <span class="caption text-muted">General cases.</span>
 
-            <p>The image shows us the average time spend not in a Major Depression with a number of symptom thresholds raised randomly. It shows the time not spend in a Major Depression in the simulation, since we can not be sure that somebody is suffering from one from our simulation. According to the DSM-V <cite>[3]</cite>, somebody is suffering from a Major Depression when 5 of the 9 symptoms are manifesting itself for longer than two weeks. Since our simulation unfortunately do not have a time scale, we can never fulfil this condition, so we can not actually diagnose in the simulation.</p>
+            <p>The image shows us the average time spend not in a MD with a number of symptom thresholds raised randomly. It shows the time not spend in a MD in the simulation, since we can not be sure that somebody is suffering from one from our simulation. According to the DSM-V <a href="#American">[3]</a>, somebody is suffering from a MD when 5 of the 9 symptoms are manifesting itself for longer than two weeks. Since our simulation unfortunately do not have a time scale, we can never fulfil this condition, so we can not actually diagnose in the simulation.</p>
 
-            <p>When one symptom threshold is raised, you already see an increase in time spend in a not in a Major Depression. When even more thresholds are increased, this time increases even more. As more thresholds are increased the less connected the network becomes and when an average of 9 (out of 14) thresholds is increased, the network becomes so unconnected, that it never gets into a Major Depression.</p>
+            <p>When one symptom threshold is raised, you already see an increase in time spend in a not in a MD. When even more thresholds are increased, this time increases even more. As more thresholds are increased the less connected the network becomes and when an average of 9 (out of 14) thresholds is increased, the network becomes so unconnected, that it never gets into a MD.</p>
 
-            <p>Of course changes are slim, that a treatment will be able to include 9 symptoms, so the next step is to find out which are most important.</p>
+            <p>Of course chances are slim, that a treatment will be able to include 9 symptoms, so the next step is to find out which are most important.</p>
 
             <div class="switch-toggle switch-2 switch-candy">
               <input id="LVL-1" name="state-d" type="radio" checked="" />
@@ -229,7 +229,10 @@
             </table>
 
 
-            <p>If you swipe/slide through the different graphs, on the x axis is specific symptom or combination of symptoms is shown. Interesting cases are highlighted (maybe). Especially symptom 1 (depressed mood) seems to be an important symptom to treat. You can play with this yourself below by raising the thresholds for some symptoms and so diminish their influence from the network.</p>
+            <p>If you click through the different graphs, you can see the different combinations of symptoms which elevate somebody out of a depressed state. On the x axis, specific symptoms or combination of symptoms are shown. In level 1, you see all symptom thresholds increased 1 by 1. Level 2 shows all the different combinations of two symptoms with increased thresholds and so on. If you hover over the graph you see which symptom thresholds were increased. Especially symptom 1 (depressed mood) seems to be an important symptom to target. When only that threshold is increased, a small difference can already be seen, and combined with other symptoms this difference becomes larger.</p>
+
+
+            <p>- Nu alleen bij above and beyond alle symptomen uitgeschreven, moet dat ook nog ergens anders?You can play with this yourself below by raising the thresholds for some symptoms by clicking on them in the graph below and so diminish their influence from the network. The graph shows what happens in the system for simulation 1 and 2.</p>
 
             <div class="container">
               <div class="switch-toggle switch-3 switch-candy">
@@ -275,9 +278,9 @@
             <p>
               <small>
                 <ol>
-                  <li>Baardseth, T. P., Goldberg, S. B., Pace, B. T., Wislocki, A. P., Frost, N. D., Siddiqui, J. R., ... & Minami, T. (2013). Cognitive-behavioral therapy versus other therapies: Redux. <i>Clinical Psychology Review, 33</i>(3), 395-405.</li>
-                  <li>Beck, J. S. (2011). <i>Cognitive behavior therapy: Basics and beyond.</i> Guilford press.</li>
-                  <li>American Psychiatric Association. (2013). <i>Diagnostic and statistical manual of mental disorders (DSM-5®).</i> American Psychiatric Pub.</li>
+                  <li id="Baardseth"> Baardseth, T. P., Goldberg, S. B., Pace, B. T., Wislocki, A. P., Frost, N. D., Siddiqui, J. R., ... & Minami, T. (2013). Cognitive-behavioral therapy versus other therapies: Redux. <i>Clinical Psychology Review, 33</i>(3), 395-405.</li>
+                  <li id="Beck">Beck, J. S. (2011). <i>Cognitive behavior therapy: Basics and beyond.</i> Guilford press.</li>
+                  <li id="American">American Psychiatric Association. (2013). <i>Diagnostic and statistical manual of mental disorders (DSM-5®).</i> American Psychiatric Pub.</li>
                 </ol>
               </small>
             </p>
