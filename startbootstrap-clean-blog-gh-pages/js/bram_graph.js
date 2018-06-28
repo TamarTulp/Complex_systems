@@ -44,7 +44,7 @@ function select(index) {
 var slider = document.getElementById("myRange");
 slider.oninput = function() {
     if (circle !== null && data !== null) {
-        update(this.value);
+        update(Math.floor(this.value * d3.select("p#value2_sim3").text()));
     }
 };
 
@@ -56,7 +56,7 @@ client.onopen = function(evt) {
 client.onmessage = function(evt) {
     data = JSON.parse(evt.data);
     if (init == 0) { drawLineGraph(data["D"], "#heavy_networkSVG", "#heavy_network"); init = 1;}
-    if (circle !== null) { update(slider.value); }
+    if (circle !== null) { update(Math.floor(slider.value * d3.select("p#value2_sim3").text())); }
     sim1_2(data);
 };
 
