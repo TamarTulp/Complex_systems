@@ -1,4 +1,4 @@
-function drawLineGraph(array_data, divRem, div, special="", parasData, figtitle="Symptoms activated during simulation", ytitle="# of active symptoms", xtitle="Amount of iterations") {
+function drawLineGraph(array_data, divRem, div, parasData, special="", figtitle="Symptoms activated during simulation", ytitle="# of active symptoms", xtitle="Amount of iterations") {
   d3.select(divRem).remove();
 
   // dimensions
@@ -238,14 +238,14 @@ function drawSlider(div1, div2, extension, defaultVal=1.1) {
 
   g.call(slider2);
 
-  d3.select("p#value2" + extension).text(d3.format('.2')(slider2.value()))
+  d3.select("p#value2" + extension).text(d3.format('.2')(slider2.value()));
 }
 
 
 function changeGraph(div1, div2, extension, data) {
   string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
   console.log(string, div1, div2, extension, d3.select("p#value2" + extension).text());
-  if (data) { drawLineGraph(data), div1, div2; } else {
+  if (data) { console.log(data); drawLineGraph(data), div1, div2; } else {
   var client = new WebSocket("ws://localhost:39822");
     client.onopen = function(evt) {
         console.log("Connection Opened");
@@ -620,7 +620,7 @@ function drawLineGraph2(array_data, divRem, div, title, yaxis,
 
 function changeGraph2(div1,div2,extension,data) {
   string2 = '{"simulation":2, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
-  if (data) { drawLineGraph(data), div1, div2; } else {
+  if (data) { console.log(data); drawLineGraph(data), div1, div2; } else {
   var client = new WebSocket("ws://localhost:39822");
       client.onopen = function(evt) {
           console.log("Connection Opened");
@@ -639,8 +639,6 @@ function initFunctions(array_data) {
   if (array_data.simulation == 1) {
     drawLineGraph(array_data.D, "#graphSVG1", "div#lineGraph");
     drawSlider("div#slider1", "div#slider2", "");
-    drawLineGraph(array_data.D, "#nwSVG1", "#graph_nw_lines");
-    // drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
   }
   else if (array_data.simulation == 2) {
     drawLineGraph2(array_data, "#graphSVG2", "#lineGraph_sim2");

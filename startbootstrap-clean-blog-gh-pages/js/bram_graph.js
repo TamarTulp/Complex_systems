@@ -6,7 +6,6 @@ var height = 400;
 
 function request(){
     json = '{"simulation": 1, "I":1000, "c": 2, "select": ' + JSON.stringify(selected) + '}';
-    console.log(json);
     client.send(json);
 }
 
@@ -18,40 +17,41 @@ function update(i) {
         .attr("fill-opacity", function(d) { return P[d.index]; })
         .attr("stroke-opacity", function(d) { return X[d.index] ? 1 : 0; });
 
-    label.attr("opacity", function(d) { return X[d.index] ? 1 : 0.7; } )
+    label.attr("opacity", function(d) { return X[d.index] ? 1 : 0.7; } );
 }
 
 function select(index) {
     selected[index] = selected[index] ? 0 : 1;
-    circle_mask.style("stroke", function(d) { return (selected[d.index]) ? 'grey' : 'red'; })
-    circle.style("stroke", function(d) { return (selected[d.index]) ? 'black' : 'red'; })
+    circle_mask.style("stroke", function(d) { return (selected[d.index]) ? 'grey' : 'red'; });
+    circle.style("stroke", function(d) { return (selected[d.index]) ? 'black' : 'red'; });
     request();
 }
 
 var slider = document.getElementById("myRange");
 slider.oninput = function() {
-    if (circle != null && data != null) {
+    if (circle !== null && data !== null) {
         update(this.value);
     }
-}
+};
 
 client.onopen = function(evt) {
     console.log("Connection Opened");
     request();
-}
+};
 
 client.onmessage = function(evt) {
     data = JSON.parse(evt.data);
-    if (circle != null) { update(slider.value); };
+    if (circle !== null) { update(slider.value); }
     sim1_2();
     console.log(data);
-}
+};
+
 client.onclose = function(ect) {
     console.log("Connection Closed");
-}
+};
 
 fut_expGraph("0", "#generalSVG", "#general");
-fut_expGraph('1', '#general_specificSVG', '#general_specific')
+fut_expGraph('1', '#general_specificSVG', '#general_specific');
 
 var svg = d3.select("#graph_network")
     .append("svg")
@@ -86,7 +86,7 @@ d3.json("data/data.json", function(error, graph) {
         .attr("class", "nodes")
         .selectAll("g")
         .data(graph.nodes)
-        .enter().append("g")
+        .enter().append("g");
 
     circle_mask = node.append("circle")
         .attr("r", 10)
@@ -102,11 +102,11 @@ d3.json("data/data.json", function(error, graph) {
             .on("drag", dragged)
             .on("end", dragended));
 
-    circle.append("title").text(function(d) { return d.name; })
+    circle.append("title").text(function(d) { return d.name; });
 
     label = node.append("text")
         .attr("font-size", '20px')
-        .text(function(d) { return d.id; })
+        .text(function(d) { return d.id; });
 
     simulation
         .nodes(graph.nodes)
@@ -126,10 +126,10 @@ d3.json("data/data.json", function(error, graph) {
             .attr("cy", function(d) { return d.y; });
         circle_mask
             .attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; })
+            .attr("cy", function(d) { return d.y; });
         circle
             .attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; })
+            .attr("cy", function(d) { return d.y; });
         label
             .attr("x", function(d) { return d.x + 15; })
             .attr("y", function(d) { return d.y + 5; });
@@ -167,3 +167,19 @@ function sim1_2(data) {if (global_1or2 == 1) { sim1(data); } else { sim2(data); 
 
 var global_nodeList = [];
 var global_1or2 = 1;
+
+drawSlider("div#slider1_HN", "div#slider2_HN", "_HN", 2);
+drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
+string = '{"simulation":1, "I":1500, "c":2}';
+
+var client = new WebSocket("ws://localhost:39822");
+  client.onopen = function(evt) {
+      console.log("Connection Opened");
+      client.send(string);
+  };
+  client.onmessage = function(evt) {
+drawLineGraph(JSON.parse(evt.data)["D"], "#heavy_networkSVG", "#heavy_network");
+  };
+  client.onclose = function(ect) {
+      console.log("Connection Closed");
+  };
