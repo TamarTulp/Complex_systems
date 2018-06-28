@@ -9,10 +9,13 @@ import logging
 import json
 
 
+with open('serverinfo.json') as server_info_file:
+    server_info = json.load(server_info_file)
+    ADDRESS = server_info['address'], server_info['port']
+
+
 logging.basicConfig(format='%(asctime)-15s %(message)s', level=logging.INFO)
 log = logging.getLogger("Simulation Server")
-
-ADDRESS = 'localhost', 39822
 
 W_PATH = 'data/EmpiricalWeightParameters.txt'
 b_PATH = 'data/EmpiricalThresholdParameters.txt'
@@ -100,5 +103,5 @@ async def serve(websocket, path):
 
 # Run Server
 asyncio.get_event_loop().run_until_complete(websockets.serve(serve, 'localhost', 39822))
-log.info("Simulation Server Booted")
+log.info("Simulation Server Booted: {}".format(ADDRESS))
 asyncio.get_event_loop().run_forever()
