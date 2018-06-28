@@ -85,14 +85,14 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-10 col-md-10 mx-auto">
-          <p>In their article <a href="#Cramer"><cite>Cramer et al. (2016)</cite></a> propose a theory that explains the difference in vulnerability for MD between individuals. Their model is built on the idea that individuals differ in the strength of the connections between different symptoms. This means that one person only experiences fatigue after several sleepless nights, while another person already experiences fatigue after one sleepless night. This network can be seen as a game of domino, where <i>strong</i> connected networks are domino tiles that are close to each other; one tile tipping makes other tiles tip over as well. <i>Weak</i> connections are tiles placed far apart; one tile tipping over does not likely cause other tiles to tip over.</p>
+          <p>In their article <a href="#Cramer"><cite>Cramer et al. (2016)</cite></a> propose a theory that explains the difference in vulnerability for MD between individuals. Their model is built on the idea that the strength of the connections between different symptoms differs between individuals. This means that one person only experiences fatigue after several sleepless nights, while another person already experiences fatigue after one sleepless night. This network can be seen as a game of dominoes, where <i>strong</i> connected networks are domino tiles that are close to each other; one tile tipping makes other tiles tip over as well. <i>Weak</i> connections are tiles placed far apart; one tile tipping over does not likely cause other tiles to tip over.</p>
 
           <img class="img-fluid centerIt" src="img/Fig_dominos.png" alt="" width="75%">
           <span class="caption text-muted">The analogy between vulnerability in a network and spacing of domino tiles (obtained from <i>Cramer et al. (2016)</i>)</span>
 
           <p>The model was studied in two parts. The first simulation focussed on the influence of increasing connectivity on the behavior of the MD system. <a href="#Cramer"><cite>Cramer et al. (2016)</cite></a> tried to answer the question if a system with stronger connections was more prone to end up in a despressed state than a systems with relatively weak connections. The second simulation examined the influence of stress on the behavior of the networks.</p>
 
-          <div class="container col-sm-10">
+          <div class="container col-sm-12">
               <div class="row">
                   <div class="col-sm-6">
                     <iframe src="https://giphy.com/embed/6pg8hzcQkTDoc" width="625" height="250" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
@@ -133,7 +133,11 @@
           <img class="img-fluid" src="img/Simulation1.png" alt="">
           <span class="caption text-muted">The state of the MD system in response to stress for varying connectivity</span>
 
-           <div class="container centerIt" style="margin-bottom:100px;">
+          <br>
+          <b>Interactive Simulation</b>
+          <p>We build an interactive version of the simulation. To get a feeling for the behaviour of the system, play around with the <i>c</i>-parameter and the number of iterations!</p>
+
+           <div class="container centerIt">
               <div class="row">
                   <div class="col-sm-6">
                       <div class="row align-items-center">
@@ -156,7 +160,7 @@
 
           <div id="lineGraph" class="svg-container centerIt"></div>
           <div id='tooltip' style='position:absolute;background-color:lightgray;padding:5px'></div>
-          <button onclick='changeGraph("#graphSVG1", "div#lineGraph", "");'>Change Graph</button>
+          <button onclick='changeGraph("#graphSVG1", "div#lineGraph", "");'>Update Graph</button>
 
           <p>The model used in simulation I represents the development of MD without an external trigger. To include the influence of these events, a second simulation was done.</p>
 
