@@ -24,3 +24,7 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
+code jupyter/.ipynb_checkpoints/data-checkpoint.json
+code jupyter/.ipynb_checkpoints/Simulation 1-checkpoint.ipynb
+code jupyter/.ipynb_checkpoints/Simulation 2-checkpoint.ipynb
+code jupyter/.ipynb_checkpoints/Simulation 3-checkpoint.ipynb
