@@ -18,8 +18,14 @@ function request(){
 }
 
 function update(i) {
-    X = data.X[i];
-    P = data.P[i];
+    if (data.simulation == 1){
+        X = data.X[i];
+        P = data.P[i];
+    }
+    else {
+        X = data.UP.X[i];
+        P = data.UP.P[i];
+    }
 
     circle
         .attr("fill-opacity", function(d) { return P[d.index]; })
@@ -49,11 +55,11 @@ client.onopen = function(evt) {
 
 client.onmessage = function(evt) {
     data = JSON.parse(evt.data);
+    console.log(data);
     console.log(init);
     if (init == 0) { drawLineGraph(data["D"], "#heavy_networkSVG", "#heavy_network"); init = 1;}
     if (circle !== null) { update(slider.value); }
     sim1_2(data);
-    console.log(data);
 };
 
 client.onclose = function(ect) {
