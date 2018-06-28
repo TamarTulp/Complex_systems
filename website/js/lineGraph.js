@@ -1,4 +1,4 @@
-function drawLineGraph(array_data, divRem, div, parasData, special="", figtitle="Symptoms activated during simulation", ytitle="# of active symptoms", xtitle="Amount of iterations") {
+function drawLineGraph(array_data, divRem, div, parasData, special="", figtitle="Symptoms activated during simulation", ytitle="# of active symptoms", xtitle="Number of iterations") {
   d3.select(divRem).remove();
 
   // dimensions
