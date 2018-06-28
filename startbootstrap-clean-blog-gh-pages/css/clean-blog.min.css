@@ -201,3 +201,18 @@ circle.target {
     left: 0;
     bottom:0;
 }
+
+.hoverable {
+  cursor:default;
+  color:#000;
+  text-decoration:none;
+}
+.hoverable .hover {
+  display:none;
+}
+.hoverable:hover .normal {
+  display:none;
+}
+.hoverable:hover .hover {
+  display:inline;  /* CHANGE IF FOR BLOCK ELEMENTS */
+}
