@@ -1,4 +1,4 @@
-function drawLineGraph(array_data, divRem, div, special="", parasData) {
+function drawLineGraph(array_data, divRem, div, parasData, special="", figtitle="Symptoms activated during simulation", ytitle="# of active symptoms", xtitle="Amount of iterations") {
   d3.select(divRem).remove();
 
   // dimensions
@@ -50,11 +50,20 @@ function drawLineGraph(array_data, divRem, div, special="", parasData) {
 
   svg.append("text").attr("x", margin.left)
                     .attr("y", margin.top/2)
-                    .html("States activated during simulation")
+                    .html(figtitle)
                     .attr("font-family", "Times New Roman")
                     .attr("font-size", "20px")
                     .attr("font-weight", "bold")
                     .attr("fill", "#6F257F");
+
+  svg.append("text").attr("x", width)
+                    .attr("y", height + margin.top + 35)
+                    .html(xtitle)
+                    .attr("font-family", "Times New Roman")
+                    .attr("font-size", "15px")
+                    .attr("font-weight", "bold")
+                    .attr("fill", "#6F257F")
+                    .attr("text-anchor", "end");
 
   // gridlines in y axis function
   function make_y_gridlines() {
@@ -92,14 +101,14 @@ function drawLineGraph(array_data, divRem, div, special="", parasData) {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .attr("fill", "#5D6971")
-        .text("# of active symptoms");
+        .text(ytitle);
 
     g.append("path")
         .datum(data)
         .attr("class", "line")
         .attr("d", line);
 
-    var dataText = []
+    var dataText = [];
 
     if (special == "specific") {
       g.append("text")
@@ -229,14 +238,14 @@ function drawSlider(div1, div2, extension, defaultVal=1.1) {
 
   g.call(slider2);
 
-  d3.select("p#value2" + extension).text(d3.format('.2')(slider2.value()))
+  d3.select("p#value2" + extension).text(d3.format('.2')(slider2.value()));
 }
 
 
 function changeGraph(div1, div2, extension, data) {
   string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
   console.log(string, div1, div2, extension, d3.select("p#value2" + extension).text());
-  if (data) { drawLineGraph(data), div1, div2; } else {
+  if (data) { console.log(data); drawLineGraph(data), div1, div2; } else {
   var client = new WebSocket("ws://localhost:39822");
     client.onopen = function(evt) {
         console.log("Connection Opened");
@@ -353,7 +362,8 @@ function adjacency() {
 }
 
 
-function drawLineGraph2(array_data, divRem, div) {
+function drawLineGraph2(array_data, divRem, div, title, yaxis,
+  figtitle="Symptoms activated during simulation", ytitle="# of active symptoms", xtitle="Level of stress") {
   d3.select(divRem).remove();
 
   data_graph = []
@@ -415,11 +425,20 @@ function drawLineGraph2(array_data, divRem, div) {
 
   svg.append("text").attr("x", margin.left)
                     .attr("y", margin.top/2)
-                    .html("States activated during simulation")
+                    .html(figtitle)
                     .attr("font-family", "Times New Roman")
                     .attr("font-size", "20px")
                     .attr("font-weight", "bold")
                     .attr("fill", "#6F257F");
+
+  svg.append("text").attr("x", width)
+                    .attr("y", height + margin.top + 35)
+                    .html(xtitle)
+                    .attr("font-family", "Times New Roman")
+                    .attr("font-size", "15px")
+                    .attr("font-weight", "bold")
+                    .attr("fill", "#6F257F")
+                    .attr("text-anchor", "end");
 
   // gridlines in y axis function
   function make_y_gridlines() {
@@ -450,7 +469,7 @@ function drawLineGraph2(array_data, divRem, div) {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .attr("fill", "#5D6971")
-        .text("# of active symptoms");
+        .text(ytitle);
 
     g.append("g")
         .attr("class", "axis axis--x")
@@ -601,7 +620,7 @@ function drawLineGraph2(array_data, divRem, div) {
 
 function changeGraph2(div1,div2,extension,data) {
   string2 = '{"simulation":2, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
-  if (data) { drawLineGraph(data), div1, div2; } else {
+  if (data) { console.log(data); drawLineGraph(data), div1, div2; } else {
   var client = new WebSocket("ws://localhost:39822");
       client.onopen = function(evt) {
           console.log("Connection Opened");
@@ -620,8 +639,6 @@ function initFunctions(array_data) {
   if (array_data.simulation == 1) {
     drawLineGraph(array_data.D, "#graphSVG1", "div#lineGraph");
     drawSlider("div#slider1", "div#slider2", "");
-    drawLineGraph(array_data.D, "#nwSVG1", "#graph_nw_lines");
-    // drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
   }
   else if (array_data.simulation == 2) {
     drawLineGraph2(array_data, "#graphSVG2", "#lineGraph_sim2");
