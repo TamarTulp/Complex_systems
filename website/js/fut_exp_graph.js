@@ -1,4 +1,4 @@
-var client = new WebSocket("ws://localhost:39822");
+var client = new WebSocket(simServerAddress);
 var data, link, node, circle_mask, circle, label;
 var selected = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 var width = 720;

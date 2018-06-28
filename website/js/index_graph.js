@@ -1,10 +1,9 @@
-var client = new WebSocket("ws://localhost:39822");
+var client = new WebSocket(simServerAddress);
 var data, link, node, circle_mask, circle, label;
 var selected = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
 function request(){
     json = '{"simulation": 1, "I":1000, "c": 2, "select": ' + JSON.stringify(selected) + '}';
-    console.log(json);
     client.send(json);
 }
 
@@ -34,7 +33,6 @@ client.onopen = function(evt) {
 client.onmessage = function(evt) {
     data = JSON.parse(evt.data);
     if (circle != null) { update(999); };
-    console.log(data);
 }
 client.onclose = function(ect) {
     console.log("Connection Closed");

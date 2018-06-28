@@ -244,7 +244,7 @@ function drawSlider(div1, div2, extension, defaultVal=1.1) {
 function changeGraph(div1, div2, extension, data) {
   string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
   if (data) { drawLineGraph(data.D, div1, div2); } else {
-  var client = new WebSocket("ws://localhost:39822");
+  var client = new WebSocket(simServerAddress);
     client.onopen = function(evt) {
         console.log("Connection Opened");
         client.send(string);
@@ -620,7 +620,7 @@ function drawLineGraph2(array_data, divRem, div, title, yaxis,
 function changeGraph2(div1,div2,extension,data) {
   string2 = '{"simulation":2, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
   if (data) { drawLineGraph2(data, div1, div2); } else {
-  var client = new WebSocket("ws://localhost:39822");
+  var client = new WebSocket(simServerAddress);
       client.onopen = function(evt) {
           console.log("Connection Opened");
           client.send(string2);
