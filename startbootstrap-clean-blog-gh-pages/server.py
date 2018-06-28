@@ -37,8 +37,11 @@ def simulation_1(I: int, c: float, select: np.ndarray = np.ones(14, np.bool)):
     return X, P, D
 
 
-def simulation_2(I: int, c: float):
+def simulation_2(I: int, c: float, select: np.ndarray = np.ones(14, np.bool)):
     I2 = I//2
+
+    b_ = b.copy()
+    b_[~select] = 100
 
     X = np.zeros((I, *b.shape), np.bool)
     P = np.zeros((I, *b.shape), np.float32)
@@ -47,7 +50,7 @@ def simulation_2(I: int, c: float):
 
     for i in range(1, I):
         A = np.sum(c * W * X[i-1] + S[i], axis=1)
-        P[i] = 1 / (1 + np.exp(b - A))
+        P[i] = 1 / (1 + np.exp(b_ - A))
         X[i] = P[i] > np.random.uniform(0, 1, b.shape)
         D[i] = np.sum(X[i])
     return S[:I2], (X[:I2], P[:I2], D[:I2]), (X[I2:][::-1], P[I2:][::-1], D[I2:][::-1])
@@ -79,7 +82,13 @@ async def serve(websocket, path):
             await websocket.send(data)
 
         if simulation == 2:
-            S, (UP_X, UP_P, UP_D), (DOWN_X, DOWN_P, DOWN_D) = simulation_2(I, c)
+            if 'select' in parameters:
+                select = np.array(parameters['select'], np.bool)
+                S, (UP_X, UP_P, UP_D), (DOWN_X, DOWN_P, DOWN_D) = simulation_2(I, c, select)
+            else:
+                S, (UP_X, UP_P, UP_D), (DOWN_X, DOWN_P, DOWN_D) = simulation_2(I, c)
+
+
             data = json.dumps({
                 "simulation": 2,
                 "S": S.tolist(),

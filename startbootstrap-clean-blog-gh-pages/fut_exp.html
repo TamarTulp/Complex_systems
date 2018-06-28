@@ -231,8 +231,9 @@
 
             <p>If you click through the different graphs, you can see the different combinations of symptoms which elevate somebody out of a depressed state. On the x axis, specific symptoms or combination of symptoms are shown. In level 1, you see all symptom thresholds increased 1 by 1. Level 2 shows all the different combinations of two symptoms with increased thresholds and so on. If you hover over the graph you see which symptom thresholds were increased. Especially symptom 1 (depressed mood) seems to be an important symptom to target. When only that threshold is increased, a small difference can already be seen, and combined with other symptoms this difference becomes larger.</p>
 
-
-            <p>- Nu alleen bij above and beyond alle symptomen uitgeschreven, moet dat ook nog ergens anders?You can play with this yourself below by raising the thresholds for some symptoms by clicking on them in the graph below and so diminish their influence from the network. The graph shows what happens in the system for simulation 1 and 2.</p>
+            <br>
+            <b>Interactive Simulation</b>
+            <p>In the interactive simulation below, you can disable/enable symptoms by clicking on the corresponding nodes. Drag the slider to view the state of the system at a particular iteration of the simulation and watch how enabling/disabling symptoms changes the dynamics. The border around each symptom-node reflects it's binary state, i.e. on/off, while the fill of the node reflects the probabilty it will become active. Of course you can also still ajust the <i>c</i>-parameter and the number of iterations. Tip: try to remove highly connected nodes from the system, to see a significant system response!</p>
 
             <div class="container">
               <div class="switch-toggle switch-3 switch-candy">
@@ -265,7 +266,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div id="graph_nw_lines" class="svg-container"></div>
-                  <input type="range" min="0" max="0.999" step="0.001" value="0" class="slider" id="myRange">
+                  <input type="range" min="0" max="0.999" step="0.001" value="0.999" class="slider" id="myRange">
                   <button onclick="request();">Update</button>
                 </div>
                 <div class="col-sm-6">
