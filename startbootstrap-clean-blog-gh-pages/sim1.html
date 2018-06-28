@@ -85,12 +85,12 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-10 col-md-10 mx-auto">
-          <p>In their article <a href="#Cramer"><cite>Cramer et al. (2016)</cite></a> propose a theory that explains the difference in vulnerability for MD between individuals. Their model is built on the idea that the strength of the connections between different symptoms differs between individuals. This means that one person only experiences fatigue after several sleepless nights, while another person already experiences fatigue after one sleepless night. This network can be seen as a game of dominoes, where <i>strong</i> connected networks are domino tiles that are close to each other; one tile tipping makes other tiles tip over as well. <i>Weak</i> connections are tiles placed far apart; one tile tipping over does not likely cause other tiles to tip over.</p>
+          <p>In their article <a href="#Cramer"><cite>Cramer et al. (2016)</cite></a> propose a theory that explains the difference in vulnerability for MD between individuals. Their model is built on the idea that the strength of the connections between different symptoms differs between individuals. This means that one person only experiences fatigue after several sleepless nights, while another person already experiences fatigue after one sleepless night. This network can be seen as a game of dominoes, where <i>strongly</i> connected networks are like domino tiles that are close to each other; one tile tipping makes other tiles tip over as well. <i>Weak</i> connections are like tiles placed far apart; when one tile tips over, it does not nescessarily cause other tiles to tip over with it.</p>
 
           <img class="img-fluid centerIt" src="img/Fig_dominos.png" alt="" width="75%">
           <span class="caption text-muted">The analogy between vulnerability in a network and spacing of domino tiles (obtained from <i>Cramer et al. (2016)</i>)</span>
 
-          <p>The model was studied in two parts. The first simulation focussed on the influence of increasing connectivity on the behavior of the MD system. <a href="#Cramer"><cite>Cramer et al. (2016)</cite></a> tried to answer the question if a system with stronger connections was more prone to end up in a despressed state than a systems with relatively weak connections. The second simulation examined the influence of stress on the behavior of the networks.</p>
+          <p>The model was studied in two parts. The first simulation focussed on the influence of increasing connectivity on the behavior of the MD system. <a href="#Cramer"><cite>Cramer et al. (2016)</cite></a> tried to answer the question if a system with stronger connections is more prone to end up in a despressed state than a systems with relatively weak connections. The second simulation examined the influence of stress on the behavior of the networks.</p>
 
           <div class="container col-sm-12">
               <div class="row">
@@ -123,7 +123,7 @@
             <p>To investigate the differences in vulnerability between strongly and weakly connected networks, the activation function is modified. The connectivity of the system is represented by the <i>connectivity parameter c</i>, which is multiplied with the weights matrix <b>W</b>. This results in the following <i>total activation function</i>:
             <p>A<sub>i</sub><sup>t</sup> = &#8721<sup>J</sup><sub>j = 1</sub> c<b>W</b><sub>ij</sub>X<sub>j</sub><sup>t-1</sup></p></p></p>
 
-             <p>In the article, the connectivity parameter <i>c</i> had three different values, in order to create three networks: a weak <i>c</i> = 0.80), a medium (<i>c</i> = 1.10) and a strong connected network (<i>c</i> = 2.00). We used <i>c</i> in the range 0.5 - 3.0. For all networks, the simulation was started with all symptoms in an inactive state. The simulation was run for 10000 time steps and each time step the total activation and the probability of symptom activation was calculated. From these probabilities, the symptom values for the next time step were sampled. <br>
+             <p>In the article, the connectivity parameter <i>c</i> had three different values, in order to create three networks: a weak <i>c</i> = 0.80), a medium (<i>c</i> = 1.10) and a strong connected network (<i>c</i> = 2.00). We used <i>c</i> in the range 0.5 - 3.0. For all networks, the simulation started with all symptoms in an inactive state. The simulation was run for 10000 time steps and at each time step the total activation and the probability of symptom activation were calculated. From these probabilities, the symptom values for the next time step were sampled. <br>
             At each time point, the total number of activated symptoms was tracked, and labelled as <i>D</i> (the state of the system). The more symptoms are active, the more 'depressed' the system is. </p>
 
             <p>As the graphs below show, depression increases with connectivity. For a weakly connected system (<i>c</i> < 1.0) there are moments where several sympoms occur, but the system never develops into a 'depressed' one. As connecitivity increases, the system starts to oscillate between the 'non-depressed' and 'depressed' state. The system is able to go back to a 'non-depressed' state without changes to the network (in the real world, that would be therapy or medication). The strongly connected network (<i>c</i> > 1.2) becomes 'depressed' after a short time, and does not change back to the 'non-depressed' state. This can be regarded as a person that will not be able to get out of a depression without external help.</p>
@@ -134,7 +134,7 @@
           <span class="caption text-muted">The state of the MD system in response to stress for varying connectivity</span>
 
           <br>
-          <b>Interactive Simulation</b>
+          <b>Interactive Simulation I</b>
           <p>We build an interactive version of the simulation. To get a feeling for the behaviour of the system, play around with the <i>c</i>-parameter and the number of iterations!</p>
 
            <div class="container centerIt">
@@ -177,6 +177,8 @@
           For a weakly connected network in a 'depressed' state, decreasing the stress level makes it switch back to a 'non-depressed' state at the initial tipping point on which it switched to a 'depressed' state in the first place (see the red lines). For a heavilly connected network, this tipping point lays after the initial tipping point. So, to get into a 'depressed' state a different level of stress is needed, than to get out again. For someone with a heavily connected network to get out of this 'depressed' state, a lower amount of stress is needed, than the initial tipping point. In the graph you see, for a weakly connected network, that going to a 'depressed' state happens at the same stress level as going back to a 'non-depressed' state, while a network which is heavily connected needs a lower stress level to switch back to a 'non-depressed' state.</p>
 
           <img class="img-fluid centerIt" src="img/3D_plot.png" alt="" width="100%">
+          <br>
+          <b>Interactive Simulation II</b>
           <p> The graph below lets you play with this system. Increase or decrease the conncectivity and see what happens. Don't forger <i>c = 0.8</i> is a weakly connected network, <i>c = 1.1</i> is a medium connected network and <i>c = 2</i> is a heavily connected network.</p>
 
 
@@ -201,7 +203,7 @@
               </div>`
           </div>
           <div id="lineGraph_sim2" class="svg-container centerIt"></div>
-          <button onclick='changeGraph2("#graphSVG2", "#lineGraph_sim2", "_sim2");'>Change Graph</button>
+          <button onclick='changeGraph2("#graphSVG2", "#lineGraph_sim2", "_sim2");'>Update Graph</button>
 
           <script>
               var client = new WebSocket("ws://localhost:39822");
