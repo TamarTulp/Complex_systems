@@ -1,4 +1,4 @@
-function drawLineGraph(array_data, divRem, div, special="", parasData) {
+function drawLineGraph(array_data, divRem, div, special="", parasData, figtitle="Symptoms activated during simulation", ytitle="# of active symptoms", xtitle="Amount of iterations") {
   d3.select(divRem).remove();
 
   // dimensions
@@ -50,11 +50,20 @@ function drawLineGraph(array_data, divRem, div, special="", parasData) {
 
   svg.append("text").attr("x", margin.left)
                     .attr("y", margin.top/2)
-                    .html("States activated during simulation")
+                    .html(figtitle)
                     .attr("font-family", "Times New Roman")
                     .attr("font-size", "20px")
                     .attr("font-weight", "bold")
                     .attr("fill", "#6F257F");
+
+  svg.append("text").attr("x", width)
+                    .attr("y", height + margin.top + 35)
+                    .html(xtitle)
+                    .attr("font-family", "Times New Roman")
+                    .attr("font-size", "15px")
+                    .attr("font-weight", "bold")
+                    .attr("fill", "#6F257F")
+                    .attr("text-anchor", "end");
 
   // gridlines in y axis function
   function make_y_gridlines() {
@@ -92,14 +101,14 @@ function drawLineGraph(array_data, divRem, div, special="", parasData) {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .attr("fill", "#5D6971")
-        .text("# of active symptoms");
+        .text(ytitle);
 
     g.append("path")
         .datum(data)
         .attr("class", "line")
         .attr("d", line);
 
-    var dataText = []
+    var dataText = [];
 
     if (special == "specific") {
       g.append("text")
@@ -353,7 +362,8 @@ function adjacency() {
 }
 
 
-function drawLineGraph2(array_data, divRem, div) {
+function drawLineGraph2(array_data, divRem, div, title, yaxis,
+  figtitle="Symptoms activated during simulation", ytitle="# of active symptoms", xtitle="Level of stress") {
   d3.select(divRem).remove();
 
   data_graph = []
@@ -415,11 +425,20 @@ function drawLineGraph2(array_data, divRem, div) {
 
   svg.append("text").attr("x", margin.left)
                     .attr("y", margin.top/2)
-                    .html("States activated during simulation")
+                    .html(figtitle)
                     .attr("font-family", "Times New Roman")
                     .attr("font-size", "20px")
                     .attr("font-weight", "bold")
                     .attr("fill", "#6F257F");
+
+  svg.append("text").attr("x", width)
+                    .attr("y", height + margin.top + 35)
+                    .html(xtitle)
+                    .attr("font-family", "Times New Roman")
+                    .attr("font-size", "15px")
+                    .attr("font-weight", "bold")
+                    .attr("fill", "#6F257F")
+                    .attr("text-anchor", "end");
 
   // gridlines in y axis function
   function make_y_gridlines() {
@@ -450,7 +469,7 @@ function drawLineGraph2(array_data, divRem, div) {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .attr("fill", "#5D6971")
-        .text("# of active symptoms");
+        .text(ytitle);
 
     g.append("g")
         .attr("class", "axis axis--x")
