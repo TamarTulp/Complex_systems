@@ -56,7 +56,9 @@ client.onopen = function(evt) {
 client.onmessage = function(evt) {
     data = JSON.parse(evt.data);
     if (init == 0) { drawLineGraph(data["D"], "#heavy_networkSVG", "#heavy_network"); init = 1;}
-    if (circle !== null) { update(Math.floor(slider.value * d3.select("p#value2_sim3").text())); }
+    if (circle !== null) { dataPoint = Math.floor(slider.value * d3.select("p#value2_sim3").text());
+                           update(dataPoint);
+                           updateLine(slider.value); }
     sim1_2(data);
 };
 
@@ -180,3 +182,19 @@ function sim2(data) {
 }
 
 function sim1_2(data) {if (global_1or2 == 1) { sim1(data); } else { sim2(data); }}
+
+function updateLine(dataPoint) {
+    d3.select("#dataPoint").remove();
+    width = d3.select('#graph_nw_lines').node().offsetWidth;
+    height = d3.select('#graph_nw_lines').node().offsetHeight;
+    console.log(width, height);
+    lineSVG = d3.select("#graph_nw_linesSVG")
+        .append("line")
+            .attr("id", "dataPoint")
+            .attr("x1", dataPoint * width)
+            .attr("y1", 0)
+            .attr("x2", dataPoint * width)
+            .attr("y2", height)
+            .attr("stroke-width", 2)
+            .attr("stroke", "black");
+}
