@@ -43,9 +43,7 @@ client.onopen = function(evt) {
 client.onmessage = function(evt) {
     data = JSON.parse(evt.data);
     if (circle != null) { update(slider.value); };
-    drawLineGraph(JSON.parse(evt.data)["D"], "#heavy_networkSVG", "#heavy_network");
-    drawSlider("div#slider1_HN", "div#slider2_HN", "_HN", 2);
-    drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
+    sim1_2();
     console.log(data);
 }
 client.onclose = function(ect) {
@@ -157,15 +155,15 @@ function dragended(d) {
 
 function sim1() {
     global_1or2 = 1;
-    changeGraph("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3");
+    changeGraph("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3",data);
 }
 
 function sim2() {
     global_1or2 = 2;
-    changeGraph2("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3");
+    changeGraph2("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3",data);
 }
 
-function sim1_2() {if (global_1or2 == 1) { sim1(); } else { sim2(); }}
+function sim1_2(data) {if (global_1or2 == 1) { sim1(data); } else { sim2(data); }}
 
 var global_nodeList = [];
 var global_1or2 = 1;
