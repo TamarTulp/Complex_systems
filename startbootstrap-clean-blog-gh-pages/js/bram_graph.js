@@ -45,6 +45,7 @@ var slider = document.getElementById("myRange");
 slider.oninput = function() {
     if (circle !== null && data !== null) {
         update(Math.floor(this.value * d3.select("p#value2_sim3").text()));
+        updateLine(this.value);
     }
 };
 
@@ -57,8 +58,7 @@ client.onmessage = function(evt) {
     data = JSON.parse(evt.data);
     if (init == 0) { drawLineGraph(data["D"], "#heavy_networkSVG", "#heavy_network"); init = 1;}
     if (circle !== null) { dataPoint = Math.floor(slider.value * d3.select("p#value2_sim3").text());
-                           update(dataPoint);
-                           updateLine(slider.value); }
+                           update(dataPoint); }
     sim1_2(data);
 };
 
@@ -171,8 +171,6 @@ function dragended(d) {
 
 function sim1(data) {
     global_1or2 = 1;
-    console.log("hellaooo");
-    console.log(data);
     changeGraph("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3", data);
 }
 
@@ -185,16 +183,25 @@ function sim1_2(data) {if (global_1or2 == 1) { sim1(data); } else { sim2(data); 
 
 function updateLine(dataPoint) {
     d3.select("#dataPoint").remove();
-    width = d3.select('#graph_nw_lines').node().offsetWidth;
-    height = d3.select('#graph_nw_lines').node().offsetHeight;
-    console.log(width, height);
+    // dimensions
+    var width = 695;
+    var height = 400;
+
+    var margin = {
+      top: 40,
+      bottom:75,
+      left: 10,
+      right: 150,
+    };
+    usage = width;
+
     lineSVG = d3.select("#graph_nw_linesSVG")
         .append("line")
             .attr("id", "dataPoint")
-            .attr("x1", dataPoint * width)
-            .attr("y1", 0)
-            .attr("x2", dataPoint * width)
-            .attr("y2", height)
+            .attr("x1", 48 + (dataPoint * width))
+            .attr("y1", margin.top + 9)
+            .attr("x2", 48 + (dataPoint * width))
+            .attr("y2", 410 - margin.bottom)
             .attr("stroke-width", 2)
             .attr("stroke", "black");
 }

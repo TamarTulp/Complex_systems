@@ -170,7 +170,6 @@ function drawLineGraph(array_data, divRem, div, parasData, special="", figtitle=
 
 
 function drawSlider(div1, div2, extension, defaultVal=1.1) {
-  console.log(div1, div2, extension);
   var data1 = [0.5, 1, 1.5, 2, 2.5, 3];
   var data2 = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000];
   var width = 400;
@@ -373,7 +372,7 @@ function drawLineGraph2(array_data, divRem, div, title, yaxis,
   }
 
   // dimensions
-  var width = 720;
+  var width = 750;
   var height = 400;
 
   var margin = {
@@ -519,7 +518,7 @@ function drawLineGraph2(array_data, divRem, div, title, yaxis,
         .attr("y", 50)
         .attr("width", 10)
         .attr("height", 10)
-        .style("fill", "#571845");
+        .style("fill", "#FF5733");
 
     svg.append('text')
         .attr("x", width + 38)
@@ -536,7 +535,7 @@ function drawLineGraph2(array_data, divRem, div, title, yaxis,
         .attr("y", 70)
         .attr("width", 10)
         .attr("height", 10)
-        .style("fill", "#FF5733");
+        .style("fill", "#571845");
 
     svg.append('text')
         .attr("x", width + 38)
