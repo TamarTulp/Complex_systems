@@ -265,11 +265,11 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div id="graph_nw_lines" class="svg-container"></div>
+                  <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
                   <button onclick="request();">Update</button>
                 </div>
                 <div class="col-sm-6">
                   <div id="graph_network" class="svg-container"></div>
-                  <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
                 </div>
               </div>
             </div>
@@ -287,23 +287,6 @@
         </div>
       </div>
     </article>
-
-<!--     <script type="text/javascript">
-      var client = new WebSocket("ws://localhost:39822");
-      client.onopen = function(evt) {
-          console.log("Connection Opened");
-          client.send('{"simulation": 1, "I":1000, "c":2}');
-      };
-      client.onmessage = function(evt) {
-          drawLineGraph(JSON.parse(evt.data)["D"], "#heavy_networkSVG", "#heavy_network");
-          drawSlider("div#slider1_HN", "div#slider2_HN", "_HN", 2);
-      };
-      client.onclose = function(ect) {
-          console.log("Connection Closed");
-      };
-      fut_expGraph("0", "#generalSVG", "#general");
-      fut_expGraph('1', '#general_specificSVG', '#general_specific')
-    </script> -->
     <hr>
 
     <!-- Footer -->

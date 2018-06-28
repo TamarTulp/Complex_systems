@@ -238,14 +238,13 @@ function drawSlider(div1, div2, extension, defaultVal=1.1) {
 
   g.call(slider2);
 
-  d3.select("p#value2" + extension).text(d3.format('.2')(slider2.value()));
+  d3.select("p#value2" + extension).text(2 * Math.round(slider2.value() / 2));
 }
 
 
 function changeGraph(div1, div2, extension, data) {
   string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
-  console.log(string, div1, div2, extension, d3.select("p#value2" + extension).text());
-  if (data) { console.log(data); drawLineGraph(data), div1, div2; } else {
+  if (data) { drawLineGraph(data.D, div1, div2); } else {
   var client = new WebSocket("ws://localhost:39822");
     client.onopen = function(evt) {
         console.log("Connection Opened");
