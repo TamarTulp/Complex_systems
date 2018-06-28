@@ -313,7 +313,8 @@ function adjacency() {
       .attr("height",35)
       .attr("x", d=> d.x*35)
       .attr("y", d=> d.y*35)
-      .style("fill-opacity", d=> d.weight * .2);
+      .style("fill", d => (d.weight < 0) ? 'red' : 'green')
+      .style("fill-opacity", d=> Math.abs(d.weight) * .2);
 
     svg.append("g")
       .attr("transform","translate(50,45)")

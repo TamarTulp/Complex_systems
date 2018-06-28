@@ -108,7 +108,7 @@
 
           <p>For the first simulation, an intra-individual MD model was constructed, which was able to develop over time. In this model, symptoms can be either <b>on</b> (active) or <b>off</b> (inactive). The probability of a symptom becoming active depends on both its <i>threshold</i> and <i>weight parameters</i>. Each symptom has a threshold, which represents the symptoms 'preference' to be active or inactive. A threshold of 0 means that the symptom has no preference, while a positive threshold means the symptom prefers to be active (and a negative threshold represents a preference for being inactive). The weights represent the undirected connections between two symptoms. If the weight is 0, there is no connection. The higher the value of the weight, the more the two corresponding sympoms prefer to be in the same state (<b>on</b> or <b>off</b>). Together, the two parameters, the threshold and weights, influence the probability that a symptom becomes active at a particular point in time. The lower its threshold, and the more activation it recieves from its neighbors, the higher the probability the symptom becomes active itself.</p>
 
-          <p>The graph below represents the weights between two nodes. The darker a tile, the higher the value of the weight. The exact values of the weights can be found when you hover over the tiles.</p>
+          <p>The figure below represents the weights between two nodes. The darker a tile, the higher the value of the weight. The exact values of the weights can be found when you hover over the tiles.</p>
 
           <div id="adjacencyDIV" class="svg-container"></div>
 
@@ -198,7 +198,7 @@
                         </div>
                       </div>
                   </div>
-              </div>
+              </div>`
           </div>
           <div id="lineGraph_sim2" class="svg-container centerIt"></div>
           <button onclick='changeGraph2("#graphSVG2", "#lineGraph_sim2", "_sim2");'>Change Graph</button>
