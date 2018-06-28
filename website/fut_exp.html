@@ -89,7 +89,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-            <p>With a heavily connected network, it is nearly impossible for someone to not get depressed and also virtually impossible to get out of this depressed state without help.</p>
+<p>With a heavily connected network, it is nearly impossible for someone to not get into a 'depressed' state and also virtually impossible to get out of this 'depressed' state without help.</p>
 
             <div class="container centerIt">
               <div class="row">
@@ -110,26 +110,25 @@
                       </div>
                   </div>
               </div>
-          </div>
-          <div id="heavy_network" class="svg-container"></div>
-          <button onclick='changeGraph("#heavy_networkSVG", "#heavy_network", "_HN");'>Change Graph</button>
+            </div>
+            <div id="heavy_network" class="svg-container"></div>
+            <button onclick='changeGraph("#heavy_networkSVG", "#heavy_network", "_HN");'>Change Graph</button>
             <span class="caption text-muted">Heavily connected network.</span>
 
+            <p>This help can be given in different ways. A lot of treatments for MD, like Cognitive-Behavioural Therapy (CBT), focus firstly on the symptoms of depression <a href="#Baardseth">[1]</a>. As example, CBT focusses on the symptoms to relieve the patients suffering to be better able to treat the underlying problem <a href="#Beck">[2]</a>. We try to find which symptoms would be most helpful to focus on during the treatment. This is a general case, but could be a helpful start.</p>
 
-            <p>This help can be given in different ways. A lot of treatments for MD, like Cognitive-Behavioural Therapy (CBT), focus firstly on the symptoms of depression <a href="#Baardseth">[1]</a>. As example, CBT focusses on the symptoms to relieve the patients suffering to be better able to tackle the underlying problem <a href="#Beck">[2]</a>. We try to find which symptoms would be most helpful to focus on during the treatment. This is of course a general case, but is a helpful start.</p>
+            <p>A way to test this, is to make the threshold of a symptom higher. This works since the thresholds used are taken absolute. Since, making the thresholds higher effectively diminishes the influence a symptom has on the symptoms around it, thus decreasing the connectivity of the system, it will be possible for the system to get out of a 'depressed' state.</p>
 
-            <p>A way to test this, is to make the threshold of a symptom higher. Since this effectively diminishes the influence it has on the symptoms around it, thus decreasing the connectivity of the system, this makes it possible for the system to get out of a depressed state.</p>
-
-            <p>To see which symptom or symptoms can best be treated, we simulated what happend when 1 till 14 parameters influences were diminished at random. Symptom thresholds were randomly raised to 100. This was done 100 times for all parameters.</p>
+            <p>To see which symptom or symptoms can best be treated, we simulated what happend when 1 till 14 parameter influences were diminished at random. Symptom thresholds were randomly raised to 100. This was done 100 times for all parameters.</p>
 
             <div id="general" class="svg-container"></div>
             <span class="caption text-muted">General cases.</span>
 
-            <p>The image shows us the average time spend not in a MD with a number of symptom thresholds raised randomly. It shows the time not spend in a MD in the simulation, since we can not be sure that somebody is suffering from one from our simulation. According to the DSM-V <a href="#American">[3]</a>, somebody is suffering from a MD when 5 of the 9 symptoms are manifesting itself for longer than two weeks. Since our simulation unfortunately do not have a time scale, we can never fulfil this condition, so we can not actually diagnose in the simulation.</p>
+            <p>The graph shows the influence of shutting down 1 till 14 random parameters on the time spend not in a MD. It shows the time not spend in a MD in the simulation, since we can not be sure that somebody is suffering from one from our simulation, but we can be sure somebody isn't. According to the DSM-V <a href="#American">[3]</a>, somebody is suffering from a MD when 5 of the 9 symptoms are manifesting itself for longer than two weeks. Since our simulation unfortunately does not have a time scale, we can never fulfil this condition, so we can not actually diagnose in the simulation.</p>
 
-            <p>When one symptom threshold is raised, you already see an increase in time spend in a not in a MD. When even more thresholds are increased, this time increases even more. As more thresholds are increased the less connected the network becomes and when an average of 9 (out of 14) thresholds is increased, the network becomes so unconnected, that it never gets into a MD.</p>
+            <p>When one symptom threshold is raised, you already see increased time not in a MD. When even more thresholds are increased, this time increases even more. As more thresholds are increased the less connected the network becomes and when an average of 9 (out of 14) thresholds is increased, the network becomes so unconnected, that it never gets into a MD.</p>
 
-            <p>Of course chances are slim, that a treatment will be able to include 9 symptoms, so the next step is to find out which are most important.</p>
+            <p>Chances are slim, that a treatment will be able to include 9 symptoms, so the next step is to find out which are most important.</p>
 
             <div class="switch-toggle switch-2 switch-candy">
               <input id="LVL-1" name="state-d" type="radio" checked="" />
@@ -150,90 +149,106 @@
             <div id="general_specific" class="svg-container"></div>
             <span class="caption text-muted">Specific cases.</span>
 
-            <table class="table table-sm">
+            <br>
+
+            <small><table class="table table-sm">
               <tr>
                 <th scope="col">Symptom number</th>
                 <th scope="col">DSM</th>
                 <th scope="col">Symptom</th>
+                <th scope="col">Threshold</th>
               </tr>
               <tr>
                 <th scope="row">1</th>
                 <td>1</td>
                 <td>Depressed mood (dep)</td>
+                <td>-2.31</td>
               </tr>
               <tr>
                 <th scope="row">2</th>
                 <td>2</td>
                 <td>Loss of interest (int)</td>
+                <td>-3.19</td>
               </tr>
               <tr>
                 <th scope="row">3</th>
                 <td>3</td>
                 <td>Weight loss (los)</td>
+                <td>-4.31</td>
               </tr>
               <tr>
                 <th scope="row">4</th>
                 <td>3</td>
                 <td>Weight gain (gai)</td>
+                <td>-3.83</td>
               </tr>
               <tr>
                 <th scope="row">5</th>
                 <td>3</td>
                 <td>Decreased appetite (dap)</td>
+                <td>-3.92</td>
               </tr>
               <tr>
                 <th scope="row">6</th>
                 <td>3</td>
                 <td>Increased appetite (iap)</td>
+                <td>-3.90</td>
               </tr>
               <tr>
                 <th scope="row">7</th>
                 <td>4</td>
                 <td>Insomnia (iso)</td>
+                <td>-3.02</td>
               </tr>
               <tr>
                 <th scope="row">8</th>
                 <td>4</td>
                 <td>Hyposomnia (hso)</td>
+                <td>-4.45</td>
               </tr>
               <tr>
                 <th scope="row">9</th>
                 <td>5</td>
                 <td>Psychomotor agitation (agi)</td>
+                <td>-3.18</td>
               </tr>
               <tr>
                 <th scope="row">10</th>
                 <td>5</td>
                 <td>Psychomotor retardation (ret)</td>
+                <td>-4.34</td>
               </tr>
               <tr>
                 <th scope="row">11</th>
                 <td>6</td>
                 <td>Fatigue (fat)</td>
+                <td>-2.83</td>
               </tr>
               <tr>
                 <th scope="row">12</th>
                 <td>7</td>
                 <td>Feelings of worthlessness (wor)</td>
+                <td>-4.43</td>
               </tr>
               <tr>
                 <th scope="row">13</th>
                 <td>8</td>
                 <td>Concentration problems (con)</td>
+                <td>-4.04</td>
               </tr>
               <tr>
                 <th scope="row">14</th>
                 <td>9</td>
                 <td>Thoughts of death (dea)</td>
+                <td>-5.83</td>
               </tr>
-            </table>
+            </table></small>
 
-
-            <p>If you click through the different graphs, you can see the different combinations of symptoms which elevate somebody out of a depressed state. On the x axis, specific symptoms or combination of symptoms are shown. In level 1, you see all symptom thresholds increased 1 by 1. Level 2 shows all the different combinations of two symptoms with increased thresholds and so on. If you hover over the graph you see which symptom thresholds were increased. Especially symptom 1 (depressed mood) seems to be an important symptom to target. When only that threshold is increased, a small difference can already be seen, and combined with other symptoms this difference becomes larger.</p>
+            <p>If you click through the different graphs, you can see the different combinations of symptoms which elevate somebody out of a 'depressed' state. On the x-axis, specific symptoms or combinations of symptoms are shown. In level 1, you see all symptom thresholds increased 1 by 1. Level 2 shows all the different combinations of two symptoms with increased thresholds and so on. If you hover over the graph you see which symptom thresholds were increased. Especially symptom 1 (depressed mood) seems to be an important symptom to target. When only that threshold is increased, a small difference can already be seen, and combined with other symptoms this difference becomes larger.</p>
 
             <br>
             <b>Interactive Simulation</b>
-            <p>In the interactive simulation below, you can enable/disable symptoms by clicking on the corresponding nodes. Drag the slider to view the state of the system at a particular iteration of the simulation and watch how enabling/disabling symptoms changes the dynamics. The border around each symptom-node reflects it's binary state, i.e. on/off, while the fill of the node reflects the probabilty it will become active. Of course you can also still ajust the <i>c</i>-parameter and the number of iterations. Tip: try to remove highly connected nodes from the system, to see a significant system response!</p>
+            <p>In the interactive simulation below, you can disable/enable symptoms by clicking on the corresponding nodes. Drag the slider to view the state of the system at a particular iteration of the simulation and watch how enabling/disabling symptoms changes the dynamics. The border around each symptom/node reflects it's binary state, i.e. on/off, while the fill of the node reflects the probabilty it will become active. Of course you can also still ajust the <i>c</i>-parameter and the number of iterations. Tip: try to remove highly connected nodes and nodes with a low threshold from the system, to see a significant system response!</p>
 
             <div class="container">
               <div class="switch-toggle switch-3 switch-candy">
