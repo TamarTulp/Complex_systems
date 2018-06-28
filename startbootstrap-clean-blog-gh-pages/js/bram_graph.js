@@ -23,8 +23,8 @@ function update(i) {
         P = data.P[i];
     }
     else {
-        X = data.UP.X[i];
-        P = data.UP.P[i];
+        X = data.UP.X[Math.floor(i/2)];
+        P = data.UP.P[Math.floor(i/2)];
     }
 
     circle
