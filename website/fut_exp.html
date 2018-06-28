@@ -115,18 +115,18 @@
             <button onclick='changeGraph("#heavy_networkSVG", "#heavy_network", "_HN");'>Change Graph</button>
             <span class="caption text-muted">Heavily connected network.</span>
 
-            <p>This help can be given in different ways. A lot of treatments for MD, like Cognitive-Behavioural Therapy (CBT), focus firstly on the symptoms of depression <a href="#Baardseth">[1]</a>. As example, CBT focusses on the symptoms to relieve the patients suffering to be better able to treat the underlying problem <a href="#Beck">[2]</a>. We try to find which symptoms would be most helpful to focus on during the treatment. This is a general case, but could be a helpful start.</p>
+            <p>This help can be given in different ways. A lot of treatments for MD, like Cognitive-Behavioural Therapy (CBT), focus primarily on the symptoms of depression <a href="#Baardseth">[1]</a>. For example, CBT focusses on the symptoms to relieve the patients suffering. By doing so, it enables the treatment of the underlying problem <a href="#Beck">[2]</a>. We try to find which symptoms would be most helpful to focus on during the treatment. This is a general case, but could be a helpful start.</p>
 
-            <p>A way to test this, is to make the threshold of a symptom higher. This works since the thresholds used are taken absolute. Since, making the thresholds higher effectively diminishes the influence a symptom has on the symptoms around it, thus decreasing the connectivity of the system, it will be possible for the system to get out of a 'depressed' state.</p>
+            <p>A way to test this, is to make the threshold of a symptom higher. This is possible since the thresholds used are taken absolute. Increasing the thresholds effectively diminishes the influence a symptom has on the symptoms around it, hereby decreasing the connectivity of the system. This makes it possible for the system to get out of a 'depressed' state.</p>
 
-            <p>To see which symptom or symptoms can best be treated, we simulated what happend when 1 till 14 parameter influences were diminished at random. Symptom thresholds were randomly raised to 100. This was done 100 times for all parameters.</p>
+            <p>To see which symptom or symptoms can best be treated, we simulated what happened when 1 till 14 parameter influences were diminished at random. Symptom thresholds were randomly raised to 100. This was done 100 times for all parameters.</p>
 
             <div id="general" class="svg-container"></div>
             <span class="caption text-muted">General cases.</span>
 
-            <p>The graph shows the influence of shutting down 1 till 14 random parameters on the time spend not in a MD. It shows the time not spend in a MD in the simulation, since we can not be sure that somebody is suffering from one from our simulation, but we can be sure somebody isn't. According to the DSM-V <a href="#American">[3]</a>, somebody is suffering from a MD when 5 of the 9 symptoms are manifesting itself for longer than two weeks. Since our simulation unfortunately does not have a time scale, we can never fulfil this condition, so we can not actually diagnose in the simulation.</p>
+            <p>The graph shows the influence of shutting down 1 till 14 random parameters on the time spend not in a MD. It shows the time not spend in a MD in the simulation, since we can not be sure that somebody is suffering from one from our simulation, but we can be sure somebody isn't. According to the DSM-V <a href="#American">[3]</a>, somebody is suffering from a MD when 5 of the 9 symptoms are manifesting itself for longer than two weeks. Since our simulation does not have a time scale, we can never fulfil this condition. This makes an actual diagnose impossible.</p>
 
-            <p>When one symptom threshold is raised, you already see increased time not in a MD. When even more thresholds are increased, this time increases even more. As more thresholds are increased the less connected the network becomes and when an average of 9 (out of 14) thresholds is increased, the network becomes so unconnected, that it never gets into a MD.</p>
+            <p>When one symptom's threshold is raised, you already see increased time spent not in a MD. When even more thresholds are increased, this time increases even more. As more thresholds are increased the less connected the network becomes. When an average of 9 (out of 14) thresholds is increased, the network becomes so unconnected that it never gets into a MD.</p>
 
             <p>Chances are slim, that a treatment will be able to include 9 symptoms, so the next step is to find out which are most important.</p>
 
