@@ -12,4 +12,4 @@ threading.Thread(target=subprocess.call, args=(HTTP_SERVER,)).start()
 
 sleep(1)  # Wait for Servers to Boot
 
-webbrowser.open_new_tab('http://localhost:8000/Website/')
+webbrowser.open_new_tab('http://localhost:8000/website/')

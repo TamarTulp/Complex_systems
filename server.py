@@ -14,8 +14,8 @@ log = logging.getLogger("Simulation Server")
 
 ADDRESS = 'localhost', 39822
 
-W_PATH = 'Data/EmpiricalWeightParameters.txt'
-b_PATH = 'Data/EmpiricalThresholdParameters.txt'
+W_PATH = 'data/EmpiricalWeightParameters.txt'
+b_PATH = 'data/EmpiricalThresholdParameters.txt'
 
 W = np.asarray(pd.read_csv(W_PATH, delimiter='\t', encoding='utf-8'))
 b = np.abs(np.asarray(pd.read_csv(b_PATH, delimiter=',', encoding='utf-8').set_index("var"))).ravel()
