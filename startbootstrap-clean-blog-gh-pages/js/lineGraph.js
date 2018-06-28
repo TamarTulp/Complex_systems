@@ -161,7 +161,7 @@ function drawLineGraph(array_data, divRem, div, special="", parasData) {
 
 
 function drawSlider(div1, div2, extension, defaultVal=1.1) {
-
+  console.log(div1, div2, extension);
   var data1 = [0.5, 1, 1.5, 2, 2.5, 3];
   var data2 = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000];
   var width = 400;
@@ -233,9 +233,10 @@ function drawSlider(div1, div2, extension, defaultVal=1.1) {
 }
 
 
-function changeGraph(div1, div2, extension) {
+function changeGraph(div1, div2, extension, data) {
   string = '{"simulation":1, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
-console.log(string);
+  console.log(string, div1, div2, extension, d3.select("p#value2" + extension).text());
+  if (data) { drawLineGraph(data), div1, div2; } else {
   var client = new WebSocket("ws://localhost:39822");
     client.onopen = function(evt) {
         console.log("Connection Opened");
@@ -246,7 +247,7 @@ console.log(string);
     };
     client.onclose = function(ect) {
         console.log("Connection Closed");
-    };
+    };}
 }
 
 
@@ -598,9 +599,9 @@ function drawLineGraph2(array_data, divRem, div) {
 }
 
 
-function changeGraph2(div1,div2,extension) {
+function changeGraph2(div1,div2,extension,data) {
   string2 = '{"simulation":2, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
-
+  if (data) { drawLineGraph(data), div1, div2; } else {
   var client = new WebSocket("ws://localhost:39822");
       client.onopen = function(evt) {
           console.log("Connection Opened");
@@ -611,17 +612,16 @@ function changeGraph2(div1,div2,extension) {
       };
       client.onclose = function(ect) {
           console.log("Connection Closed");
-      };
+      };}
 }
 
 
 function initFunctions(array_data) {
-  adjacency();
   if (array_data.simulation == 1) {
     drawLineGraph(array_data.D, "#graphSVG1", "div#lineGraph");
     drawSlider("div#slider1", "div#slider2", "");
     drawLineGraph(array_data.D, "#nwSVG1", "#graph_nw_lines");
-    drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
+    // drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3");
   }
   else if (array_data.simulation == 2) {
     drawLineGraph2(array_data, "#graphSVG2", "#lineGraph_sim2");
