@@ -620,7 +620,7 @@ function drawLineGraph2(array_data, divRem, div, title, yaxis,
 
 function changeGraph2(div1,div2,extension,data) {
   string2 = '{"simulation":2, "I":' + d3.select("p#value2" + extension).text() + ', "c":' + d3.select("p#value1" + extension).text() + '}';
-  if (data) { console.log(data); drawLineGraph(data, div1, div2); } else {
+  if (data) { drawLineGraph2(data, div1, div2); } else {
   var client = new WebSocket("ws://localhost:39822");
       client.onopen = function(evt) {
           console.log("Connection Opened");

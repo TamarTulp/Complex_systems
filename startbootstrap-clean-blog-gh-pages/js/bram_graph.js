@@ -10,10 +10,10 @@ var init = 0;
 drawSlider("div#slider1_HN", "div#slider2_HN", "_HN", 2);
 drawSlider("div#slider1_sim3", "div#slider2_sim3", "_sim3", 2);
 
-function request(){
+function request(sim){
+    if (sim) { global_1or2 = sim }
     json = '{"simulation": ' + global_1or2 + ', "I":' + d3.select("p#value2_sim3").text() + ', "c": ' + d3.select("p#value1_sim3").text() + ', "select": ' + JSON.stringify(selected) + '}';
     if (init == 0) { json = '{"simulation": 1, "I":1500, "c": 2, "select": [1,1,1,1,1,1,1,1,1,1,1,1,1,1]}' }
-    console.log(json);
     client.send(json);
 }
 
@@ -55,8 +55,6 @@ client.onopen = function(evt) {
 
 client.onmessage = function(evt) {
     data = JSON.parse(evt.data);
-    console.log(data);
-    console.log(init);
     if (init == 0) { drawLineGraph(data["D"], "#heavy_networkSVG", "#heavy_network"); init = 1;}
     if (circle !== null) { update(slider.value); }
     sim1_2(data);
@@ -178,7 +176,7 @@ function sim1(data) {
 
 function sim2(data) {
     global_1or2 = 2;
-    changeGraph2("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3",data);
+    changeGraph2("#graph_nw_linesSVG", "#graph_nw_lines", "_sim3", data);
 }
 
 function sim1_2(data) {if (global_1or2 == 1) { sim1(data); } else { sim2(data); }}
